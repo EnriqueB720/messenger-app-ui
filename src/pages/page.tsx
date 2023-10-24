@@ -8,7 +8,7 @@ export default function Home() {
         textAlign: "center",
         margin: "40px"
       }}>
-      <Button variant={"outline"} color={"blue"}>Test button</Button>
+      <Button variant={"solid"} color={"blue"}>Test button</Button>
       </div>
     </main>
   )
