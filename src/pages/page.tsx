@@ -21,6 +21,7 @@ export default function Home() {
       <Button loading={false} variant={"outline"} text="tesdsst" color="blue"/>
       <Image src="https://bit.ly/dan-abramov" w={"400px"} h={"300px"} boxSize="100px" borderRadius='full' alt='Dan Abramov'></Image>
       <Avatar name="Enrique barroso" />
+      
       </div>
     </main>
   )
