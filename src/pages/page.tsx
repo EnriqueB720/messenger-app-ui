@@ -1,5 +1,6 @@
 import { useUserQuery } from "@/shared/generated/graphql-schema";
-import { Button,Image, Avatar } from "@shared-components";
+import { IconButton } from "@chakra-ui/react";
+import { Button,Image, Avatar, Box, Input } from "@shared-components";
 
 export default function Home() {
 
@@ -21,7 +22,8 @@ export default function Home() {
       <Button loading={false} variant={"outline"} text="tesdsst" color="blue"/>
       <Image src="https://bit.ly/dan-abramov" w={"400px"} h={"300px"} boxSize="100px" borderRadius='full' alt='Dan Abramov'></Image>
       <Avatar name="Enrique barroso" />
-      
+      <Box bg="lightblue" text='text box'/>
+      <Input placeholder="Example text" />
       </div>
     </main>
   )
