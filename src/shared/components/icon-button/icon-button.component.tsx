@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { IconButton as CKIconButton } from '@chakra-ui/react';
 
 import { IconButtonProps } from '@types';
-import { WarningTwoIcon } from '@chakra-ui/icons';
+import { Icon } from '..';
 
 const IconButton: React.FC<IconButtonProps> = ({
   style,
@@ -26,7 +26,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       isRound={isRound}
       fontSize={fontSize}
       colorScheme={colorScheme}
-      icon={icon ? <WarningTwoIcon/> : <WarningTwoIcon/>}
+      icon={<Icon name={icon}/>}
       aria-label={ariaLabel}
       />
   );

@@ -3,11 +3,19 @@ import Image from "./image/image.component";
 import Avatar from "./avatar/avatar.component";
 import Box from "./box/box.component";
 import Input from "./input/input.component";
+import Stack from "./stack/stack.component";
+import Icon from "./icon/icon.component";
+import IconButton from './icon-button/icon-button.component';
+import Text from './text/text.component';
 
 export {
     Button,
     Image,
     Avatar,
     Box,
-    Input
+    Input,
+    Stack,
+    Icon,
+    IconButton,
+    Text
 }

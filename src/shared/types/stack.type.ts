@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 
 export type StackDirection = 'row' | 'column'
 
@@ -6,4 +7,5 @@ export interface StackProps {
     align?: string;
     divider?: boolean;
     direction?: StackDirection;
+    children?: ReactNode;
 }

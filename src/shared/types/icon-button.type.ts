@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { IconProps } from "@types";
+import { IconName } from "@types";
 
 export type IconButtonVariant = 'outline' | 'solid'
 
@@ -8,7 +8,7 @@ export interface IconButtonProps {
     colorScheme?: string;
     ariaLabel?: string;
     fontSize?: string;
-    icon?: IconProps;
+    icon: IconName;
     size?:  string;
     variant?: IconButtonVariant;
     style?: CSSProperties;

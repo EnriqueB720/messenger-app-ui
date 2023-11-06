@@ -4,22 +4,33 @@ import _ from 'lodash';
 
 import { Icon as CKIcon } from '@chakra-ui/react';
 
-import { IconProps } from '@types';
+import { IconName, IconProps } from '@types';
+
+import { AddIcon } from '@chakra-ui/icons';
+
+import { AiOutlineSend } from 'react-icons/ai';
+
+
+const IconDictionary: {
+  [K in IconName]: any
+} = {
+  send: AiOutlineSend,
+  add: AddIcon
+}
+
 
 const Icon: React.FC<IconProps> = ({
-  as,
-  boxSize
+  name
 }) => {
 
+  const Component = IconDictionary[name];
+
   return (
-    <CKIcon
-    as={as}
-    boxSize={boxSize}
-      />
+    <Component />
   );
 }
 
 
 export default React.memo(Icon, (prevProps, nextProps) => {
-    return _.isEqual(prevProps, nextProps);
-  });
+  return _.isEqual(prevProps, nextProps);
+});

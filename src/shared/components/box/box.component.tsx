@@ -14,7 +14,8 @@ const Box: React.FC<BoxProps> = ({
   bg,
   color,
   text,
-  as
+  as,
+  children
 }) => {
 
   return (
@@ -27,7 +28,7 @@ const Box: React.FC<BoxProps> = ({
       color={color}
       as={as}
     >
-       {text}
+      {text ? text : children}
     </CKBox>
   );
 }

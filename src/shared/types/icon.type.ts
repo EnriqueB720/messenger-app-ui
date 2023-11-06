@@ -1,6 +1,5 @@
-import { As } from "@chakra-ui/react";
+export type IconName = 'send' | 'add'
 
 export interface IconProps {
-    as?: As;
-    boxSize?: number;
+   name: IconName;
 }

@@ -1,5 +1,5 @@
 import { As } from "@chakra-ui/react";
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 export interface BoxProps {
   bg?: string;
@@ -10,4 +10,5 @@ export interface BoxProps {
   borderRadius?: string;
   style?: CSSProperties;
   text?: string;
+  children?: ReactNode;
 }

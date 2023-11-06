@@ -6,34 +6,26 @@ import { Stack as CKStack, StackDivider } from '@chakra-ui/react';
 
 import { StackProps } from '@types';
 
-const Icon: React.FC<StackProps> = ({
+const Stack: React.FC<StackProps> = ({
     align,
     direction,
     divider,
-    spacing
+    spacing,
+    children
 }) => {
-
-    if (divider) {
         return (
             <CKStack
                 align={align}
                 direction={direction}
                 spacing={spacing}
-                divider={<StackDivider borderColor='gray.200' />}
-            ></CKStack>
+                divider={divider ? <StackDivider borderColor='gray.200' /> : undefined}
+            >
+                {children}
+            </CKStack>
         )
-    } else {
-        return (
-            <CKStack
-                align={align}
-                direction={direction}
-                spacing={spacing}
-            ></CKStack>
-        );
-    }
 }
 
 
-export default React.memo(Icon, (prevProps, nextProps) => {
+export default React.memo(Stack, (prevProps, nextProps) => {
     return _.isEqual(prevProps, nextProps);
 });
