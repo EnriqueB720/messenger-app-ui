@@ -13,7 +13,8 @@ const Input: React.FC<InputProps> = ({
   variant,
   placeholder,
   size,
-  value
+  value,
+  type
 }) => {
 
   return (
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = ({
       placeholder={placeholder}
       size={size}
       value={value}
+      type={type}
     />
   );
 }

@@ -8,6 +8,7 @@ import Icon from "./icon/icon.component";
 import IconButton from './icon-button/icon-button.component';
 import Text from './text/text.component';
 import Badge from './badge/badge.component';
+import FormControl from './form-control/form-control.component';
 
 export {
     Button,
@@ -19,5 +20,6 @@ export {
     Icon,
     IconButton,
     Text,
-    Badge
+    Badge,
+    FormControl
 }

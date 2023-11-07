@@ -10,4 +10,5 @@ export interface InputProps {
     variant?: InputVariant;
     value?: string;
     style?: CSSProperties;
+    type?: string;
 }

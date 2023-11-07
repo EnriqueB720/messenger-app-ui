@@ -8,3 +8,4 @@ export * from "./icon.type";
 export * from "./stack.type";
 export * from "./text.type";
 export * from "./badge.type";
+export * from "./form-control.type";
