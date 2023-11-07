@@ -11,7 +11,8 @@ const Text: React.FC<TextProps> = ({
   as,
   fontSize,
   noOfLines,
-  children
+  children,
+  textAlign
 }) => {
 
   return (
@@ -20,6 +21,7 @@ const Text: React.FC<TextProps> = ({
       as={as}
       fontSize={fontSize}
       noOfLines={noOfLines}
+      textAlign={textAlign}
     >
       {children}
     </CKText>

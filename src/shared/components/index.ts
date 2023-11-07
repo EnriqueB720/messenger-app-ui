@@ -7,6 +7,7 @@ import Stack from "./stack/stack.component";
 import Icon from "./icon/icon.component";
 import IconButton from './icon-button/icon-button.component';
 import Text from './text/text.component';
+import Badge from './badge/badge.component';
 
 export {
     Button,
@@ -17,5 +18,6 @@ export {
     Stack,
     Icon,
     IconButton,
-    Text
+    Text,
+    Badge
 }
