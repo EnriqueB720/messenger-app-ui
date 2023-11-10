@@ -81,7 +81,6 @@ export type ChatParticipantWhereUniqueInput = {
 
 export type ChatWhereInput = {
   AND?: InputMaybe<Array<ChatWhereInput>>;
-  contactUserId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['Int']>;
   isGroup?: InputMaybe<Scalars['Boolean']>;
@@ -327,6 +326,13 @@ export type UserWhereUniqueInput = {
   uuid?: InputMaybe<Scalars['String']>;
 };
 
+export type ChatsQueryVariables = Exact<{
+  where: ChatWhereInput;
+}>;
+
+
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null }> };
+
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
@@ -335,6 +341,46 @@ export type UserQueryVariables = Exact<{
 export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null } };
 
 
+export const ChatsDocument = gql`
+    query chats($where: ChatWhereInput!) {
+  chats(where: $where) {
+    uuid
+    id
+    name
+    createdAt
+    updatedAt
+    isGroup
+  }
+}
+    `;
+
+/**
+ * __useChatsQuery__
+ *
+ * To run a query within a React component, call `useChatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChatsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useChatsQuery(baseOptions: Apollo.QueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, options);
+      }
+export function useChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, options);
+        }
+export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
+export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
+export type ChatsQueryResult = Apollo.QueryResult<ChatsQuery, ChatsQueryVariables>;
 export const UserDocument = gql`
     query user($where: UserWhereUniqueInput!) {
   user(where: $where) {

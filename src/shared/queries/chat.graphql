@@ -1,0 +1,13 @@
+query chats($where: ChatWhereInput!) {
+  chats(where: $where){
+    uuid
+    id
+    name
+    createdAt
+    updatedAt
+    isGroup
+    messages{
+      text
+    } 
+  }
+}

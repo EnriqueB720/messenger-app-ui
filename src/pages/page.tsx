@@ -1,17 +1,27 @@
-import { useUserQuery } from "@/shared/generated/graphql-schema";
+import { useChatsQuery, useUserQuery } from "@/shared/generated/graphql-schema";
 import { Button,Image, Avatar, Box, Input, Stack, IconButton, Text, Badge } from "@shared-components";
 
 export default function Home() {
 
-  //  const user = useUserQuery({
-  //   variables:{
-  //     where:{
-  //       username: "test"
-  //     }
-  //   }
-  //  });
+   const user = useUserQuery({
+    variables:{
+      where:{
+        username: "test"
+      }
+    }
+   });
 
-  //  console.log(user);
+   const chats = useChatsQuery({
+    variables:{
+      where:{
+        userId: 4
+      }
+    }
+   });
+
+   console.log(user.data?.user);
+
+   console.log(chats.data?.chats);
   return (
     <main>
       <div style={{
