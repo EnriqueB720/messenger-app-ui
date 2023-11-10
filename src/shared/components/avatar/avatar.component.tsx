@@ -21,9 +21,9 @@ const Avatar: React.FC<AvatarProps> = ({
     <CKAvatar
       style={style}
       bg={bg}
-      name={name}
+      name={name ? name : undefined}
       size={size}
-      src={src}
+      src={src ? src : undefined}
     >
     {avatartBadge ? <AvatarBadge boxSize='1.25em' bg={badgeColor} /> : ''}
     </CKAvatar>

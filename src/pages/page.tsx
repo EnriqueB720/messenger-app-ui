@@ -1,5 +1,5 @@
 import { useChatsQuery, useUserQuery } from "@/shared/generated/graphql-schema";
-import { Button,Image, Avatar, Box, Input, Stack, IconButton, Text, Badge } from "@shared-components";
+import { Button,Image, Avatar, Box, Input, Stack, IconButton, Text, Badge, Card } from "@shared-components";
 
 export default function Home() {
 
@@ -14,7 +14,7 @@ export default function Home() {
    const chats = useChatsQuery({
     variables:{
       where:{
-        userId: 4
+        userId: user.data?.user.id
       }
     }
    });
@@ -24,7 +24,7 @@ export default function Home() {
    console.log(chats.data?.chats);
   return (
     <main>
-      <div style={{
+      {/* <div style={{
         textAlign: "center",
         margin: "40px"
       }}>
@@ -54,7 +54,10 @@ export default function Home() {
         new badge
       </Badge>
 
-      </div>
+      </div> */}
+      <Box textAlign={'center'}>
+        <Card title="Test Title" subtitle="tste message subtitle" messageDate="10/Dec"/>
+      </Box>
     </main>
   )
 }

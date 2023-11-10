@@ -13,6 +13,11 @@ export interface BoxProps {
   marginLeft?: number;
   marginRight?: number;
   marginBottom?: number;
+  padding?: number;
+  paddingTop?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
   color?: string;
   as?: As;
   borderRadius?: string;
@@ -23,5 +28,6 @@ export interface BoxProps {
   alignItems?: ResponsiveValue<AlignSetting>;
   border?: string;
   borderColor?: string;
+  textAlign?: ResponsiveValue<CanvasTextAlign>;
 
 }

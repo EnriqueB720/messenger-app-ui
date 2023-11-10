@@ -22,9 +22,15 @@ const Box: React.FC<BoxProps> = ({
   marginLeft,
   marginRight,
   marginTop,
+  padding,
+  paddingBottom,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
   alignItems,
   border,
-  borderColor
+  borderColor,
+  textAlign
 }) => {
 
   return (
@@ -42,9 +48,15 @@ const Box: React.FC<BoxProps> = ({
       mb={marginBottom}
       mr={marginRight}
       ml={marginLeft}
+      p={padding}
+      pt={paddingTop}
+      pb={paddingBottom}
+      pr={paddingRight}
+      pl={paddingLeft}
       alignItems={display == 'flex' ? alignItems : undefined}
       border={border}
       borderColor={borderColor}
+      textAlign={textAlign}
     >
       {text ? text : children}
     </CKBox>

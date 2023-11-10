@@ -9,6 +9,7 @@ import IconButton from './icon-button/icon-button.component';
 import Text from './text/text.component';
 import Badge from './badge/badge.component';
 import FormControl from './form-control/form-control.component';
+import Card from './card/card.component';
 
 export {
     Button,
@@ -21,5 +22,6 @@ export {
     IconButton,
     Text,
     Badge,
-    FormControl
+    FormControl,
+    Card
 }

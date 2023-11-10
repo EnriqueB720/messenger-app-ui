@@ -11,13 +11,15 @@ const Stack: React.FC<StackProps> = ({
     direction,
     divider,
     spacing,
-    children
+    children,
+    display
 }) => {
         return (
             <CKStack
                 align={align}
                 direction={direction}
                 spacing={spacing}
+                display={display}
                 divider={divider ? <StackDivider borderColor='gray.200' /> : undefined}
             >
                 {children}
