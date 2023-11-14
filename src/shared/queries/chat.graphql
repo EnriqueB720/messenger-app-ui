@@ -7,7 +7,13 @@ query chats($where: ChatWhereInput!) {
     updatedAt
     isGroup
     messages{
-      text
-    } 
+      text,
+      createdAt
+    }
+    participants{
+      user{
+        fullName
+      }
+    }
   }
 }

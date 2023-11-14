@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 
 import { CardProps } from '@types';
-import { Avatar, Box, Stack, Text } from '..';
+import { Avatar, Box, Stack, Text, Flex } from '..';
 
 const Card: React.FC<CardProps> = ({
     style,
@@ -15,28 +15,48 @@ const Card: React.FC<CardProps> = ({
     icons
 }) => {
 
+    const formatDate = (inputDate: string): string => {
+        const date = new Date(inputDate);
+
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+
+        return `${day} ${month}`;
+    };
 
     return (
-        <Box bg={bg} style={style} textAlign='left' display={'flex'} padding={2}>
-            <Box margin={1}>
-                <Avatar src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
-            </Box>
-            <Box>
-                <Stack direction='column'>
-                        {
-                            messageDate ?
-                                <Stack direction='row' display={'flex'}>
-                                    <Text as={'b'}>{title}</Text>
-                                    <Text>{messageDate}</Text>
-                                </Stack>
-                                : <Text>{title}</Text>
-                        }
-                    <Text>
-                        {subtitle}
-                    </Text>
-                </Stack>
-            </Box>
-            {icons ? <Box display={'inline-block'}>{icons}</Box> : null}
+        <Box bg={bg} style={style} padding={2} h={'72px'}>
+            <Flex justifyContent={'space-between'}>
+                <Flex justifyContent={'center'} w={''}>
+                    <Box margin={1} marginRight={4}>
+                        <Avatar src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
+                    </Box>
+                    <Stack direction={'column'}>
+                        <Box>
+                            <Text fontSize="l" as={'b'}>
+                                {title}
+                            </Text>
+                        </Box>
+                        <Box w='200px'>
+                            <Text fontSize='sm' color="gray.600" overflow="hidden" textOverflow="ellipsis">
+                                {subtitle}
+                            </Text>
+                        </Box>
+                    </Stack>
+                </Flex>
+                <Box>
+                    {
+                        messageDate ?
+                            <Text color="gray.600">
+                                {formatDate(messageDate)}
+                            </Text>
+                            : <Box>
+                                {icons}
+                            </Box>
+                    }
+                </Box>
+            </Flex>
+
         </Box>
     );
 }

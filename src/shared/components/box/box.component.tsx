@@ -30,7 +30,13 @@ const Box: React.FC<BoxProps> = ({
   alignItems,
   border,
   borderColor,
-  textAlign
+  textAlign,
+  float,
+  position,
+  top,
+  right,
+  bottom,
+  left,
 }) => {
 
   return (
@@ -57,6 +63,12 @@ const Box: React.FC<BoxProps> = ({
       border={border}
       borderColor={borderColor}
       textAlign={textAlign}
+      float={float}
+      position={position}
+      top={top}
+      right={right}
+      bottom={bottom}
+      left={left}
     >
       {text ? text : children}
     </CKBox>

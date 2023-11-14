@@ -2,8 +2,8 @@ import { CSSProperties, ReactNode } from "react";
 
 
 export interface CardProps{
-    title: string,
-    subtitle: ReactNode;
+    title?: string | null | undefined,
+    subtitle?: string | null | undefined;
     avatarImage?: string;
     messageDate?: string;
     icons?: ReactNode;

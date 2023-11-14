@@ -3,6 +3,8 @@ import { CSSProperties, ReactNode } from "react";
 
 
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
+export type Float = 'none' | 'left' | 'right' | 'initial'
+export type Position = 'fixed' | 'absolute' | 'relative'
 
 export interface BoxProps {
   bg?: string;
@@ -29,5 +31,10 @@ export interface BoxProps {
   border?: string;
   borderColor?: string;
   textAlign?: ResponsiveValue<CanvasTextAlign>;
-
+  float?: ResponsiveValue<Float>;
+  position?: ResponsiveValue<Position>;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 }

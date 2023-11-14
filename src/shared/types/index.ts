@@ -10,3 +10,4 @@ export * from "./text.type";
 export * from "./badge.type";
 export * from "./form-control.type";
 export * from "./card.type";
+export * from "./flex.type";

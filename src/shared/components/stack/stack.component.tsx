@@ -12,14 +12,18 @@ const Stack: React.FC<StackProps> = ({
     divider,
     spacing,
     children,
-    display
+    textAlign,
+    width,
+    float
 }) => {
         return (
             <CKStack
                 align={align}
                 direction={direction}
                 spacing={spacing}
-                display={display}
+                textAlign={textAlign}
+                width={width}
+                float={float ? float : undefined}
                 divider={divider ? <StackDivider borderColor='gray.200' /> : undefined}
             >
                 {children}

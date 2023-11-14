@@ -10,6 +10,7 @@ import Text from './text/text.component';
 import Badge from './badge/badge.component';
 import FormControl from './form-control/form-control.component';
 import Card from './card/card.component';
+import Flex from './flex/flex.component';
 
 export {
     Button,
@@ -23,5 +24,6 @@ export {
     Text,
     Badge,
     FormControl,
-    Card
+    Card,
+    Flex
 }

@@ -51,6 +51,7 @@ export type ChatOrderByInput = {
 export type ChatParticipant = {
   __typename?: 'ChatParticipant';
   chatId?: Maybe<Scalars['Float']>;
+  user?: Maybe<User>;
   userId?: Maybe<Scalars['Float']>;
 };
 
@@ -331,7 +332,7 @@ export type ChatsQueryVariables = Exact<{
 }>;
 
 
-export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null }> | null }> };
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', user?: { __typename?: 'User', fullName?: string | null } | null }> | null }> };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -352,6 +353,12 @@ export const ChatsDocument = gql`
     isGroup
     messages {
       text
+      createdAt
+    }
+    participants {
+      user {
+        fullName
+      }
     }
   }
 }

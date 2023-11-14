@@ -12,7 +12,9 @@ const Text: React.FC<TextProps> = ({
   fontSize,
   noOfLines,
   children,
-  textAlign
+  textAlign,
+  overflow,
+  textOverflow
 }) => {
 
   return (
@@ -22,6 +24,9 @@ const Text: React.FC<TextProps> = ({
       fontSize={fontSize}
       noOfLines={noOfLines}
       textAlign={textAlign}
+      overflow={overflow}
+      textOverflow={textOverflow}
+      whiteSpace={overflow ? 'nowrap' : undefined}
     >
       {children}
     </CKText>
