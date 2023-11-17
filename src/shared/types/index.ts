@@ -9,5 +9,7 @@ export * from "./stack.type";
 export * from "./text.type";
 export * from "./badge.type";
 export * from "./form-control.type";
-export * from "./card.type";
+export * from "./avatar-item.type";
 export * from "./flex.type";
+export * from "./avatar-message-item.type";
+export * from "./avatar-icon-item.type";

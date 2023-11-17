@@ -2,20 +2,21 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { Icon as CKIcon } from '@chakra-ui/react';
-
 import { IconName, IconProps } from '@types';
 
-import { AddIcon } from '@chakra-ui/icons';
-
 import { AiOutlineSend } from 'react-icons/ai';
+import { IoMdSearch } from "react-icons/io";
+import { HiDotsVertical } from "react-icons/hi";
+import { IoFilterSharp } from "react-icons/io5";
 
 
 const IconDictionary: {
   [K in IconName]: any
 } = {
   send: AiOutlineSend,
-  add: AddIcon
+  search: IoMdSearch,
+  dots: HiDotsVertical,
+  filter: IoFilterSharp 
 }
 
 

@@ -2,30 +2,20 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { CardProps } from '@types';
+import { AvatarItemProps } from '@types';
 import { Avatar, Box, Stack, Text, Flex } from '..';
 
-const Card: React.FC<CardProps> = ({
+const AvatarItem: React.FC<AvatarItemProps> = ({
     style,
     bg = 'lightgray',
-    messageDate,
+    children,
     subtitle,
     title,
     avatarImage,
-    icons
+    onClick
 }) => {
-
-    const formatDate = (inputDate: string): string => {
-        const date = new Date(inputDate);
-
-        const day = date.getDate();
-        const month = date.toLocaleString('default', { month: 'short' });
-
-        return `${day} ${month}`;
-    };
-
     return (
-        <Box bg={bg} style={style} padding={2} h={'72px'}>
+        <Box bg={bg} style={style} padding={2} h={'72px'} onClick={onClick}>
             <Flex justifyContent={'space-between'}>
                 <Flex justifyContent={'center'} w={''}>
                     <Box margin={1} marginRight={4}>
@@ -44,23 +34,12 @@ const Card: React.FC<CardProps> = ({
                         </Box>
                     </Stack>
                 </Flex>
-                <Box>
-                    {
-                        messageDate ?
-                            <Text color="gray.600">
-                                {formatDate(messageDate)}
-                            </Text>
-                            : <Box>
-                                {icons}
-                            </Box>
-                    }
-                </Box>
+                <Box>{children}</Box>
             </Flex>
-
         </Box>
     );
 }
 
-export default React.memo(Card, (prevProps, nextProps) => {
+export default React.memo(AvatarItem, (prevProps, nextProps) => {
     return _.isEqual(prevProps, nextProps);
 });

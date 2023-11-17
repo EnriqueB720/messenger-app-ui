@@ -21,7 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@shared-components":[
+      "@components":[
         "src/shared/components/index"
       ],
       "@types":[

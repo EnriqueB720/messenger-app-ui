@@ -1,12 +1,12 @@
 import { CSSProperties, ReactNode } from "react";
 
 
-export interface CardProps{
+export interface AvatarItemProps { 
     title?: string | null | undefined,
     subtitle?: string | null | undefined;
     avatarImage?: string;
-    messageDate?: string;
-    icons?: ReactNode;
+    children?: ReactNode;
     bg?: string;
     style?: CSSProperties;
+    onClick?: () => void 
 }

@@ -9,8 +9,14 @@ import IconButton from './icon-button/icon-button.component';
 import Text from './text/text.component';
 import Badge from './badge/badge.component';
 import FormControl from './form-control/form-control.component';
-import Card from './card/card.component';
+import AvatarItem from './avatar-item/avatar-item.component';
 import Flex from './flex/flex.component';
+import AvatarMessageItem from './avatar-message-item/avatar-message-item.component';
+import AvatarIconItem from './avatar-icon-item/avatar-icon-item.component';
+import ChatHistory from "./chat-history/chat-history.component";
+
+
+import Layout from "./layout/layout.component";
 
 export {
     Button,
@@ -24,6 +30,10 @@ export {
     Text,
     Badge,
     FormControl,
-    Card,
-    Flex
+    AvatarItem,
+    Flex,
+    AvatarMessageItem,
+    AvatarIconItem,
+    ChatHistory,
+    Layout
 }

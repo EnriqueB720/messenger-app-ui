@@ -9,6 +9,7 @@ export type Position = 'fixed' | 'absolute' | 'relative'
 export interface BoxProps {
   bg?: string;
   w?: string;
+  maxW?: string;
   h?: string;
   margin?: number;
   marginTop?: number;
@@ -37,4 +38,5 @@ export interface BoxProps {
   right?: string;
   bottom?: string;
   left?: string;
+  onClick?: () => void;
 }

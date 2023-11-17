@@ -24,7 +24,7 @@ const Stack: React.FC<StackProps> = ({
                 textAlign={textAlign}
                 width={width}
                 float={float ? float : undefined}
-                divider={divider ? <StackDivider borderColor='gray.200' /> : undefined}
+                divider={divider ? <StackDivider borderColor='gray.500' /> : undefined}
             >
                 {children}
             </CKStack>
