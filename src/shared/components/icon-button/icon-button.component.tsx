@@ -16,6 +16,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   fontSize,
   icon,
   size,
+  color,
   onClick
 }) => {
 
@@ -29,6 +30,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       colorScheme={colorScheme}
       icon={<Icon name={icon}/>}
       aria-label={ariaLabel}
+      color={color}
       onClick={onClick}
       />
   );

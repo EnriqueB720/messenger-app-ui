@@ -1,16 +1,18 @@
 import { As, ResponsiveValue } from "@chakra-ui/react";
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";import { Overflow } from "./text.type";
 
 
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
 export type Float = 'none' | 'left' | 'right' | 'initial'
 export type Position = 'fixed' | 'absolute' | 'relative'
+export type OverflowY = 'auto' | 'scroll' | 'hidden' | 'visible'
 
 export interface BoxProps {
   bg?: string;
   w?: string;
   maxW?: string;
   h?: string;
+  maxh?: string;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -38,5 +40,6 @@ export interface BoxProps {
   right?: string;
   bottom?: string;
   left?: string;
+  overflowY?: ResponsiveValue<OverflowY>;
   onClick?: () => void;
 }

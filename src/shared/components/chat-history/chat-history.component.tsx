@@ -28,8 +28,56 @@ const ChatHistory: React.FC = () => {
         alert('chat clicked: '+chatId)
     }
     return (
-        <Box maxW='30%' bg='lightgray'>
-            <Stack direction='column' divider >
+        <Box maxW='30%' bg='lightgray' overflowY={'auto'} h={'600px'}>
+            <Stack direction='column' divider>
+                {
+                    chats.data?.chats.map((chat) => (
+                       <AvatarMessageItem style={{
+                            cursor: 'pointer'
+                        }}
+                            key={chat.uuid}
+                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
+                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
+                            value={new Date(chat.messages![0].createdAt)}
+                            onClick={() => {handleClick(chat.id)}} />
+                    ))
+                }
+                {
+                    chats.data?.chats.map((chat) => (
+                       <AvatarMessageItem style={{
+                            cursor: 'pointer'
+                        }}
+                            key={chat.uuid}
+                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
+                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
+                            value={new Date(chat.messages![0].createdAt)}
+                            onClick={() => {handleClick(chat.id)}} />
+                    ))
+                }
+                {
+                    chats.data?.chats.map((chat) => (
+                       <AvatarMessageItem style={{
+                            cursor: 'pointer'
+                        }}
+                            key={chat.uuid}
+                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
+                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
+                            value={new Date(chat.messages![0].createdAt)}
+                            onClick={() => {handleClick(chat.id)}} />
+                    ))
+                }
+                {
+                    chats.data?.chats.map((chat) => (
+                       <AvatarMessageItem style={{
+                            cursor: 'pointer'
+                        }}
+                            key={chat.uuid}
+                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
+                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
+                            value={new Date(chat.messages![0].createdAt)}
+                            onClick={() => {handleClick(chat.id)}} />
+                    ))
+                }
                 {
                     chats.data?.chats.map((chat) => (
                        <AvatarMessageItem style={{

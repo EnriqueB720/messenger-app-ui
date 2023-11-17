@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, ChatHistory, SideBarHeader } from '@components';
+import { Box, ChatHistory, ChatSearchBar, SideBarHeader } from '@components';
 
 
 const Layout: React.FC = () => {
@@ -12,6 +12,7 @@ const Layout: React.FC = () => {
             {/*  Side bar header*/}
                 <SideBarHeader/>
             {/*  Side bar search bar*/}
+                <ChatSearchBar/>
             {/*  Side bar chat history*/}
                 <ChatHistory />
 

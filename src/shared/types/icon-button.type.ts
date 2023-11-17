@@ -12,5 +12,6 @@ export interface IconButtonProps {
     size?:  string;
     variant?: IconButtonVariant;
     style?: CSSProperties;
+    color?: string;
     onClick?: () => void;
 }

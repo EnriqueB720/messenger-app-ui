@@ -15,7 +15,8 @@ import AvatarMessageItem from './avatar-message-item/avatar-message-item.compone
 import AvatarIconItem from './avatar-icon-item/avatar-icon-item.component';
 import ChatHistory from "./chat-history/chat-history.component";
 import SideBarHeader from "./side-bar-header/side-bar-header.component";
-
+import SearchBar from './search-bar/search-bar.component';
+import ChatSearchBar from './chat-search-bar/chat-search-bar.component';
 
 import Layout from "./layout/layout.component";
 
@@ -37,5 +38,7 @@ export {
     AvatarIconItem,
     ChatHistory,
     SideBarHeader,
+    SearchBar,
+    ChatSearchBar,
     Layout
 }
