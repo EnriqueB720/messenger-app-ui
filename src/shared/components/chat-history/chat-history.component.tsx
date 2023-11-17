@@ -24,16 +24,22 @@ const ChatHistory: React.FC = () => {
         }
     });
 
+    const handleClick = (chatId: any) => {
+        alert('chat clicked: '+chatId)
+    }
     return (
         <Box maxW='30%' bg='lightgray'>
             <Stack direction='column' divider >
                 {
                     chats.data?.chats.map((chat) => (
-                        <AvatarMessageItem
+                       <AvatarMessageItem style={{
+                            cursor: 'pointer'
+                        }}
                             key={chat.uuid}
                             title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
                             subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
-                            value={new Date(chat.messages![0].createdAt)} />
+                            value={new Date(chat.messages![0].createdAt)}
+                            onClick={() => {handleClick(chat.id)}} />
                     ))
                 }
             </Stack>

@@ -1,22 +1,27 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { ChatHistory } from '@components';
+import { Box, ChatHistory, SideBarHeader } from '@components';
 
 
 const Layout: React.FC = () => {
-    
-    return (
-    // Side bar
-        // Side bar header
-        // Side bar search bar
-        // Side bar chat history
-        <ChatHistory/>
 
-    // Chat section
-        // Chat header
-        // Chat area
-        // Chat message input
+    return (
+        <Box padding={5}>
+        {/*  Side bar */}
+            {/*  Side bar header*/}
+                <SideBarHeader/>
+            {/*  Side bar search bar*/}
+            {/*  Side bar chat history*/}
+                <ChatHistory />
+
+        {/*  Chat section*/}
+            {/* Chat header*/}
+            {/* Chat area*/}
+            {/* Chat message input*/}
+
+        </Box>
+
     );
 }
 

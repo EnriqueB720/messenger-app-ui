@@ -14,6 +14,7 @@ import Flex from './flex/flex.component';
 import AvatarMessageItem from './avatar-message-item/avatar-message-item.component';
 import AvatarIconItem from './avatar-icon-item/avatar-icon-item.component';
 import ChatHistory from "./chat-history/chat-history.component";
+import SideBarHeader from "./side-bar-header/side-bar-header.component";
 
 
 import Layout from "./layout/layout.component";
@@ -35,5 +36,6 @@ export {
     AvatarMessageItem,
     AvatarIconItem,
     ChatHistory,
+    SideBarHeader,
     Layout
 }

@@ -13,7 +13,8 @@ const Avatar: React.FC<AvatarProps> = ({
   bg,
   name,
   size,
-  src
+  src,
+  onClick
 }) => {
 
 
@@ -24,6 +25,7 @@ const Avatar: React.FC<AvatarProps> = ({
       name={name ? name : undefined}
       size={size}
       src={src ? src : undefined}
+      onClick={onClick}
     >
     {avatartBadge ? <AvatarBadge boxSize='1.25em' bg={badgeColor} /> : ''}
     </CKAvatar>
