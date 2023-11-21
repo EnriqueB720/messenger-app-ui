@@ -28,7 +28,7 @@ const ChatHistory: React.FC = () => {
         alert('chat clicked: '+chatId)
     }
     return (
-        <Box maxW='30%' bg='lightgray' overflowY={'auto'} h={'600px'}>
+        <Box bg='lightgray' overflowY={'auto'} h={'600px'}>
             <Stack direction='column' divider>
                 {
                     chats.data?.chats.map((chat) => (

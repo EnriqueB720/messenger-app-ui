@@ -41,5 +41,9 @@ export interface BoxProps {
   bottom?: string;
   left?: string;
   overflowY?: ResponsiveValue<OverflowY>;
+  backgroundImage?: string;
+  backgroundSize?: string;
+  backgroundPosition?: string;
+  backgroundRepeat?: string;
   onClick?: () => void;
 }

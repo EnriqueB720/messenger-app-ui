@@ -20,7 +20,7 @@ const SideBarHeader: React.FC = () => {
         alert('user-info clicked: ' + userId)
     }
     return (
-        <Box maxW='30%' bg='blue.400' padding={1}>
+        <Box bg='blue.400' padding={1}>
             <Flex justifyContent={'space-between'}>
                 <Box margin={1} marginRight={4}>
                     <Avatar

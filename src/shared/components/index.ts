@@ -17,6 +17,9 @@ import ChatHistory from "./chat-history/chat-history.component";
 import SideBarHeader from "./side-bar-header/side-bar-header.component";
 import SearchBar from './search-bar/search-bar.component';
 import ChatSearchBar from './chat-search-bar/chat-search-bar.component';
+import SideBar from './side-bar/side-bar.component';
+import ChatHeader from './chat-header/chat-header.component';
+import ChatArea from './chat-area/chat-area.component';
 
 import Layout from "./layout/layout.component";
 
@@ -40,5 +43,8 @@ export {
     SideBarHeader,
     SearchBar,
     ChatSearchBar,
+    SideBar,
+    ChatHeader,
+    ChatArea,
     Layout
 }

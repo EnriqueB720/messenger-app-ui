@@ -12,7 +12,7 @@ const ChatSearchBar: React.FC = () => {
         alert('filter chats');
     }
     return (
-        <Box maxW='30%' bg='lightgray' style={{
+        <Box bg='lightgray' style={{
             borderBottomColor: '1px solid black'
         }} padding={1}>
             <Flex>
