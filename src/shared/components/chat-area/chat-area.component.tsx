@@ -1,5 +1,5 @@
 import * as React from 'react';
-import image1 from "public/images/backgroundImage.png";
+import image1 from "../../../images/backgroundImage.png";
 
 import _ from 'lodash';
 import { Box, Flex, Text } from '@components';
@@ -13,10 +13,11 @@ const ChatArea: React.FC = () => {
             backgroundPosition={'center'}
             backgroundSize={'cover'}
             backgroundRepeat={'repeat'}
-            bg={'gray'}
+            backgroundColor={'gray'}
+            h={'auto'}
         >
-            <Flex justifyContent="flex-end">
-                <Box bg='blue.300' w='20%' borderRadius='5px'>
+            <Flex justifyContent="flex-end" h={'auto'}>
+                <Box bg='blue.300' w='20%' borderRadius='5px' margin={3}  h={'auto'}>
                     <Text fontSize='20px' color='black' textAlign={'right'}>
                         Example Text
                     </Text>

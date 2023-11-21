@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, ChatArea, ChatHeader, Flex, SideBar, Stack } from '@components';
+import { Box, Flex, SideBar, ChatSection } from '@components';
 
 
 const Layout: React.FC = () => {
@@ -10,10 +10,7 @@ const Layout: React.FC = () => {
         <Box padding={5}>
             <Flex>
                 <SideBar />
-                <Box w={'70%'}>
-                    <ChatHeader />
-                    <ChatArea />
-                </Box>
+                <ChatSection/>
             </Flex>
         </Box>
 

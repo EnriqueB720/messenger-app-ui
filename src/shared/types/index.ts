@@ -13,3 +13,4 @@ export * from "./avatar-item.type";
 export * from "./flex.type";
 export * from "./avatar-message-item.type";
 export * from "./avatar-icon-item.type";
+export *from "./text-input-icon.type";

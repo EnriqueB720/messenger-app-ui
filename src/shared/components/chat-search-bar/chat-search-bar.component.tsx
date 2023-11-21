@@ -2,31 +2,18 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { Box, Flex, IconButton, Input, SearchBar } from '@components';
-import { InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { Box, TextInputIcon } from '@components';
 
 
 const ChatSearchBar: React.FC = () => {
-
-    const handleClick = () => {
-        alert('filter chats');
-    }
     return (
-        <Box bg='lightgray' style={{
-            borderBottomColor: '1px solid black'
-        }} padding={1}>
-            <Flex>
-                    <SearchBar/>
-                <Box>
-                    <IconButton
-                        icon={'filter'}
-                        size={'md'}
-                        color={'black'}
-                        colorScheme={'inherit'}
-                        fontSize={'xl'}
-                        onClick={() => {handleClick()}} />
-                </Box>
-            </Flex>
+        <Box bg='lightgray' padding={1}>
+            <TextInputIcon
+                leftInconType={'search'}
+                rightInconType={'filter'}
+                inputPlaceholder={'Search in chats'}
+                onLeftIconClick={() => { alert('Search has been made') }}
+                onRightIconClick={() => { alert('filter clicked') }} />
         </Box>
     );
 }

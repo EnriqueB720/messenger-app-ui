@@ -45,5 +45,6 @@ export interface BoxProps {
   backgroundSize?: string;
   backgroundPosition?: string;
   backgroundRepeat?: string;
+  backgroundColor?: string;
   onClick?: () => void;
 }

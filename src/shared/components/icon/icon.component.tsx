@@ -8,6 +8,7 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { IoMdSearch } from "react-icons/io";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoFilterSharp } from "react-icons/io5";
+import { BsEmojiSmile } from "react-icons/bs";
 
 
 const IconDictionary: {
@@ -16,7 +17,8 @@ const IconDictionary: {
   send: AiOutlineSend,
   search: IoMdSearch,
   dots: HiDotsVertical,
-  filter: IoFilterSharp 
+  filter: IoFilterSharp,
+  emoji: BsEmojiSmile
 }
 
 
