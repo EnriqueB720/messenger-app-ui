@@ -17,11 +17,9 @@ import ChatHistory from "./chat-history/chat-history.component";
 import SideBarHeader from "./side-bar-header/side-bar-header.component";
 import TextInputIcon from './text-input-icon/text-input-icon.component';
 import ChatSearchBar from './chat-search-bar/chat-search-bar.component';
-import SideBar from './side-bar/side-bar.component';
 import ChatHeader from './chat-header/chat-header.component';
 import ChatArea from './chat-area/chat-area.component';
 import MessageInput from './message-input/message-input.component';
-import ChatSection from './chat-section/chat-section.component';
 import Layout from "./layout/layout.component";
 
 export {
@@ -44,10 +42,8 @@ export {
     SideBarHeader,
     TextInputIcon,
     ChatSearchBar,
-    SideBar,
     ChatHeader,
     ChatArea,
     MessageInput,
-    ChatSection,
     Layout
 }

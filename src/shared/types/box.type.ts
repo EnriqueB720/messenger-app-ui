@@ -1,18 +1,21 @@
 import { As, ResponsiveValue } from "@chakra-ui/react";
-import { CSSProperties, ReactNode } from "react";import { Overflow } from "./text.type";
+import { CSSProperties, ReactNode } from "react";import { FlexProps } from "./flex.type";
+import { Overflow } from "./text.type";
 
 
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
 export type Float = 'none' | 'left' | 'right' | 'initial'
 export type Position = 'fixed' | 'absolute' | 'relative'
 export type OverflowY = 'auto' | 'scroll' | 'hidden' | 'visible'
+export type FlexDirection = 'column' | 'row'
 
 export interface BoxProps {
   bg?: string;
   w?: string;
   maxW?: string;
   h?: string;
-  maxh?: string;
+  maxH?: string | number;
+  minH?: string | number;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -46,5 +49,8 @@ export interface BoxProps {
   backgroundPosition?: string;
   backgroundRepeat?: string;
   backgroundColor?: string;
+  flexDirection?: ResponsiveValue<FlexDirection>;
+  flex?: number;
+
   onClick?: () => void;
 }

@@ -4,11 +4,16 @@ import _ from 'lodash';
 import { AvatarIconItem, Box, IconButton } from '@components';
 
 
-const ChatHeader: React.FC = () => {
+const ChatHeader: React.FC<{height: number}> = ({
+    height
+}) => {
 
     return (
-        <Box>
-            <AvatarIconItem icons={
+        <Box h={`${height}px`}>
+            <AvatarIconItem 
+            title={"Test chat title"}
+            subtitle={"subtitle test"}
+            icons={
                 <>
                     <IconButton
                     style={{

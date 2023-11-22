@@ -7,7 +7,7 @@ const MessageInput: React.FC = () => {
 
 
     return (
-        <Box bg='lightgray' padding={1}>
+        <Box bg='lightgray' padding={2}>
             <TextInputIcon
                 leftInconType={'emoji'}
                 rightInconType={'send'}
