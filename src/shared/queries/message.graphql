@@ -1,0 +1,15 @@
+  query messages($where: MessageWhereInput!){
+    messages(where: $where){
+        id,
+        uuid,
+        chatId,
+        senderId,
+        text,
+        createdAt,
+        userMessageStatus{
+          isRead,
+          isReceived,
+          isFavorite
+    }
+    }
+  }

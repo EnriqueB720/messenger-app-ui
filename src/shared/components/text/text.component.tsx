@@ -14,7 +14,9 @@ const Text: React.FC<TextProps> = ({
   children,
   textAlign,
   overflow,
-  textOverflow
+  textOverflow,
+  alignSelf,
+  marginTop
 }) => {
 
   return (
@@ -26,7 +28,9 @@ const Text: React.FC<TextProps> = ({
       textAlign={textAlign}
       overflow={overflow}
       textOverflow={textOverflow}
+      alignSelf={alignSelf}
       whiteSpace={overflow ? 'nowrap' : undefined}
+      marginTop={marginTop}
     >
       {children}
     </CKText>

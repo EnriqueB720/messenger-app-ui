@@ -1,13 +1,20 @@
 import * as React from 'react';
-import image1 from "../../../images/backgroundImage.png";
 
 import _ from 'lodash';
-import { Box, Flex, Text } from '@components';
+import { Box, Flex, Message, Text } from '@components';
+import { useMessagesQuery } from '@/shared/generated/graphql-schema';
 
 
 const ChatArea: React.FC = () => {
 
-    let value: boolean = true;
+    const messages = useMessagesQuery({
+        fetchPolicy: 'cache-and-network',
+        variables: {
+            where: {
+                chatId: 5
+            }
+        }
+    })
 
     return (
         <Box
@@ -15,48 +22,19 @@ const ChatArea: React.FC = () => {
             backgroundPosition={'center'}
             backgroundSize={'cover'}
             backgroundRepeat={'repeat'}
-            backgroundColor={'gray'}
             h={'100%'}
         >
-            <Flex justifyContent="flex-end" h={'auto'}>
-                <Box bg='blue.300' w='20%' borderRadius='5px' margin={3} h={'auto'}>
-                    <Text fontSize='20px' color='black' textAlign={'right'}>
-                        Example Text
-                    </Text>
-                </Box>
-            </Flex>
-            <Flex justifyContent="flex-end" h={'auto'}>
-                <Box bg='blue.300' w='20%' borderRadius='5px' margin={3} h={'auto'}>
-                    <Text fontSize='20px' color='black' textAlign={'right'}>
-                        Example Text
-                    </Text>
-                </Box>
-            </Flex>
-            <Flex justifyContent="flex-end" h={'auto'}>
-                <Box bg='blue.300' w='20%' borderRadius='5px' margin={3} h={'auto'}>
-                    <Text fontSize='20px' color='black' textAlign={'right'}>
-                        Example Text
-                    </Text>
-                </Box>
-            </Flex>
-            {
-                value  ?
-                    <Flex justifyContent="flex-start" h={'auto'}>
-                        <Box bg='green.300' w='20%' borderRadius='5px' margin={3} h={'auto'}>
-                            <Text fontSize='20px' color='black' textAlign={'right'}>
-                                Example Text
-                            </Text>
-                        </Box>
-                    </Flex>
-                    :
-                    <Flex justifyContent="flex-end" h={'auto'}>
-                        <Box bg='blue.300' w='20%' borderRadius='5px' margin={3} h={'auto'}>
-                            <Text fontSize='20px' color='black' textAlign={'right'}>
-                                Example Text
-                            </Text>
-                        </Box>
-                    </Flex>
-            }
+                {
+                    messages.data?.messages.map((message, index) => (
+                        <Message
+                            key={index}
+                            messageContent={message.text}
+                            messageTime={message.createdAt}
+                            isUserMessage={message.senderId == 4}
+                        />
+
+                    ))
+                }
         </Box>
     );
 }

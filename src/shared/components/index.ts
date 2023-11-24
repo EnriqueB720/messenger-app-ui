@@ -21,6 +21,7 @@ import ChatHeader from './chat-header/chat-header.component';
 import ChatArea from './chat-area/chat-area.component';
 import MessageInput from './message-input/message-input.component';
 import Layout from "./layout/layout.component";
+import Message from "./message/message.component";
 
 export {
     Button,
@@ -45,5 +46,6 @@ export {
     ChatHeader,
     ChatArea,
     MessageInput,
-    Layout
+    Layout,
+    Message
 }

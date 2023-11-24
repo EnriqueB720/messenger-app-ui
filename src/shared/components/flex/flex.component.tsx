@@ -13,7 +13,9 @@ const Flex: React.FC<FlexProps> = ({
     color,
     w,
     h,
-    justifyContent
+    justifyContent,
+    direction,
+    mb
 }) => {
     return (
         <CKFlex
@@ -22,7 +24,9 @@ const Flex: React.FC<FlexProps> = ({
         color={color}
         w={w}
         h={h}
+        mb={mb}
         justifyContent={justifyContent}
+        direction={direction}
         >
             {children}
         </CKFlex>

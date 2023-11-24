@@ -1,5 +1,6 @@
 import { As, ResponsiveValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { JustifyContent } from ".";
 
 export type Overflow = 'ellipsis' | 'hidden'
 
@@ -12,4 +13,6 @@ export interface TextProps{
     textAlign?: ResponsiveValue<CanvasTextAlign>;
     overflow?: ResponsiveValue<Overflow>
     textOverflow?: ResponsiveValue<Overflow>;
+    alignSelf?: ResponsiveValue<JustifyContent>;
+    marginTop?: string;
 }
