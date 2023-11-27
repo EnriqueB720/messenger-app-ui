@@ -3,9 +3,12 @@ import * as React from 'react';
 import _ from 'lodash';
 import { AvatarMessageItem, Box, Stack } from '@components';
 import { useChatsQuery, useUserQuery } from "@/shared/generated/graphql-schema";
+import { useRouter } from 'next/router';
 
 
 const ChatHistory: React.FC = () => {
+
+    const router = useRouter();
 
     const user = useUserQuery({
         variables: {
@@ -25,59 +28,11 @@ const ChatHistory: React.FC = () => {
     });
 
     const handleClick = (chatId: any) => {
-        alert('chat clicked: '+chatId)
+        router.push(`?chatId=${chatId}`);
     }
     return (
         <Box bg='lightgray'>
             <Stack direction='column' divider>
-                {
-                    chats.data?.chats.map((chat) => (
-                       <AvatarMessageItem style={{
-                            cursor: 'pointer'
-                        }}
-                            key={chat.uuid}
-                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
-                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
-                            value={new Date(chat.messages![0].createdAt)}
-                            onClick={() => {handleClick(chat.id)}} />
-                    ))
-                }
-                {
-                    chats.data?.chats.map((chat) => (
-                       <AvatarMessageItem style={{
-                            cursor: 'pointer'
-                        }}
-                            key={chat.uuid}
-                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
-                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
-                            value={new Date(chat.messages![0].createdAt)}
-                            onClick={() => {handleClick(chat.id)}} />
-                    ))
-                }
-                {
-                    chats.data?.chats.map((chat) => (
-                       <AvatarMessageItem style={{
-                            cursor: 'pointer'
-                        }}
-                            key={chat.uuid}
-                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
-                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
-                            value={new Date(chat.messages![0].createdAt)}
-                            onClick={() => {handleClick(chat.id)}} />
-                    ))
-                }
-                {
-                    chats.data?.chats.map((chat) => (
-                       <AvatarMessageItem style={{
-                            cursor: 'pointer'
-                        }}
-                            key={chat.uuid}
-                            title={chat.isGroup ? chat.name : chat.participants![1].user?.fullName}
-                            subtitle={chat.messages![0].text ? chat.messages![0].text : ''}
-                            value={new Date(chat.messages![0].createdAt)}
-                            onClick={() => {handleClick(chat.id)}} />
-                    ))
-                }
                 {
                     chats.data?.chats.map((chat) => (
                        <AvatarMessageItem style={{

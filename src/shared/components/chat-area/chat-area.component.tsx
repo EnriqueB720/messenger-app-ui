@@ -1,20 +1,33 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, Message, Text } from '@components';
-import { useMessagesQuery } from '@/shared/generated/graphql-schema';
+import { Box, Message } from '@components';
+import { useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-schema';
+import { useSearchParams } from 'next/navigation';
 
 
 const ChatArea: React.FC = () => {
 
+    const searchParams = useSearchParams();
+    let chatId = Number.parseInt(searchParams.get('chatId')!);
+ 
     const messages = useMessagesQuery({
         fetchPolicy: 'cache-and-network',
         variables: {
             where: {
-                chatId: 5
+                chatId: chatId
             }
         }
-    })
+    });
+
+    const chat = useChatsQuery({
+        fetchPolicy: 'cache-and-network',
+        variables: {
+            where: {
+                id: chatId
+            }
+        }
+    });
 
     return (
         <Box
@@ -23,6 +36,7 @@ const ChatArea: React.FC = () => {
             backgroundSize={'cover'}
             backgroundRepeat={'repeat'}
             h={'100%'}
+            overflowY={'auto'}
         >
                 {
                     messages.data?.messages.map((message, index) => (
@@ -31,6 +45,7 @@ const ChatArea: React.FC = () => {
                             messageContent={message.text}
                             messageTime={message.createdAt}
                             isUserMessage={message.senderId == 4}
+                            username={chat.data?.chats[0].isGroup ? message.sender?.fullName! : undefined}
                         />
 
                     ))

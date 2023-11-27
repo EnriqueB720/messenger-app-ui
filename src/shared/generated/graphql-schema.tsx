@@ -150,6 +150,7 @@ export type Message = {
   createdAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Float']>;
   replyMessageId?: Maybe<Scalars['Float']>;
+  sender?: Maybe<User>;
   senderId?: Maybe<Scalars['Float']>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -339,7 +340,7 @@ export type MessagesQueryVariables = Exact<{
 }>;
 
 
-export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatus?: { __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null } | null }> };
+export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatus?: { __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null } | null, sender?: { __typename?: 'User', fullName?: string | null } | null }> };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -411,6 +412,9 @@ export const MessagesDocument = gql`
       isRead
       isReceived
       isFavorite
+    }
+    sender {
+      fullName
     }
   }
 }

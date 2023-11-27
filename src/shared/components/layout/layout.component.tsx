@@ -5,6 +5,7 @@ import { Box, Flex, ChatArea, ChatHeader, MessageInput, SideBarHeader, ChatHisto
 
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
+const MESSSAGE_INPUT_HEIGHT = 56;
 
 
 const Layout: React.FC = () => {
@@ -26,7 +27,7 @@ const Layout: React.FC = () => {
                 </Box>
                 <Box w='70%' display={'flex'} flexDirection={'column'} minH={'100vh'}>
                     <ChatHeader height={SIDEBAR_HEADER_HEIGHT} />
-                    <Box flex={1}>
+                    <Box flex={1} h={'100%'} maxH={(windowInnerHeight || 754) - MESSSAGE_INPUT_HEIGHT -SIDEBAR_HEADER_HEIGHT}>
                         <ChatArea />
                     </Box>
                     <Box position={'fixed'} bottom={'0'} w={'70%'}>

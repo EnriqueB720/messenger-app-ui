@@ -26,6 +26,13 @@ const Message: React.FC<MessageProps> = ({
         return formattedTime;
     }
 
+    const generateColor = () => {
+        const randomColor = Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, '0');
+        return `#${randomColor}`;
+      };
+
     return (
         <Flex
             direction="row"
@@ -43,7 +50,7 @@ const Message: React.FC<MessageProps> = ({
             >
                 {
                     username ?
-                        <Text fontSize="xs" color="gray.500">
+                        <Text fontSize="xs" color={isUserMessage ? undefined : generateColor()}>
                             {username}
                         </Text>
                         :
