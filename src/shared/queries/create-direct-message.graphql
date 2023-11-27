@@ -1,0 +1,5 @@
+mutation createDirectMessage($data:  DirectMessageCreateInput!){
+    createDirectMessage(data: $data){
+        id
+    }
+}

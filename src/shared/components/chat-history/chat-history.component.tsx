@@ -18,7 +18,7 @@ const ChatHistory: React.FC = () => {
         }
     });
 
-    const chats = useChatsQuery({
+    const chats =  useChatsQuery({
         fetchPolicy: 'cache-and-network',
         variables: {
             where: {

@@ -12,7 +12,8 @@ query chats($where: ChatWhereInput!) {
     }
     participants{
       user{
-        fullName
+        fullName,
+        id
       }
     }
   }

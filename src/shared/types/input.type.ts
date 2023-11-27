@@ -11,4 +11,5 @@ export interface InputProps {
     value?: string;
     style?: CSSProperties;
     type?: string;
+    onChange?: () => void;
 }

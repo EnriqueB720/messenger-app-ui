@@ -333,7 +333,14 @@ export type ChatsQueryVariables = Exact<{
 }>;
 
 
-export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', user?: { __typename?: 'User', fullName?: string | null } | null }> | null }> };
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', user?: { __typename?: 'User', fullName?: string | null, id?: number | null } | null }> | null }> };
+
+export type CreateDirectMessageMutationVariables = Exact<{
+  data: DirectMessageCreateInput;
+}>;
+
+
+export type CreateDirectMessageMutation = { __typename?: 'Mutation', createDirectMessage: { __typename?: 'Message', id?: number | null } };
 
 export type MessagesQueryVariables = Exact<{
   where: MessageWhereInput;
@@ -366,6 +373,7 @@ export const ChatsDocument = gql`
     participants {
       user {
         fullName
+        id
       }
     }
   }
@@ -399,6 +407,39 @@ export function useChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Chat
 export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
 export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
 export type ChatsQueryResult = Apollo.QueryResult<ChatsQuery, ChatsQueryVariables>;
+export const CreateDirectMessageDocument = gql`
+    mutation createDirectMessage($data: DirectMessageCreateInput!) {
+  createDirectMessage(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateDirectMessageMutationFn = Apollo.MutationFunction<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
+
+/**
+ * __useCreateDirectMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateDirectMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDirectMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDirectMessageMutation, { data, loading, error }] = useCreateDirectMessageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateDirectMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>(CreateDirectMessageDocument, options);
+      }
+export type CreateDirectMessageMutationHookResult = ReturnType<typeof useCreateDirectMessageMutation>;
+export type CreateDirectMessageMutationResult = Apollo.MutationResult<CreateDirectMessageMutation>;
+export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
 export const MessagesDocument = gql`
     query messages($where: MessageWhereInput!) {
   messages(where: $where) {

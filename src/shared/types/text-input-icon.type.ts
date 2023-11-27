@@ -7,4 +7,5 @@ export interface TextInputIconProps{
     leftInconType: IconName;
     rightInconType: IconName;
     inputPadding?: string;
+    OnInputChange?: () => void;
 }
