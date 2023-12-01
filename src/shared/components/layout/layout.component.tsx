@@ -3,8 +3,8 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery } from '@/shared/generated/graphql-schema';
-import { Chat } from '@model';
+import { useUserQuery, useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-schema';
+import { Chat, Message, User } from '@model';
 
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
@@ -17,14 +17,16 @@ const Layout: React.FC = () => {
 
     const doesChatIdExist = searchParams.has("chatId");
 
+    const chatId = Number.parseInt(searchParams.get('chatId')!);
+
     const windowInnerHeight = typeof window !== 'undefined' ? window.innerHeight : 754;
 
-    const messageHistoryHeight = windowInnerHeight - MESSSAGE_INPUT_HEIGHT - SIDEBAR_HEADER_HEIGHT; 
+    const messageHistoryHeight = windowInnerHeight - MESSSAGE_INPUT_HEIGHT - SIDEBAR_HEADER_HEIGHT;
 
-    const chatHistoryHeight = windowInnerHeight - SIDEBAR_HEADER_HEIGHT - CHAT_SEARCHBAR_HEADER_HEIGHT; 
+    const chatHistoryHeight = windowInnerHeight - SIDEBAR_HEADER_HEIGHT - CHAT_SEARCHBAR_HEADER_HEIGHT;
 
-
-    const user = useUserQuery({
+    //Querying a single user
+    const userResponse = useUserQuery({
         variables: {
             where: {
                 username: "test"
@@ -32,16 +34,40 @@ const Layout: React.FC = () => {
         }
     });
 
-    const chatsResponse =  useChatsQuery({
+    //Querying multiple chats
+    const chatsResponse = useChatsQuery({
         fetchPolicy: 'cache-and-network',
         variables: {
             where: {
-                userId: user.data?.user.id
+                userId: userResponse.data?.user.id
             }
         }
     });
 
+    //Querying a single chat
+    const chatResponse = useChatsQuery({
+        fetchPolicy: 'cache-and-network',
+        variables: {
+            where: {
+                id: chatId
+            }
+        }
+    });
+
+    //Querying all chat messages
+    const messagesResponse = useMessagesQuery({
+        fetchPolicy: 'cache-and-network',
+        variables: {
+            where: {
+                chatId: chatId
+            }
+        }
+    });
+
+    const user = new User(userResponse.data?.user!);
     const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
+    const chat = new Chat(chatResponse.data?.chats[0]!);
+    const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
 
     return (
         <Box>
@@ -58,10 +84,10 @@ const Layout: React.FC = () => {
                     {
                         doesChatIdExist ? (
                             <>
-                                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} chatId={0} />
+                                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
                                 <Box flex={1} h={'100%'}
                                     maxH={messageHistoryHeight}>
-                                    <MessageHistory />
+                                    <MessageHistory messagesData={messages} chatData={chat} userData={user}/>
                                 </Box>
                                 <Box position={'fixed'} bottom={'0'} w={'70%'}>
                                     <MessageInput />
@@ -69,7 +95,7 @@ const Layout: React.FC = () => {
                             </>
                         ) : (
                             <Box>
-                                Download
+                                No chat selected
                             </Box>
                         )
                     }

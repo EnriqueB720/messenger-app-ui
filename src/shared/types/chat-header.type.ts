@@ -1,4 +1,6 @@
+import { Chat } from "@model";
+
 export interface ChatHeaderProps{
     height: number;
-    chatId: number;
+    data: Chat;
 }

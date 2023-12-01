@@ -2,32 +2,14 @@ import * as React from 'react';
 
 import _ from 'lodash';
 import { Box, Message } from '@components';
-import { useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-schema';
-import { useSearchParams } from 'next/navigation';
+import { MessagesHistoryProps } from '@types';
 
 
-const MessageHistory: React.FC = () => {
-
-    const searchParams = useSearchParams();
-    let chatId = Number.parseInt(searchParams.get('chatId')!);
- 
-    const messages = useMessagesQuery({
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            where: {
-                chatId: chatId
-            }
-        }
-    });
-
-    const chat = useChatsQuery({
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            where: {
-                id: chatId
-            }
-        }
-    });
+const MessageHistory: React.FC<MessagesHistoryProps> = ({
+    chatData,
+    messagesData,
+    userData
+}) => {
 
     return (
         <Box
@@ -39,13 +21,13 @@ const MessageHistory: React.FC = () => {
             overflowY={'auto'}
         >
                 {
-                    messages.data?.messages.map((message, index) => (
+                    messagesData.map((message, index) => (
                         <Message
                             key={index}
-                            messageContent={message.text}
-                            messageTime={message.createdAt}
-                            isUserMessage={message.senderId == 4}
-                            username={chat.data?.chats[0].isGroup ? message.sender?.fullName! : undefined}
+                            messageContent={message.messageContent}
+                            messageTime={message.messageDate}
+                            isUserMessage={message.isUserMessage(userData.userId)}
+                            username={chatData.isGroup ? message.senderName : undefined}
                         />
 
                     ))

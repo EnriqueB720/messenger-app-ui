@@ -3,6 +3,6 @@
 export interface MessageProps{
     messageContent?: string | null | undefined;
     messageTime: Date;
-    isUserMessage?: boolean;
+    isUserMessage: boolean;
     username?: string;
 }

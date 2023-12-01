@@ -17,3 +17,4 @@ export * from "./text-input-icon.type";
 export * from "./message.type";
 export * from "./chat-header.type";
 export * from "./chat-list.type";
+export * from "./messages-history.type";

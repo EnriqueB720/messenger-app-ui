@@ -13,7 +13,7 @@ export class Chat {
     }
 
     get isGroup(){
-        return this.data.isGroup;
+        return this.data?.isGroup;
     }
 
     get chatName(){
@@ -25,7 +25,11 @@ export class Chat {
     }
     
     get chatTitle(){
-        return this.isGroup ? this.chatName : new ChatParticipant(this.data.participants![1]).chatParticipantName;
+        return this.data?.isGroup ? this.data.name : new ChatParticipant(this.data?.participants![1]).chatParticipantName;
+    }
+
+    get chatSubtitle(){
+        return this.data?.isGroup ? this.data.participants?.map(p =>  p.user?.fullName).join(',') : " "
     }
 
 }

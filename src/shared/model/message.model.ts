@@ -15,4 +15,11 @@ export class Message {
         return new Date(this.data.createdAt)
     }
 
+    get senderName(){
+        return this.data.sender?.fullName!;
+    }
+
+    isUserMessage(senderId: number): boolean{
+        return true ? this.data.senderId! == senderId : false;
+    }
 }

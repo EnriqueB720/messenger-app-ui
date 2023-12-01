@@ -8,6 +8,6 @@ export class ChatParticipant {
     }
 
     get chatParticipantName(){
-        return this.data.user?.fullName;
+        return this.data?.user?.fullName;
     }
 }
