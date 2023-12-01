@@ -10,4 +10,8 @@ export class User {
     get userId(){
         return this.data?.id!;
     }
+
+    get userName(){
+        return this.data?.fullName!;
+    }
 }

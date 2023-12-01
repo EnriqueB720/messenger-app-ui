@@ -2,19 +2,11 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { useUserQuery } from "@/shared/generated/graphql-schema";
 import { Avatar, Box, Flex, IconButton } from '@components';
+import { SidebarHeaderProps } from '@types';
 
 
-const SideBarHeader: React.FC = () => {
-
-    const user = useUserQuery({
-        variables: {
-            where: {
-                username: "test"
-            }
-        }
-    });
+const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 
     const handleClick = (userId: any) => {
         alert('user-info clicked: ' + userId)
@@ -25,8 +17,8 @@ const SideBarHeader: React.FC = () => {
                 <Box margin={1} marginRight={4}>
                     <Avatar
                         style={{ cursor: 'pointer' }}
-                        name={user.data?.user.fullName}
-                        onClick={() => handleClick(user.data?.user.id)} />
+                        name={data?.userName}
+                        onClick={() => handleClick(data.userId)} />
                 </Box>
                 <Box>
                     <IconButton

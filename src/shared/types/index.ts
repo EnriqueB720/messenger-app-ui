@@ -18,3 +18,4 @@ export * from "./message.type";
 export * from "./chat-header.type";
 export * from "./chat-list.type";
 export * from "./messages-history.type";
+export * from "./sidebar-header.type";

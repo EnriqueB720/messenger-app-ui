@@ -73,7 +73,7 @@ const Layout: React.FC = () => {
         <Box>
             <Flex>
                 <Box w='30%' minH={'100vh'}>
-                    <SideBarHeader />
+                    <SideBarHeader data={user}/>
                     <ChatSearchBar />
                     <Box maxH={chatHistoryHeight} overflowY={'auto'}>
                         <ChatList data={chats} />
