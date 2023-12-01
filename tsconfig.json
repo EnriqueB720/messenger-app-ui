@@ -26,6 +26,9 @@
       ],
       "@types":[
         "src/shared/types/index"
+      ],
+      "@model":[
+        "src/shared/model/index"
       ]
     }
   },

@@ -13,5 +13,7 @@ export * from "./avatar-item.type";
 export * from "./flex.type";
 export * from "./avatar-message-item.type";
 export * from "./avatar-icon-item.type";
-export *from "./text-input-icon.type";
+export * from "./text-input-icon.type";
 export * from "./message.type";
+export * from "./chat-header.type";
+export * from "./chat-list.type";

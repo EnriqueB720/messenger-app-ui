@@ -6,7 +6,7 @@ import { useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-sche
 import { useSearchParams } from 'next/navigation';
 
 
-const ChatArea: React.FC = () => {
+const MessageHistory: React.FC = () => {
 
     const searchParams = useSearchParams();
     let chatId = Number.parseInt(searchParams.get('chatId')!);
@@ -54,6 +54,6 @@ const ChatArea: React.FC = () => {
     );
 }
 
-export default React.memo(ChatArea, (prevProps, nextProps) => {
+export default React.memo(MessageHistory, (prevProps, nextProps) => {
     return _.isEqual(prevProps, nextProps);
 });

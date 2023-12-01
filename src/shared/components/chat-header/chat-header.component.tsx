@@ -4,24 +4,13 @@ import _ from 'lodash';
 import { AvatarIconItem, Box, IconButton } from '@components';
 import { useSearchParams } from 'next/navigation';
 import { useChatsQuery } from '@/shared/generated/graphql-schema';
+import { ChatHeaderProps } from '@types';
 
 
-const ChatHeader: React.FC<{height: number}> = ({
-    height
+const ChatHeader: React.FC<ChatHeaderProps> = ({
+    height,
+    chatId
 }) => {
-
-
-
-    const searchParams = useSearchParams();
-    let chatId = Number.parseInt(searchParams.get('chatId')!);
-
-    // if(!chatId){
-    //     return (
-    //         <Box h={`${height}px`}>
-    //             <AvatarIconItem title={'No chat selected'}/>
-    //         </Box>
-    //     );
-    // }
 
     const chat = useChatsQuery({
         fetchPolicy: 'cache-and-network',

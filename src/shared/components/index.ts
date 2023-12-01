@@ -13,12 +13,12 @@ import AvatarItem from './avatar-item/avatar-item.component';
 import Flex from './flex/flex.component';
 import AvatarMessageItem from './avatar-message-item/avatar-message-item.component';
 import AvatarIconItem from './avatar-icon-item/avatar-icon-item.component';
-import ChatHistory from "./chat-history/chat-history.component";
+import ChatList from "./chat-list/chat-list.component";
 import SideBarHeader from "./side-bar-header/side-bar-header.component";
 import TextInputIcon from './text-input-icon/text-input-icon.component';
 import ChatSearchBar from './chat-search-bar/chat-search-bar.component';
 import ChatHeader from './chat-header/chat-header.component';
-import ChatArea from './chat-area/chat-area.component';
+import MessageHistory from './message-history/messages-history.component';
 import MessageInput from './message-input/message-input.component';
 import Layout from "./layout/layout.component";
 import Message from "./message/message.component";
@@ -39,12 +39,12 @@ export {
     Flex,
     AvatarMessageItem,
     AvatarIconItem,
-    ChatHistory,
+    ChatList,
     SideBarHeader,
     TextInputIcon,
     ChatSearchBar,
     ChatHeader,
-    ChatArea,
+    MessageHistory,
     MessageInput,
     Layout,
     Message
