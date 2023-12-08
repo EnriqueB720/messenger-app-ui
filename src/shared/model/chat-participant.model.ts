@@ -10,4 +10,8 @@ export class ChatParticipant {
     get chatParticipantName(){
         return this.data?.user?.fullName;
     }
+
+    get chatParticipantUserId(){
+        return this.data?.userId;
+    }
 }

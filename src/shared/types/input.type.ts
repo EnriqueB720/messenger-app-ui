@@ -12,4 +12,5 @@ export interface InputProps {
     style?: CSSProperties;
     type?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }

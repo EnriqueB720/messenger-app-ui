@@ -1577,7 +1577,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createGrouptMessage",
+            "name": "createGroupMessage",
             "description": null,
             "args": [
               {

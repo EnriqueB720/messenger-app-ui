@@ -15,7 +15,8 @@ const Input: React.FC<InputProps> = ({
   size,
   value,
   type,
-  onChange
+  onChange,
+  onKeyDown
 }) => {
 
   return (
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({
       value={value}
       type={type}
       onChange={onChange}
+      onKeyDown={onKeyDown}
     />
   );
 }

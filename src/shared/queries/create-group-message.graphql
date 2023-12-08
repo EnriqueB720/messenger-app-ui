@@ -1,0 +1,9 @@
+mutation createGroupMessage($data:  GroupMessageCreateInput!){
+    createGroupMessage(data: $data){
+      id
+      chatId,
+      senderId,
+      text,
+      createdAt
+    }
+}

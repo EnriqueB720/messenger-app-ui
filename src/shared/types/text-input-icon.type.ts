@@ -9,5 +9,5 @@ export interface TextInputIconProps {
   onLeftIconClick?: () => void;
   onRightIconClick?: () => void;
   onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
-
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }

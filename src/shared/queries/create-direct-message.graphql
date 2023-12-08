@@ -1,5 +1,9 @@
 mutation createDirectMessage($data:  DirectMessageCreateInput!){
-    createDirectMessage(data: $data){
-        id
-    }
+  createDirectMessage(data: $data){
+      id
+      chatId,
+      senderId,
+      text,
+      createdAt
+  }
 }

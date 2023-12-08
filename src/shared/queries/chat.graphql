@@ -14,7 +14,8 @@ query chats($where: ChatWhereInput!) {
       user{
         fullName,
         id
-      }
+      },
+      userId
     }
   }
 }

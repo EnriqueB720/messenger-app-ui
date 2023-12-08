@@ -3,8 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, TextInputIcon } from '@components';
 import { useCallback, useState } from 'react';
-import { useChatsQuery, useCreateDirectMessageMutation } from '@/shared/generated/graphql-schema';
-import { useSearchParams } from 'next/navigation';
+import { useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
 import { MessageInputProps } from '@types';
 
 const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
@@ -14,7 +13,9 @@ const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
   const onInputChange = (event: any) => { setMessage(event.target.value) };
   
   const [createDirectMessage] = useCreateDirectMessageMutation()
-  const sendMessage = useCallback(async () => {
+  const [createGroupMessage] = useCreateGroupMessageMutation();
+
+  const sendDirectMessage = useCallback(async () => {
    await createDirectMessage({
       variables: {
         data: {
@@ -31,7 +32,33 @@ const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
         }
       }
     })
-  }, [message])
+  }, [message]);
+
+  const sendGroupMessage = useCallback(async () => {
+    await createGroupMessage({
+      variables: {
+        data: {
+          chat: {
+            connect:{
+              id: chat.id
+            }
+          },
+          sender: {
+            connect: {
+              id: user.userId
+            }
+          },
+          text: message
+        }
+      }
+    })
+  }, [message]);
+
+  const handleKeyDown = (event: any) => {
+    if(event.key === 'Enter'){
+      chat.isGroup ? sendGroupMessage() : sendDirectMessage();
+    }
+  };
 
 
   return (
@@ -40,10 +67,11 @@ const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
         leftIconType={'emoji'}
         rightIconType={'send'}
         onLeftIconClick={() => { alert('emoji clicked') }}
-        onRightIconClick={sendMessage}
+        onRightIconClick={chat.isGroup ? sendGroupMessage : sendDirectMessage}
         inputPlaceholder={'Type a message...'}
         inputPadding={'4%'}
         onInputChange={onInputChange}
+        onKeyDown={handleKeyDown}
         inputText={message} />
     </Box>
 

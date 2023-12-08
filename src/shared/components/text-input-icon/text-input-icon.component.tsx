@@ -15,7 +15,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
   inputText,
   onLeftIconClick,
   onRightIconClick,
-  onInputChange
+  onInputChange,
+  onKeyDown
 }) => {
 
   return (
@@ -37,7 +38,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
             paddingLeft: inputPadding
           }}
           value={inputText}
-          onChange={onInputChange} />
+          onChange={onInputChange}
+          onKeyDown={onKeyDown} />
       </InputGroup>
       <Box>
         <IconButton

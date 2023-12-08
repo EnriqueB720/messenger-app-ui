@@ -186,7 +186,7 @@ export type Mutation = {
   createContact: Contact;
   createDirectMessage: Message;
   createGroupChat: Chat;
-  createGrouptMessage: Message;
+  createGroupMessage: Message;
   createNewGroupParticipant: ChatParticipant;
   createUser: User;
 };
@@ -207,7 +207,7 @@ export type MutationCreateGroupChatArgs = {
 };
 
 
-export type MutationCreateGrouptMessageArgs = {
+export type MutationCreateGroupMessageArgs = {
   data: GroupMessageCreateInput;
 };
 
@@ -333,14 +333,21 @@ export type ChatsQueryVariables = Exact<{
 }>;
 
 
-export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', user?: { __typename?: 'User', fullName?: string | null, id?: number | null } | null }> | null }> };
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null } | null }> | null }> };
 
 export type CreateDirectMessageMutationVariables = Exact<{
   data: DirectMessageCreateInput;
 }>;
 
 
-export type CreateDirectMessageMutation = { __typename?: 'Mutation', createDirectMessage: { __typename?: 'Message', id?: number | null } };
+export type CreateDirectMessageMutation = { __typename?: 'Mutation', createDirectMessage: { __typename?: 'Message', id?: number | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null } };
+
+export type CreateGroupMessageMutationVariables = Exact<{
+  data: GroupMessageCreateInput;
+}>;
+
+
+export type CreateGroupMessageMutation = { __typename?: 'Mutation', createGroupMessage: { __typename?: 'Message', id?: number | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null } };
 
 export type MessagesQueryVariables = Exact<{
   where: MessageWhereInput;
@@ -375,6 +382,7 @@ export const ChatsDocument = gql`
         fullName
         id
       }
+      userId
     }
   }
 }
@@ -411,6 +419,10 @@ export const CreateDirectMessageDocument = gql`
     mutation createDirectMessage($data: DirectMessageCreateInput!) {
   createDirectMessage(data: $data) {
     id
+    chatId
+    senderId
+    text
+    createdAt
   }
 }
     `;
@@ -440,6 +452,43 @@ export function useCreateDirectMessageMutation(baseOptions?: Apollo.MutationHook
 export type CreateDirectMessageMutationHookResult = ReturnType<typeof useCreateDirectMessageMutation>;
 export type CreateDirectMessageMutationResult = Apollo.MutationResult<CreateDirectMessageMutation>;
 export type CreateDirectMessageMutationOptions = Apollo.BaseMutationOptions<CreateDirectMessageMutation, CreateDirectMessageMutationVariables>;
+export const CreateGroupMessageDocument = gql`
+    mutation createGroupMessage($data: GroupMessageCreateInput!) {
+  createGroupMessage(data: $data) {
+    id
+    chatId
+    senderId
+    text
+    createdAt
+  }
+}
+    `;
+export type CreateGroupMessageMutationFn = Apollo.MutationFunction<CreateGroupMessageMutation, CreateGroupMessageMutationVariables>;
+
+/**
+ * __useCreateGroupMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateGroupMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGroupMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGroupMessageMutation, { data, loading, error }] = useCreateGroupMessageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateGroupMessageMutation(baseOptions?: Apollo.MutationHookOptions<CreateGroupMessageMutation, CreateGroupMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateGroupMessageMutation, CreateGroupMessageMutationVariables>(CreateGroupMessageDocument, options);
+      }
+export type CreateGroupMessageMutationHookResult = ReturnType<typeof useCreateGroupMessageMutation>;
+export type CreateGroupMessageMutationResult = Apollo.MutationResult<CreateGroupMessageMutation>;
+export type CreateGroupMessageMutationOptions = Apollo.BaseMutationOptions<CreateGroupMessageMutation, CreateGroupMessageMutationVariables>;
 export const MessagesDocument = gql`
     query messages($where: MessageWhereInput!) {
   messages(where: $where) {
