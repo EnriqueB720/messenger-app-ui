@@ -17,11 +17,11 @@ export class Chat {
     }
 
     get name(){
-        return this.data.name;
+        return this.data?.name;
     }
 
     get id(){
-        return this.data.id
+        return this.data?.id
     }
     
     get title(){

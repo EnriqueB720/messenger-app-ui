@@ -16,46 +16,50 @@ const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
   const [createGroupMessage] = useCreateGroupMessageMutation();
 
   const sendDirectMessage = useCallback(async () => {
-   await createDirectMessage({
-      variables: {
-        data: {
-          sender: {
-            connect: {
-              id: user.userId
-            }
-          },
-          contact: {
-            userId: user.userId,
-            contactUserId
-          },
-          text: message
+    if(message != ''){
+      await createDirectMessage({
+        variables: {
+          data: {
+            sender: {
+              connect: {
+                id: user.userId
+              }
+            },
+            contact: {
+              userId: user.userId,
+              contactUserId
+            },
+            text: message
+          }
         }
-      }
-    })
+      })
+    }
   }, [message]);
 
   const sendGroupMessage = useCallback(async () => {
-    await createGroupMessage({
-      variables: {
-        data: {
-          chat: {
-            connect:{
-              id: chat.id
-            }
-          },
-          sender: {
-            connect: {
-              id: user.userId
-            }
-          },
-          text: message
+    if(message != ''){
+      await createGroupMessage({
+        variables: {
+          data: {
+            chat: {
+              connect:{
+                id: chat.id
+              }
+            },
+            sender: {
+              connect: {
+                id: user.userId
+              }
+            },
+            text: message
+          }
         }
-      }
-    })
+      })
+    }
   }, [message]);
 
   const handleKeyDown = (event: any) => {
-    if(event.key === 'Enter'){
+    if(event.key === 'Enter' && message != ''){
       chat.isGroup ? sendGroupMessage() : sendDirectMessage();
     }
   };
