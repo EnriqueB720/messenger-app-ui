@@ -13,101 +13,94 @@ const MESSSAGE_INPUT_HEIGHT = 56;
 
 const Layout: React.FC = () => {
 
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-    const doesChatIdExist = searchParams.has("chatId");
+  const doesChatIdExist = searchParams.has("chatId");
 
-    const chatId = Number.parseInt(searchParams.get('chatId')!);
+  const chatId = Number.parseInt(searchParams.get('chatId')!);
 
-    const windowInnerHeight = typeof window !== 'undefined' ? window.innerHeight : 754;
+  const windowInnerHeight = typeof window !== 'undefined' ? window.innerHeight : 754;
 
-    const messageHistoryHeight = windowInnerHeight - MESSSAGE_INPUT_HEIGHT - SIDEBAR_HEADER_HEIGHT;
+  const messageHistoryHeight = windowInnerHeight - MESSSAGE_INPUT_HEIGHT - SIDEBAR_HEADER_HEIGHT;
 
-    const chatHistoryHeight = windowInnerHeight - SIDEBAR_HEADER_HEIGHT - CHAT_SEARCHBAR_HEADER_HEIGHT;
+  const chatHistoryHeight = windowInnerHeight - SIDEBAR_HEADER_HEIGHT - CHAT_SEARCHBAR_HEADER_HEIGHT;
 
-    //Querying a single user
-    const userResponse = useUserQuery({
-        variables: {
-            where: {
-                username: "test"
-            }
-        }
-    });
+  const userResponse = useUserQuery({
+    variables: {
+      where: {
+        username: "test"
+      }
+    }
+  });
 
-    //Querying multiple chats
-    const chatsResponse = useChatsQuery({
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            where: {
-                userId: userResponse.data?.user.id
-            }
-        }
-    });
+  const chatsResponse = useChatsQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      where: {
+        userId: userResponse.data?.user.id
+      }
+    }
+  });
 
-    //Querying a single chat
-    const chatResponse = useChatsQuery({
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            where: {
-                id: chatId
-            }
-        }
-    });
+  const chatResponse = useChatsQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      where: {
+        id: chatId
+      }
+    }
+  });
 
-    //Querying all chat messages
-    const messagesResponse = useMessagesQuery({
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            where: {
-                chatId: chatId
-            }
-        }
-    });
+  const messagesResponse = useMessagesQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      where: {
+        chatId
+      }
+    }
+  });
 
-    const user = new User(userResponse.data?.user!);
-    const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
-    const chat = new Chat(chatResponse.data?.chats[0]!);
-    const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
+  const user = new User(userResponse.data?.user!);
+  const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
+  const chat = new Chat(chatResponse.data?.chats[0]!);
+  const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
 
-    return (
-        <Box>
-            <Flex>
-                <Box w='30%' minH={'100vh'}>
-                    <SideBarHeader data={user}/>
-                    <ChatSearchBar />
-                    <Box maxH={chatHistoryHeight} overflowY={'auto'}>
-                        <ChatList data={chats} />
-                    </Box>
-                </Box>
-                <Box w='70%' display={'flex'} flexDirection={'column'} minH={'100vh'}>
-
-                    {
-                        doesChatIdExist ? (
-                            <>
-                                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
-                                <Box flex={1} h={'100%'}
-                                    maxH={messageHistoryHeight}>
-                                    <MessageHistory messagesData={messages} chatData={chat} userData={user}/>
-                                </Box>
-                                <Box position={'fixed'} bottom={'0'} w={'70%'}>
-                                    <MessageInput />
-                                </Box>
-                            </>
-                        ) : (
-                            <Box>
-                                No chat selected
-                            </Box>
-                        )
-                    }
-
-
-                </Box>
-            </Flex>
+  return (
+    <Box>
+      <Flex>
+        <Box w='30%' minH={'100vh'}>
+          <SideBarHeader data={user} />
+          <ChatSearchBar />
+          <Box maxH={chatHistoryHeight} overflowY={'auto'}>
+            <ChatList data={chats} />
+          </Box>
         </Box>
+        <Box w='70%' display={'flex'} flexDirection={'column'} minH={'100vh'}>
 
-    );
+          {
+            doesChatIdExist ? (
+              <>
+                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
+                <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
+                  <MessageHistory messages={messages} chat={chat} user={user} />
+                </Box>
+                <Box position={'fixed'} bottom={'0'} w={'70%'}>
+                  <MessageInput chat={chat} user={user}/>
+                </Box>
+              </>
+            ) : (
+              <Box>
+                No chat selected
+              </Box>
+            )
+          }
+        </Box>
+      </Flex>
+    </Box>
+
+  );
 }
 
 export default React.memo(Layout, (prevProps, nextProps) => {
-    return _.isEqual(prevProps, nextProps);
+  return _.isEqual(prevProps, nextProps);
 });

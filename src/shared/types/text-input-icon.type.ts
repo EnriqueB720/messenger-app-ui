@@ -1,11 +1,13 @@
 import { IconName } from "./icon.type";
 
-export interface TextInputIconProps{
-    onLeftIconClick?: () => void;
-    onRightIconClick?: () => void;
-    inputPlaceholder?: string;
-    leftInconType: IconName;
-    rightInconType: IconName;
-    inputPadding?: string;
-    OnInputChange?: () => void;
+export interface TextInputIconProps {
+  inputPlaceholder?: string;
+  leftIconType: IconName;
+  rightIconType: IconName;
+  inputPadding?: string;
+  inputText?: string;
+  onLeftIconClick?: () => void;
+  onRightIconClick?: () => void;
+  onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
+
 }

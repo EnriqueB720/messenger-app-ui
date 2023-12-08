@@ -19,3 +19,4 @@ export * from "./chat-header.type";
 export * from "./chat-list.type";
 export * from "./messages-history.type";
 export * from "./sidebar-header.type";
+export * from "./message-input.type";

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import _ from 'lodash';
 import { AvatarMessageItem, Box, Stack } from '@components';
-import { useChatsQuery, useUserQuery } from "@/shared/generated/graphql-schema";
 import { useRouter } from 'next/router';
 import { ChatListProps } from '@types';
 
@@ -22,11 +21,11 @@ const ChatList: React.FC<ChatListProps> = ({ data }) => {
                        <AvatarMessageItem style={{
                             cursor: 'pointer'
                         }}
-                            key={chat.chatId}
-                            title={chat.chatTitle}
+                            key={chat.id}
+                            title={chat.title}
                             subtitle={chat.lastMessage.messageContent}
                             value={chat.lastMessage.messageDate}
-                            onClick={() => {handleClick(chat.chatId)}} />
+                            onClick={() => {handleClick(chat.id)}} />
                     ))
                 }
             </Stack>

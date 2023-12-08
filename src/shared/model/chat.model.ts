@@ -1,5 +1,5 @@
 import { Chat as ChatRequestData } from "@/shared/generated/graphql-schema"
-import { ChatParticipant, Message } from "@model";
+import { ChatParticipant, Message, User } from "@model";
 
 export class Chat {
 
@@ -16,20 +16,29 @@ export class Chat {
         return this.data?.isGroup;
     }
 
-    get chatName(){
+    get name(){
         return this.data.name;
     }
 
-    get chatId(){
+    get id(){
         return this.data.id
     }
     
-    get chatTitle(){
+    get title(){
         return this.data?.isGroup ? this.data.name : new ChatParticipant(this.data?.participants![1]).chatParticipantName;
     }
 
-    get chatSubtitle(){
+    get subtitle(){
         return this.data?.isGroup ? this.data.participants?.map(p =>  p.user?.fullName).join(',') : " "
+    }
+
+    get participants(){
+        return this.data?.participants;
+    }
+
+    getContactParticipants(loggedUser: User){
+        const loggedUserIndex = this.participants?.findIndex(p => p.userId === loggedUser.userId);
+        return loggedUserIndex && !this.isGroup ? this.participants?.[loggedUserIndex]?.userId : null;
     }
 
 }

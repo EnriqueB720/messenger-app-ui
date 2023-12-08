@@ -9,8 +9,8 @@ const ChatSearchBar: React.FC = () => {
     return (
         <Box bg='lightgray' padding={1}>
             <TextInputIcon
-                leftInconType={'search'}
-                rightInconType={'filter'}
+                leftIconType={'search'}
+                rightIconType={'filter'}
                 inputPlaceholder={'Search in chats'}
                 onLeftIconClick={() => { alert('Search has been made') }}
                 onRightIconClick={() => { alert('filter clicked') }} />

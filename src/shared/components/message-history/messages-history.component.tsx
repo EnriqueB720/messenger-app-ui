@@ -6,9 +6,9 @@ import { MessagesHistoryProps } from '@types';
 
 
 const MessageHistory: React.FC<MessagesHistoryProps> = ({
-    chatData,
-    messagesData,
-    userData
+    chat,
+    messages,
+    user
 }) => {
 
     return (
@@ -21,13 +21,13 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
             overflowY={'auto'}
         >
                 {
-                    messagesData.map((message, index) => (
+                    messages.map((message, index) => (
                         <Message
                             key={index}
                             messageContent={message.messageContent}
                             messageTime={message.messageDate}
-                            isUserMessage={message.isUserMessage(userData.userId)}
-                            username={chatData.isGroup ? message.senderName : undefined}
+                            isUserMessage={message.isUserMessage(user.userId)}
+                            username={chat.isGroup ? message.senderName : undefined}
                         />
 
                     ))
