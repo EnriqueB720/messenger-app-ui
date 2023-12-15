@@ -6,7 +6,7 @@
         senderId,
         text,
         createdAt,
-        userMessageStatus{
+        userMessageStatuses{
           isRead,
           isReceived,
           isFavorite

@@ -154,7 +154,7 @@ export type Message = {
   senderId?: Maybe<Scalars['Float']>;
   text?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  userMessageStatus?: Maybe<UserMessageStatus>;
+  userMessageStatuses?: Maybe<Array<UserMessageStatus>>;
   uuid?: Maybe<Scalars['String']>;
 };
 
@@ -233,6 +233,7 @@ export type Query = {
   chats: Array<Chat>;
   messages: Array<Message>;
   user: User;
+  userMessageStatus: Array<UserMessageStatus>;
 };
 
 
@@ -270,6 +271,15 @@ export type QueryMessagesArgs = {
 
 export type QueryUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type QueryUserMessageStatusArgs = {
+  cursor?: InputMaybe<UserMessageStatusWhereUniqueInput>;
+  orderBy?: InputMaybe<UserMessageStatusOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserMessageStatusWhereInput>;
 };
 
 export enum Role {
@@ -320,6 +330,23 @@ export type UserMessageStatus = {
   userId?: Maybe<Scalars['Float']>;
 };
 
+export type UserMessageStatusOrderByInput = {
+  isRead?: InputMaybe<OrderByArg>;
+};
+
+export type UserMessageStatusWhereInput = {
+  isFavorite?: InputMaybe<Scalars['Boolean']>;
+  isRead?: InputMaybe<Scalars['Boolean']>;
+  isReceived?: InputMaybe<Scalars['Boolean']>;
+  messageId?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+export type UserMessageStatusWhereUniqueInput = {
+  messageId?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['String']>;
+};
+
 export type UserWhereUniqueInput = {
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -354,7 +381,7 @@ export type MessagesQueryVariables = Exact<{
 }>;
 
 
-export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatus?: { __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null } | null, sender?: { __typename?: 'User', fullName?: string | null } | null }> };
+export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null } | null }> };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -498,7 +525,7 @@ export const MessagesDocument = gql`
     senderId
     text
     createdAt
-    userMessageStatus {
+    userMessageStatuses {
       isRead
       isReceived
       isFavorite

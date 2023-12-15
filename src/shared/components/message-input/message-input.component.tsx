@@ -6,61 +6,62 @@ import { useCallback, useState } from 'react';
 import { useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
 import { MessageInputProps } from '@types';
 
-const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
+const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
 
   const contactUserId = chat.getContactParticipants(user);
   const [message, setMessage] = useState('')
   const onInputChange = (event: any) => { setMessage(event.target.value) };
-  
+
   const [createDirectMessage] = useCreateDirectMessageMutation()
   const [createGroupMessage] = useCreateGroupMessageMutation();
 
-  const sendDirectMessage = useCallback(async () => {
-    if(message != ''){
-      await createDirectMessage({
-        variables: {
-          data: {
-            sender: {
-              connect: {
-                id: user.userId
-              }
-            },
-            contact: {
-              userId: user.userId,
-              contactUserId
-            },
-            text: message
+  const sendDirectMessage = useCallback((isGroup: boolean) => async () => {
+    const isMessageEmpty = message === '';
+
+    if (!isMessageEmpty) {
+      if (isGroup) {
+        await createGroupMessage({
+          variables: {
+            data: {
+              chat: {
+                connect: {
+                  id: chat.id
+                }
+              },
+              sender: {
+                connect: {
+                  id: user.userId
+                }
+              },
+              text: message
+            }
           }
-        }
-      })
+        })
+      } else {
+        await createDirectMessage({
+          variables: {
+            data: {
+              sender: {
+                connect: {
+                  id: user.userId
+                }
+              },
+              contact: {
+                userId: user.userId,
+                contactUserId
+              },
+              text: message
+            }
+          }
+        })
+      }
+
     }
   }, [message]);
 
-  const sendGroupMessage = useCallback(async () => {
-    if(message != ''){
-      await createGroupMessage({
-        variables: {
-          data: {
-            chat: {
-              connect:{
-                id: chat.id
-              }
-            },
-            sender: {
-              connect: {
-                id: user.userId
-              }
-            },
-            text: message
-          }
-        }
-      })
-    }
-  }, [message]);
-
-  const handleKeyDown = (event: any) => {
-    if(event.key === 'Enter' && message != ''){
-      chat.isGroup ? sendGroupMessage() : sendDirectMessage();
+  const handleKeyDown = async (event: any) => {
+    if (event.key === 'Enter' && message != '') {
+      await sendDirectMessage(!!chat.isGroup)();
     }
   };
 
@@ -71,7 +72,7 @@ const MessageInput: React.FC<MessageInputProps> = ({chat, user}) => {
         leftIconType={'emoji'}
         rightIconType={'send'}
         onLeftIconClick={() => { alert('emoji clicked') }}
-        onRightIconClick={chat.isGroup ? sendGroupMessage : sendDirectMessage}
+        onRightIconClick={sendDirectMessage(!!chat.isGroup)}
         inputPlaceholder={'Type a message...'}
         inputPadding={'4%'}
         onInputChange={onInputChange}

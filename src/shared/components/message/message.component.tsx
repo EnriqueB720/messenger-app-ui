@@ -16,7 +16,7 @@ const Message: React.FC<MessageProps> = ({
         const date = new Date(timestamp);
         const hours = date.getHours();
         const minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const ampm = hours >= 12 ? 'p. m.' : 'a. m.';
 
         const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
         const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
