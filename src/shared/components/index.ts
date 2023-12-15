@@ -22,6 +22,10 @@ import MessageHistory from './message-history/messages-history.component';
 import MessageInput from './message-input/message-input.component';
 import Layout from "./layout/layout.component";
 import Message from "./message/message.component";
+import Menu from "./menu/menu.component";
+import MenuButton from "./menu-button/menu-button.component";
+import MenuList from "./menu-list/menu-list.component";
+import MenuItem from "./menu-item/menu-item.component"; 
 
 export {
     Button,
@@ -47,5 +51,9 @@ export {
     MessageHistory,
     MessageInput,
     Layout,
-    Message
+    Message,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
 }

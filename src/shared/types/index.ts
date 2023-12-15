@@ -20,3 +20,7 @@ export * from "./chat-list.type";
 export * from "./messages-history.type";
 export * from "./sidebar-header.type";
 export * from "./message-input.type";
+export * from "./menu.type";
+export * from './menu-button.type';
+export * from './menu-list.type';
+export * from './menu-item.type';

@@ -22,4 +22,12 @@ export class Message {
     isUserMessage(senderId: number): boolean{
         return true ? this.data.senderId! == senderId : false;
     }
+
+    get isMessageReceived(){
+        return this.data.userMessageStatuses?.every(m => m.isReceived)
+    }
+
+    get isMessageRead(){
+        return this.data.userMessageStatuses?.every(m => m.isRead)
+    }
 }

@@ -9,6 +9,9 @@ import { IoMdSearch } from "react-icons/io";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoFilterSharp } from "react-icons/io5";
 import { BsEmojiSmile } from "react-icons/bs";
+import { TbCheck } from "react-icons/tb";
+import { TbChecks } from "react-icons/tb";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 const IconDictionary: {
@@ -18,7 +21,10 @@ const IconDictionary: {
   search: IoMdSearch,
   dots: HiDotsVertical,
   filter: IoFilterSharp,
-  emoji: BsEmojiSmile
+  emoji: BsEmojiSmile,
+  check: TbCheck,
+  doubleCheck: TbChecks,
+  downArrow: IoIosArrowDown
 }
 
 

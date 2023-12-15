@@ -2,72 +2,106 @@ import * as React from 'react';
 
 import _ from 'lodash';
 import { MessageProps } from '@types';
-import { Flex, Box, Text, Stack } from '@components';
+import { Flex, Box, Text, Stack, Icon, Menu, Button, MenuButton, MenuItem, MenuList } from '@components';
+import { useState } from 'react';
 
 
 const Message: React.FC<MessageProps> = ({
-    username,
-    isUserMessage,
-    messageContent,
-    messageTime
+  username,
+  isUserMessage,
+  message
 }) => {
 
-    function formatTimestamp(timestamp: Date) {
-        const date = new Date(timestamp);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'p. m.' : 'a. m.';
+  const [isHover, setIsHover] = useState(false);
+  const [displayMenu, setDisplayMenu] = useState(false);
 
-        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  function formatTimestamp(timestamp: Date) {
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'p. m.' : 'a. m.';
 
-        const formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-        return formattedTime;
-    }
+    const formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
-    const generateColor = () => {
-        const randomColor = Math.floor(Math.random() * 16777215)
-          .toString(16)
-          .padStart(6, '0');
-        return `#${randomColor}`;
-      };
+    return formattedTime;
+  }
 
-    return (
-        <Flex
-            direction="row"
-            justifyContent={isUserMessage ? 'flex-end' : 'flex-start'}
-            mb="3"
-        >
-            <Box
-                marginTop={1}
-                w="fit-content"
-                maxW='50%'
-                padding={1}
-                borderRadius="md"
-                bg={isUserMessage ? 'blue.400' : 'gray.200'}
-                color={isUserMessage ? 'white' : 'black'}
-            >
-                {
-                    username ?
-                        <Text fontSize="xs" color={isUserMessage ? undefined : generateColor()}>
-                            {username}
-                        </Text>
-                        :
-                        null
-                }
-                <Stack direction='row'>
-                    <Text fontSize="md">{messageContent}</Text>
-                    <Text marginTop={'5px'} fontSize="xs" textAlign={isUserMessage ? 'right' : 'left'}>
-                        {formatTimestamp(messageTime)}
-                    </Text>
-                </Stack>
+  const generateColor = () => {
+    const randomColor = Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, '0');
+    return `#${randomColor}`;
+  };
 
-            </Box>
-        </Flex>
-    );
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+
+  return (
+    <Flex
+      direction="row"
+      justifyContent={isUserMessage ? 'flex-end' : 'flex-start'}
+      mb="3"
+    >
+      <Box
+        marginTop={1}
+        w="fit-content"
+        maxW='50%'
+        padding={1}
+        borderRadius="md"
+        bg={isUserMessage ? 'blue.400' : 'gray.200'}
+        color={isUserMessage ? 'white' : 'black'}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {
+          username ?
+            <Text fontSize="xs" color={isUserMessage ? undefined : generateColor()}>
+              {username}
+            </Text>
+            :
+            null
+        }
+        <Stack direction='row'>
+          <Text fontSize="md">{message?.messageContent}</Text>
+          <Text marginTop={'5px'} fontSize="xs">
+            {formatTimestamp(message?.messageDate!)}
+          </Text>
+          <Box display={'flex'} alignItems={isHover ? 'start' : 'end'} marginLeft={0} color={message?.isMessageRead && !isHover ? 'blue' : undefined}>
+            {
+              isHover ?
+                <Box onClick={() => setDisplayMenu(true)} style={{
+                  cursor: 'pointer'
+                }}
+                >
+                  <Menu>
+                    <MenuButton as={'button'} variant={'outline'} title={'More options'}>
+                      <Icon name={'downArrow'} />
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem>Option 1</MenuItem>
+                      <MenuItem>Option 2</MenuItem>
+                      <MenuItem>Option 3</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Box>
+                :
+                <Icon name={message?.isMessageReceived ? 'doubleCheck' : 'check'} />
+            }
+          </Box>
+        </Stack>
+      </Box>
+    </Flex>
+  );
 }
 
 export default React.memo(Message, (prevProps, nextProps) => {
-    return _.isEqual(prevProps, nextProps);
+  return _.isEqual(prevProps, nextProps);
 });

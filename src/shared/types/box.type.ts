@@ -1,6 +1,5 @@
 import { As, ResponsiveValue } from "@chakra-ui/react";
-import { CSSProperties, ReactNode } from "react";import { FlexProps } from "./flex.type";
-import { Overflow } from "./text.type";
+import { CSSProperties, ReactNode } from "react";
 
 
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
@@ -51,6 +50,7 @@ export interface BoxProps {
   backgroundColor?: string;
   flexDirection?: ResponsiveValue<FlexDirection>;
   flex?: number;
-
-  onClick?: () => void;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
