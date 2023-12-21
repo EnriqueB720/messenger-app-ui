@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Message } from '@components';
 import { MessagesHistoryProps } from '@types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 const MessageHistory: React.FC<MessagesHistoryProps> = ({
@@ -14,13 +14,17 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
 
 
   const inputRef = useRef<null | HTMLDivElement>(null);
+  const [messageInfo, setMessageInfo] = useState();
+
+  const receivedMessageInfo = (message: any) => {
+      setMessageInfo(message);
+  }
 
 
   useEffect(() => {
       // Scroll to the bottom of the chat box
       inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
   }, [messages]); // Scroll when messages change
-
 
   return (
     <Box
@@ -38,6 +42,7 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
             message={message}
             isUserMessage={message.isUserMessage(user.userId)}
             username={chat.isGroup ? message.senderName : undefined}
+            messageInfoToParent={receivedMessageInfo}
           />
 
         ))

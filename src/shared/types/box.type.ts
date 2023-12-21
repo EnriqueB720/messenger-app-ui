@@ -5,7 +5,7 @@ import { CSSProperties, ReactNode } from "react";
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
 export type Float = 'none' | 'left' | 'right' | 'initial'
 export type Position = 'fixed' | 'absolute' | 'relative'
-export type OverflowY = 'auto' | 'scroll' | 'hidden' | 'visible'
+export type Overflow = 'auto' | 'scroll' | 'hidden' | 'visible'
 export type FlexDirection = 'column' | 'row'
 
 export interface BoxProps {
@@ -42,7 +42,8 @@ export interface BoxProps {
   right?: string;
   bottom?: string;
   left?: string;
-  overflowY?: ResponsiveValue<OverflowY>;
+  overflowY?: ResponsiveValue<Overflow>;
+  overflowX?: ResponsiveValue<Overflow>;
   backgroundImage?: string;
   backgroundSize?: string;
   backgroundPosition?: string;

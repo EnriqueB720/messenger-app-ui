@@ -9,11 +9,11 @@ import { useState } from 'react';
 const Message: React.FC<MessageProps> = ({
   username,
   isUserMessage,
-  message
+  message,
+  messageInfoToParent
 }) => {
 
   const [isHover, setIsHover] = useState(false);
-  const [displayMenu, setDisplayMenu] = useState(false);
 
   function formatTimestamp(timestamp: Date) {
     const date = new Date(timestamp);
@@ -77,7 +77,7 @@ const Message: React.FC<MessageProps> = ({
           <Box display={'flex'} alignItems={isHover ? 'start' : 'end'} marginLeft={0} color={message?.isMessageRead && !isHover ? 'blue' : undefined}>
             {
               isHover ?
-                <Box onClick={() => setDisplayMenu(true)} style={{
+                <Box style={{
                   cursor: 'pointer'
                 }}
                 >
@@ -86,9 +86,7 @@ const Message: React.FC<MessageProps> = ({
                       <Icon name={'downArrow'} />
                     </MenuButton>
                     <MenuList>
-                      <MenuItem>Option 1</MenuItem>
-                      <MenuItem>Option 2</MenuItem>
-                      <MenuItem>Option 3</MenuItem>
+                      <MenuItem onClick={() => messageInfoToParent(message!)}>Message Info.</MenuItem>
                     </MenuList>
                   </Menu>
                 </Box>

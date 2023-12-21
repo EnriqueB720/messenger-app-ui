@@ -25,7 +25,8 @@ import Message from "./message/message.component";
 import Menu from "./menu/menu.component";
 import MenuButton from "./menu-button/menu-button.component";
 import MenuList from "./menu-list/menu-list.component";
-import MenuItem from "./menu-item/menu-item.component"; 
+import MenuItem from "./menu-item/menu-item.component";
+import MessageInfo from "./message-info/message-info.component";
 
 export {
     Button,
@@ -55,5 +56,6 @@ export {
     Menu,
     MenuButton,
     MenuList,
-    MenuItem
+    MenuItem,
+    MessageInfo
 }
