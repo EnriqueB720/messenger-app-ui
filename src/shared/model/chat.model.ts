@@ -35,6 +35,9 @@ export class Chat {
     get participants(){
         return this.data?.participants;
     }
+    get createdAt(){
+        return new Date(this.data?.createdAt);
+    }
 
     getContactParticipants(loggedUser: User){
         const loggedUserIndex = this.participants?.findIndex(p => p.userId != loggedUser.userId);

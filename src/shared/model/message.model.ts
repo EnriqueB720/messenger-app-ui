@@ -8,11 +8,11 @@ export class Message {
     }
 
     get messageContent(){
-        return this.data.text || ' ';
+        return this.data?.text || ' ';
     }
     
     get messageDate(){
-        return new Date(this.data.createdAt)
+        return new Date(this.data?.createdAt)
     }
 
     get senderName(){

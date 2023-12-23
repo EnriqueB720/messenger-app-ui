@@ -13,6 +13,7 @@ const ChatList: React.FC<ChatListProps> = ({ data }) => {
     const handleClick = (chatId: any) => {
         router.push(`?chatId=${chatId}`);
     }
+    
     return (
         <Box bg='lightgray'>
             <Stack direction='column' divider>
@@ -24,7 +25,7 @@ const ChatList: React.FC<ChatListProps> = ({ data }) => {
                             key={chat.id}
                             title={chat.title}
                             subtitle={chat.lastMessage.messageContent}
-                            value={chat.lastMessage.messageDate}
+                            value={JSON.stringify(chat.lastMessage) !== '{}' ? chat.lastMessage.messageDate : chat.createdAt}
                             onClick={() => {handleClick(chat.id)}} />
                     ))
                 }
