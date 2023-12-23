@@ -42,9 +42,7 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
             message={message}
             isUserMessage={message.isUserMessage(user.userId)}
             username={chat.isGroup ? message.senderName : undefined}
-            messageInfoToParent={receivedMessageInfo}
           />
-
         ))
       }
       <div ref={inputRef} />

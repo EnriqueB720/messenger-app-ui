@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar } from '@components';
+import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
 import { useUserQuery, useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-schema';
 import { Chat, Message, User } from '@model';
@@ -86,7 +86,7 @@ const Layout: React.FC = () => {
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
   const chat = new Chat(chatResponse.data?.chats[0]!);
   const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
-  const message = messages.find(m => m.data.id === messageId);//TODO message id
+  const message = messages.find(m => m.id === messageId);
 
 
   return (
@@ -120,7 +120,10 @@ const Layout: React.FC = () => {
         </Box>
         <Box w={sidebarWidth}>
           {
-            JSON.stringify(message?.data)
+            messageId ? 
+            <MessageInfo message={message}/>
+            :
+            undefined
           }
         </Box>
       </Flex>

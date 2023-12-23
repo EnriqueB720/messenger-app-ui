@@ -4,16 +4,17 @@ import _ from 'lodash';
 import { MessageProps } from '@types';
 import { Flex, Box, Text, Stack, Icon, Menu, Button, MenuButton, MenuItem, MenuList } from '@components';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 
 const Message: React.FC<MessageProps> = ({
   username,
   isUserMessage,
-  message,
-  messageInfoToParent
+  message
 }) => {
 
   const [isHover, setIsHover] = useState(false);
+  const router = useRouter();
 
   function formatTimestamp(timestamp: Date) {
     const date = new Date(timestamp);
@@ -43,6 +44,10 @@ const Message: React.FC<MessageProps> = ({
   const handleMouseLeave = () => {
     setIsHover(false);
   };
+
+  const handleClick = (messageId: any) => {
+    router.push(`${router.asPath}&messageId=${messageId}`);
+}
 
   return (
     <Flex
@@ -74,9 +79,9 @@ const Message: React.FC<MessageProps> = ({
           <Text marginTop={'5px'} fontSize="xs">
             {formatTimestamp(message?.messageDate!)}
           </Text>
-          <Box display={'flex'} alignItems={isHover ? 'start' : 'end'} marginLeft={0} color={message?.isMessageRead && !isHover ? 'blue' : undefined}>
+          <Box display={'flex'} alignItems={isHover && isUserMessage ? 'start' : 'end'} marginLeft={0} color={message?.isMessageRead && !isHover ? 'blue' : undefined}>
             {
-              isHover ?
+              isHover && isUserMessage ?
                 <Box style={{
                   cursor: 'pointer'
                 }}
@@ -86,7 +91,7 @@ const Message: React.FC<MessageProps> = ({
                       <Icon name={'downArrow'} />
                     </MenuButton>
                     <MenuList>
-                      <MenuItem onClick={() => messageInfoToParent(message!)}>Message Info.</MenuItem>
+                      <MenuItem onClick={() => handleClick(message?.id)}>Message Info.</MenuItem>
                     </MenuList>
                   </Menu>
                 </Box>

@@ -10,6 +10,10 @@ export class Message {
     get messageContent(){
         return this.data?.text || ' ';
     }
+
+    get id(){
+        return this.data?.id;
+    }
     
     get messageDate(){
         return new Date(this.data?.createdAt)
