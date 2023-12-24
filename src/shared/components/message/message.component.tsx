@@ -1,26 +1,39 @@
-import * as React from 'react';
+import * as React from "react";
 
-import _ from 'lodash';
-import { MessageProps } from '@types';
-import { Flex, Box, Text, Stack, Icon, Menu, Button, MenuButton, MenuItem, MenuList } from '@components';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-
+import _ from "lodash";
+import { MessageProps } from "@types";
+import {
+  Flex,
+  Box,
+  Text,
+  Stack,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@components";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 const Message: React.FC<MessageProps> = ({
   username,
   isUserMessage,
-  message
+  message,
+  messageInfoDisplayWidth,
 }) => {
-
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const urlMessageId = Number.parseInt(searchParams.get("messageId")!);
 
   function formatTimestamp(timestamp: Date) {
     const date = new Date(timestamp);
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'p. m.' : 'a. m.';
+    const ampm = hours >= 12 ? "p. m." : "a. m.";
 
     const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -33,7 +46,7 @@ const Message: React.FC<MessageProps> = ({
   const generateColor = () => {
     const randomColor = Math.floor(Math.random() * 16777215)
       .toString(16)
-      .padStart(6, '0');
+      .padStart(6, "0");
     return `#${randomColor}`;
   };
 
@@ -46,64 +59,92 @@ const Message: React.FC<MessageProps> = ({
   };
 
   const handleClick = (messageId: any) => {
-    router.push(`${router.asPath}&messageId=${messageId}`);
-}
+    if (message?.id !== urlMessageId) {
+      router.push(`${router.asPath}&messageId=${messageId}`);
+    }
+  };
 
   return (
     <Flex
       direction="row"
-      justifyContent={isUserMessage ? 'flex-end' : 'flex-start'}
-      mb="3"
+      justifyContent={isUserMessage ? "flex-end" : "flex-start"}
+      mb="5"
     >
       <Box
         marginTop={1}
-        w="fit-content"
-        maxW='50%'
+        maxW={messageInfoDisplayWidth ? messageInfoDisplayWidth : "60%"}
+        maxH={"auto"}
         padding={1}
         borderRadius="md"
-        bg={isUserMessage ? 'blue.400' : 'gray.200'}
-        color={isUserMessage ? 'white' : 'black'}
+        bg={isUserMessage ? "blue.400" : "gray.200"}
+        color={isUserMessage ? "white" : "black"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {
-          username ?
-            <Text fontSize="xs" color={isUserMessage ? undefined : generateColor()}>
-              {username}
-            </Text>
-            :
-            null
-        }
-        <Stack direction='row'>
-          <Text fontSize="md">{message?.messageContent}</Text>
-          <Text marginTop={'5px'} fontSize="xs">
-            {formatTimestamp(message?.messageDate!)}
+        {username ? (
+          <Text
+            fontSize="xs"
+            color={isUserMessage ? undefined : generateColor()}
+          >
+            {username}
           </Text>
-          <Box display={'flex'} alignItems={isHover && isUserMessage ? 'start' : 'end'} marginLeft={0} color={message?.isMessageRead && !isHover ? 'blue' : undefined}>
-            {
-              isHover && isUserMessage ?
-                <Box style={{
-                  cursor: 'pointer'
+        ) : null}
+        <Stack direction="row">
+          <Box overflowY={"auto"} >
+          <Text
+            fontSize="md"
+            whiteSpace={"pre-line"}
+            overflowWrap={"break-word"}
+          >
+            {message?.messageContent}
+          </Text>
+          </Box>
+          <Box display={"flex"} alignItems={"end"} marginLeft={2}>
+            <Text marginTop={"5px"} fontSize="xs">
+              {formatTimestamp(message?.messageDate!)}
+            </Text>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={isHover && isUserMessage ? "center" : "end"}
+            marginLeft={0}
+            color={message?.isMessageRead && !isHover ? "blue" : undefined}
+          >
+            {isHover && isUserMessage ? (
+              <Box
+                style={{
+                  cursor: "pointer",
                 }}
-                >
-                  <Menu>
-                    <MenuButton as={'button'} variant={'outline'} title={'More options'}>
-                      <Icon name={'downArrow'} />
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem onClick={() => handleClick(message?.id)}>Message Info.</MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Box>
-                :
-                <Icon name={message?.isMessageReceived ? 'doubleCheck' : 'check'} />
-            }
+              >
+                <Menu>
+                  <MenuButton
+                    as={"button"}
+                    variant={"outline"}
+                    title={"More options"}
+                  >
+                    <Icon name={"downArrow"} />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem
+                      color={"black"}
+                      onClick={() => handleClick(message?.id)}
+                    >
+                      Message Info.
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+            ) : (
+              <Icon
+                name={message?.isMessageReceived ? "doubleCheck" : "check"}
+              />
+            )}
           </Box>
         </Stack>
       </Box>
     </Flex>
   );
-}
+};
 
 export default React.memo(Message, (prevProps, nextProps) => {
   return _.isEqual(prevProps, nextProps);

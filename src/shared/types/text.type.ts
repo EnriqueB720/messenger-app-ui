@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import { JustifyContent } from ".";
 
 export type Overflow = 'ellipsis' | 'hidden'
+export type OverflowWrap = 'break-word'
+export type WhiteSpace = 'pre-line'
 
 export interface TextProps{
     fontSize?: string;
@@ -15,4 +17,6 @@ export interface TextProps{
     textOverflow?: ResponsiveValue<Overflow>;
     alignSelf?: ResponsiveValue<JustifyContent>;
     marginTop?: string;
+    overflowWrap?: ResponsiveValue<OverflowWrap>;
+    whiteSpace?: ResponsiveValue<WhiteSpace>;
 }

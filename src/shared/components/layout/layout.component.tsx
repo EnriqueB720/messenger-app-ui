@@ -10,6 +10,9 @@ import { useEffect, useState, useCallback } from 'react';
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
 const MESSSAGE_INPUT_HEIGHT = 56;
+const FULL_CONTENT_WIDTH = '70%';
+const COLLAPSE_CONTENT_WIDTH = '50%';
+const SIDEBAR_COLLAPSE_WIDTH = '20%';
 //Magic number for fullContentWidt, collapseWidth, etc
 
 
@@ -74,10 +77,10 @@ const Layout: React.FC = () => {
 
   const toggleSidebar = useCallback((isOpen: boolean) => {
     if (isOpen) {
-      setContentWidth('50%');
-      setSidebarWidth('20%');
+      setContentWidth(COLLAPSE_CONTENT_WIDTH);
+      setSidebarWidth(SIDEBAR_COLLAPSE_WIDTH);
     } else {
-      setContentWidth('70%');
+      setContentWidth(FULL_CONTENT_WIDTH);
       setSidebarWidth('0%');
     }
   }, [])

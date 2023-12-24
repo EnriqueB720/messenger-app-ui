@@ -11,7 +11,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({ message }) => {
       <Box 
         backgroundImage={`url(./images/backgroundImage.png)`}
         h={"30%"}>
-        <Message message={message} isUserMessage={true}/>
+        <Message message={message} isUserMessage={true} messageInfoDisplayWidth="inherit"/>
       </Box>
     </>
   );

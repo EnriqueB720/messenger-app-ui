@@ -5,4 +5,5 @@ export interface MessageProps{
     isUserMessage: boolean;
     username?: string;
     message?: Message;
+    messageInfoDisplayWidth?: string;
 }
