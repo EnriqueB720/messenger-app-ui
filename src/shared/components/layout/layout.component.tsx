@@ -3,8 +3,8 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useMessagesQuery } from '@/shared/generated/graphql-schema';
-import { Chat, Message, User } from '@model';
+import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@/shared/generated/graphql-schema';
+import { Chat, Message, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 
 const SIDEBAR_HEADER_HEIGHT = 64;
@@ -71,6 +71,15 @@ const Layout: React.FC = () => {
     }
   });
 
+  const userMessageStatusResponse = useUserMessageStatusQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      where: {
+        messageId: messageId
+      }
+    }
+  })
+
   useEffect(() => {
     toggleSidebar(!!messageId);
   }, [messageId]);
@@ -90,6 +99,7 @@ const Layout: React.FC = () => {
   const chat = new Chat(chatResponse.data?.chats[0]!);
   const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
   const message = messages.find(m => m.id === messageId);
+  const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
 
 
   return (
@@ -124,7 +134,7 @@ const Layout: React.FC = () => {
         <Box w={sidebarWidth}>
           {
             messageId ? 
-            <MessageInfo message={message}/>
+            <MessageInfo message={message} messageStatuses={messageStatus}/>
             :
             undefined
           }

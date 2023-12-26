@@ -5,7 +5,7 @@ import _ from "lodash";
 import { MessageInfoProps } from "@types";
 import { Message, Box } from "@components";
 
-const MessageInfo: React.FC<MessageInfoProps> = ({ message }) => {
+const MessageInfo: React.FC<MessageInfoProps> = ({ message, messageStatuses }) => {
   return (
     <>
       <Box 

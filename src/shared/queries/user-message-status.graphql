@@ -1,0 +1,10 @@
+query userMessageStatus($where: UserMessageStatusWhereInput!) {
+  userMessageStatus(where:$where){
+    isReceived,
+    isRead,
+    user{
+      id,
+      fullName
+    }
+  }
+}

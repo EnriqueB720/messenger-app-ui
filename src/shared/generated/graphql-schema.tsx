@@ -327,6 +327,7 @@ export type UserMessageStatus = {
   isRead?: Maybe<Scalars['Boolean']>;
   isReceived?: Maybe<Scalars['Boolean']>;
   messageId?: Maybe<Scalars['Float']>;
+  user?: Maybe<User>;
   userId?: Maybe<Scalars['Float']>;
 };
 
@@ -382,6 +383,13 @@ export type MessagesQueryVariables = Exact<{
 
 
 export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null } | null }> };
+
+export type UserMessageStatusQueryVariables = Exact<{
+  where: UserMessageStatusWhereInput;
+}>;
+
+
+export type UserMessageStatusQuery = { __typename?: 'Query', userMessageStatus: Array<{ __typename?: 'UserMessageStatus', isReceived?: boolean | null, isRead?: boolean | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null } | null }> };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -564,6 +572,46 @@ export function useMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<M
 export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
 export type MessagesLazyQueryHookResult = ReturnType<typeof useMessagesLazyQuery>;
 export type MessagesQueryResult = Apollo.QueryResult<MessagesQuery, MessagesQueryVariables>;
+export const UserMessageStatusDocument = gql`
+    query userMessageStatus($where: UserMessageStatusWhereInput!) {
+  userMessageStatus(where: $where) {
+    isReceived
+    isRead
+    user {
+      id
+      fullName
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserMessageStatusQuery__
+ *
+ * To run a query within a React component, call `useUserMessageStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserMessageStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserMessageStatusQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUserMessageStatusQuery(baseOptions: Apollo.QueryHookOptions<UserMessageStatusQuery, UserMessageStatusQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserMessageStatusQuery, UserMessageStatusQueryVariables>(UserMessageStatusDocument, options);
+      }
+export function useUserMessageStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserMessageStatusQuery, UserMessageStatusQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserMessageStatusQuery, UserMessageStatusQueryVariables>(UserMessageStatusDocument, options);
+        }
+export type UserMessageStatusQueryHookResult = ReturnType<typeof useUserMessageStatusQuery>;
+export type UserMessageStatusLazyQueryHookResult = ReturnType<typeof useUserMessageStatusLazyQuery>;
+export type UserMessageStatusQueryResult = Apollo.QueryResult<UserMessageStatusQuery, UserMessageStatusQueryVariables>;
 export const UserDocument = gql`
     query user($where: UserWhereUniqueInput!) {
   user(where: $where) {
