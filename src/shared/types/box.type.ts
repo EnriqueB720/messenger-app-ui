@@ -12,6 +12,7 @@ export interface BoxProps {
   bg?: string;
   w?: string;
   maxW?: string;
+  minW?: string;
   h?: string;
   maxH?: string | number;
   minH?: string | number;

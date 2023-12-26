@@ -10,8 +10,12 @@ const MessageInfo: React.FC<MessageInfoProps> = ({ message }) => {
     <>
       <Box 
         backgroundImage={`url(./images/backgroundImage.png)`}
-        h={"30%"}>
-        <Message message={message} isUserMessage={true} messageInfoDisplayWidth="inherit"/>
+        h={"30%"}
+        display={"flex"}
+        alignItems={"center"}
+        overflowY={"auto"}
+        maxW="inherit">
+        <Message message={message} isUserMessage={true} messageInfoDisplayWidth="45vh"/>
       </Box>
     </>
   );

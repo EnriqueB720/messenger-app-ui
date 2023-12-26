@@ -59,7 +59,12 @@ const Message: React.FC<MessageProps> = ({
   };
 
   const handleClick = (messageId: any) => {
-    if (message?.id !== urlMessageId) {
+    if (searchParams.has("messageId")) {
+      if (messageId !== urlMessageId) {
+        const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');//TODO
+        router.push(`${baseRoute}&messageId=${messageId}`);
+      }
+    }else{
       router.push(`${router.asPath}&messageId=${messageId}`);
     }
   };
@@ -90,16 +95,18 @@ const Message: React.FC<MessageProps> = ({
           </Text>
         ) : null}
         <Stack direction="row">
-          <Box overflowY={"auto"} >
-          <Text
-            fontSize="md"
-            whiteSpace={"pre-line"}
-            overflowWrap={"break-word"}
-          >
-            {message?.messageContent}
-          </Text>
+          <Box overflowY={"auto"}>
+            <Text
+              fontSize="md"
+              whiteSpace={"pre-line"}
+              overflowWrap={"break-word"}
+              overflow={messageInfoDisplayWidth ? "hidden" : undefined}
+              textOverflow={messageInfoDisplayWidth ? "ellipsis" : undefined}
+            >
+              {message?.messageContent}
+            </Text>
           </Box>
-          <Box display={"flex"} alignItems={"end"} marginLeft={2}>
+          <Box display={"flex"} alignItems={"end"} minW={"57px"}>
             <Text marginTop={"5px"} fontSize="xs">
               {formatTimestamp(message?.messageDate!)}
             </Text>
