@@ -12,6 +12,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
     subtitle,
     title,
     avatarImage,
+    titleWidth,
     onClick
 }) => {
     return (
@@ -23,7 +24,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
                     </Box>
                     <Stack direction={'column'}>
                         <Box>
-                            <Text fontSize="l" as={'b'}>
+                            <Text fontSize={titleWidth ? titleWidth : "l"} as={'b'}>
                                 {title}
                             </Text>
                         </Box>

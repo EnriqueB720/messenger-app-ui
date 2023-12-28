@@ -7,12 +7,20 @@ export class UserMessageStatus {
         this.data = data;
     }
 
-    get IsReceivedStatus(){
-        return this.data.isReceived ? true : false;
+    get userId(){
+        return this.data.userId
     }
 
-    get isReadStatus(){
-        return this.data.isRead ? true : false;
+    get isReceived(){
+        return this.data.isReceived;
+    }
+
+    get isRead(){
+        return this.data.isRead;
+    }
+
+    get user(){
+        return this.data.user;
     }
 
 
