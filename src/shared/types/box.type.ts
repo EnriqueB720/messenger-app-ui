@@ -36,6 +36,13 @@ export interface BoxProps {
   alignItems?: ResponsiveValue<AlignSetting>;
   border?: string;
   borderColor?: string;
+  borderLeftColor?: string;
+  borderRightColor?: string;
+  borderWidth?: string;
+  borderLeftWidth?: string;
+  borderRightWidth?: string;
+  borderLeft?: string;
+  borderRight?: string;
   textAlign?: ResponsiveValue<CanvasTextAlign>;
   float?: ResponsiveValue<Float>;
   position?: ResponsiveValue<Position>;

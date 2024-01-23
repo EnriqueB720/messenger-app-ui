@@ -12,6 +12,7 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { TbCheck } from "react-icons/tb";
 import { TbChecks } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoCloseSharp } from "react-icons/io5";
 
 
 const IconDictionary: {
@@ -24,7 +25,8 @@ const IconDictionary: {
   emoji: BsEmojiSmile,
   check: TbCheck,
   doubleCheck: TbChecks,
-  downArrow: IoIosArrowDown
+  downArrow: IoIosArrowDown,
+  close: IoCloseSharp
 }
 
 

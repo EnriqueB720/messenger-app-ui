@@ -61,10 +61,10 @@ const Message: React.FC<MessageProps> = ({
   const handleClick = (messageId: any) => {
     if (searchParams.has("messageId")) {
       if (messageId !== urlMessageId) {
-        const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');//TODO
+        const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
         router.push(`${baseRoute}&messageId=${messageId}`);
       }
-    }else{
+    } else {
       router.push(`${router.asPath}&messageId=${messageId}`);
     }
   };
@@ -115,7 +115,7 @@ const Message: React.FC<MessageProps> = ({
             display={"flex"}
             alignItems={isHover && isUserMessage ? "center" : "end"}
             marginLeft={0}
-            color={message?.isMessageRead && !isHover ? "blue" : undefined}
+            color={message?.isMessageRead && !isHover && isUserMessage ? "blue" : undefined}
           >
             {isHover && isUserMessage ? (
               <Box
@@ -142,9 +142,12 @@ const Message: React.FC<MessageProps> = ({
                 </Menu>
               </Box>
             ) : (
-              <Icon
-                name={message?.isMessageReceived ? "doubleCheck" : "check"}
-              />
+              isUserMessage ?
+                <Icon
+                  name={message?.isMessageReceived ? "doubleCheck" : "check"}
+                />
+                :
+                undefined
             )}
           </Box>
         </Stack>
