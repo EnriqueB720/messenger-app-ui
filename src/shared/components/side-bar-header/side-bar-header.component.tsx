@@ -12,7 +12,7 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
         alert('user-info clicked: ' + userId)
     }
     return (
-        <Box bg='blue.400' padding={1}>
+        <Box bg={'#202c33'} padding={1}>
             <Flex justifyContent={'space-between'}>
                 <Box margin={1} marginRight={4}>
                     <Avatar

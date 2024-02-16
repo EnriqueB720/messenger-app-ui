@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Box, Flex, IconButton, Input } from '@components';
 import { InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { TextInputIconProps } from '@types';
+import { color } from 'framer-motion';
 
 
 const TextInputIcon: React.FC<TextInputIconProps> = ({
@@ -13,6 +14,7 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
   inputPlaceholder,
   inputPadding = '10%',
   inputText,
+  inputBackgroundColor,
   onLeftIconClick,
   onRightIconClick,
   onInputChange,
@@ -26,7 +28,6 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
           <IconButton
             icon={leftIconType}
             size={'md'}
-            color={'black'}
             colorScheme={'inherit'}
             fontSize={'xl'}
             onClick={onLeftIconClick} />
@@ -35,7 +36,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
           placeholder={inputPlaceholder}
           variant={'filled'}
           style={{
-            paddingLeft: inputPadding
+            paddingLeft: inputPadding,
+            backgroundColor: inputBackgroundColor
           }}
           value={inputText}
           onChange={onInputChange}
@@ -45,7 +47,6 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
         <IconButton
           icon={rightIconType}
           size={'md'}
-          color={'black'}
           colorScheme={'inherit'}
           fontSize={'xl'}
           onClick={onRightIconClick} />

@@ -59,6 +59,7 @@ export interface BoxProps {
   backgroundColor?: string;
   flexDirection?: ResponsiveValue<FlexDirection>;
   flex?: number;
+  filter?: string;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;

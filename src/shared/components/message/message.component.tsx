@@ -8,10 +8,7 @@ import {
   Text,
   Stack,
   Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  DropdownIconButton,
 } from "@components";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -19,15 +16,18 @@ import { useSearchParams } from "next/navigation";
 
 const Message: React.FC<MessageProps> = ({
   username,
-  isUserMessage,
+  userId,
   message,
-  messageInfoDisplayWidth,
+  maxWidth,
 }) => {
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const urlMessageId = Number.parseInt(searchParams.get("messageId")!);
+
+  const backgroundMessageColor = '#005c4b';
+  const iconMessageColor = '#7fada5'
 
   function formatTimestamp(timestamp: Date) {
     const date = new Date(timestamp);
@@ -72,86 +72,68 @@ const Message: React.FC<MessageProps> = ({
   return (
     <Flex
       direction="row"
-      justifyContent={isUserMessage ? "flex-end" : "flex-start"}
+      justifyContent={message.isUserMessage(userId) ? "flex-end" : "flex-start"}
       mb="5"
     >
       <Box
         marginTop={1}
-        maxW={messageInfoDisplayWidth ? messageInfoDisplayWidth : "60%"}
+        maxW={maxWidth ? maxWidth : "60%"}
         maxH={"auto"}
         padding={1}
         borderRadius="md"
-        bg={isUserMessage ? "blue.400" : "gray.200"}
-        color={isUserMessage ? "white" : "black"}
+        bg={message.isUserMessage(userId) ? backgroundMessageColor : "#2f3b43"}
+        color={"white"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {username ? (
           <Text
             fontSize="xs"
-            color={isUserMessage ? undefined : generateColor()}
+            color={message.isUserMessage(userId) ? undefined : generateColor()}
           >
             {username}
           </Text>
         ) : null}
         <Stack direction="row">
-          <Box overflowY={"auto"}>
+          <Box overflowY={"auto"} textAlign="right">
             <Text
               fontSize="md"
               whiteSpace={"pre-line"}
               overflowWrap={"break-word"}
-              overflow={messageInfoDisplayWidth ? "hidden" : undefined}
-              textOverflow={messageInfoDisplayWidth ? "ellipsis" : undefined}
+              overflow={maxWidth ? "hidden" : undefined}
+              textOverflow={maxWidth ? "ellipsis" : undefined}
+              textAlign="left"
             >
               {message?.messageContent}
             </Text>
           </Box>
-          <Box display={"flex"} alignItems={"end"} minW={"57px"}>
-            <Text marginTop={"5px"} fontSize="xs">
+          <Box display={"flex"} alignItems={"end"} minW={"57px"} textAlign="right">
+            <Text marginTop={"5px"} fontSize="xs" color="#9dab99">
               {formatTimestamp(message?.messageDate!)}
             </Text>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={isHover && isUserMessage ? "center" : "end"}
-            marginLeft={0}
-            color={message?.isMessageRead && !isHover && isUserMessage ? "blue" : undefined}
-          >
-            {isHover && isUserMessage ? (
-              <Box
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <Menu>
-                  <MenuButton
-                    as={"button"}
-                    variant={"outline"}
-                    title={"More options"}
-                  >
-                    <Icon name={"downArrow"} />
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem
-                      color={"black"}
-                      onClick={() => handleClick(message?.id)}
-                    >
-                      Message Info.
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Box>
-            ) : (
-              isUserMessage ?
+            {message.isUserMessage(userId) ?
+              <Box color={message?.isMessageRead && message.isUserMessage(userId) ? '#57bef8' : iconMessageColor} marginLeft={1}>
                 <Icon
                   name={message?.isMessageReceived ? "doubleCheck" : "check"}
                 />
-                :
-                undefined
-            )}
+              </Box>
+              :
+              undefined}
           </Box>
         </Stack>
       </Box>
+      {isHover && message.isUserMessage(userId) ? (
+        <Box float={'right'} color={iconMessageColor} marginLeft={-4} marginTop={1} onMouseEnter={handleMouseEnter}>
+          <DropdownIconButton
+            icon="downArrow"
+            options={[{ text: 'Message Info.', onClick: () => handleClick(message?.id) }]}
+            boxColor={backgroundMessageColor}
+          />
+        </Box>
+      ) :
+        undefined
+      }
+
     </Flex>
   );
 };

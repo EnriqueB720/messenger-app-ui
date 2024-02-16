@@ -2,8 +2,8 @@ import { Message } from "@model";
 
 
 export interface MessageProps{
-    isUserMessage: boolean;
+    userId: number;
     username?: string;
-    message?: Message;
-    messageInfoDisplayWidth?: string;
+    message: Message;
+    maxWidth?: string;
 }

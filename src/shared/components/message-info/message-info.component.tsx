@@ -9,34 +9,34 @@ import { useRouter } from "next/router";
 const MessageInfo: React.FC<MessageInfoProps> = ({
   message,
   messageStatuses,
-  headerHeight
+  headerHeight,
+  userId
 }) => {
   const receivedStatus = messageStatuses?.filter((status) => status.isReceived);
   const readStatus = messageStatuses?.filter((status) => status.isRead);
 
   const router = useRouter();
-
+  const titleColor = "#8696a0";''
 
   const closeMessageInfo = () => {
-        const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
-        router.push(baseRoute);
+    const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
+    router.push(baseRoute);
   }
 
   return (
     <>
-      <Box bg='lightgray' textAlign={'right'} borderLeftColor="black"
-      borderLeftWidth="2px" h={`${headerHeight}px`} paddingTop={1}>
-      <IconButton
-              style={{
-                marginTop: '4px'
-              }}
-              color={'black'}
-              icon={'close'}
-              colorScheme={'inherit'}
-              size={'lg'}
-              fontSize={'xl'}
-              onClick={closeMessageInfo}
-            />
+      <Box bg={'#202c33'} textAlign={'right'} borderLeftColor="#2f3b43"
+        borderLeftWidth="2px" h={`${headerHeight}px`} paddingTop={1}>
+        <IconButton
+          style={{
+            marginTop: '4px'
+          }}
+          icon={'close'}
+          colorScheme={'inherit'}
+          size={'lg'}
+          fontSize={'xl'}
+          onClick={closeMessageInfo}
+        />
       </Box>
       <Box
         backgroundImage={`url(./images/backgroundImage.png)`}
@@ -49,8 +49,8 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
       >
         <Message
           message={message}
-          isUserMessage={true}
-          messageInfoDisplayWidth="45vh"
+          userId={userId}
+          maxWidth="45vh"
         />
       </Box>
       <Box
@@ -58,13 +58,14 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
       >
         <Box padding={1} overflowY={'auto'} h={'50%'}>
           <Stack direction="column" divider>
-            <Text fontSize="lg" textAlign={"center"}>
+            <Text fontSize="lg" textAlign={"center"} color={titleColor}>
               Received by
             </Text>
             <Box >
               {receivedStatus?.map((receivedBy) => (
                 <AvatarMessageItem
                   key={receivedBy.userId}
+                  bg={'#111b21'}
                   title={receivedBy.user?.fullName}
                   titleWidth='sm'
                 />
@@ -74,13 +75,14 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
         </Box>
         <Box padding={1} overflowY={'auto'} h={'50%'}>
           <Stack direction="column" divider>
-            <Text fontSize="lg" textAlign={"center"}>
+            <Text fontSize="lg" textAlign={"center"} color={titleColor}>
               Read by
             </Text>
             <Box>
               {readStatus?.map((readBy) => (
                 <AvatarMessageItem
                   key={readBy.userId}
+                  bg={'#111b21'}
                   title={readBy.user?.fullName}
                   titleWidth="sm"
                 />

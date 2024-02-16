@@ -25,3 +25,4 @@ export * from './menu-button.type';
 export * from './menu-list.type';
 export * from './menu-item.type';
 export * from './message-info.type';
+export * from './dropdown-icon-button.type';

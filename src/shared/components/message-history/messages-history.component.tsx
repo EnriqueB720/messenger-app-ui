@@ -30,17 +30,18 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
     <Box
       backgroundImage={`url(./images/backgroundImage.png)`}
       backgroundPosition={'center'}
-      backgroundSize={'cover'}
+      backgroundSize="45%"
       backgroundRepeat={'repeat'}
       h={'100%'}
       overflowY={'auto'}
+      // filter="brightness(0.5)"
     >
       {
         messages.map((message, index) => (
           <Message
             key={index}
             message={message}
-            isUserMessage={message.isUserMessage(user.userId)}
+            userId={user.userId}
             username={chat.isGroup ? message.senderName : undefined}
           />
         ))

@@ -9,13 +9,14 @@ import { ChatListProps } from '@types';
 const ChatList: React.FC<ChatListProps> = ({ data }) => {
 
     const router = useRouter();
+    const backgroundColor = '#111b21';
 
     const handleClick = (chatId: any) => {
         router.push(`?chatId=${chatId}`);
     }
     
     return (
-        <Box bg='lightgray'>
+        <Box bg={backgroundColor}>
             <Stack direction='column' divider>
                 {
                     data.map((chat) => (
@@ -23,6 +24,7 @@ const ChatList: React.FC<ChatListProps> = ({ data }) => {
                             cursor: 'pointer'
                         }}
                             key={chat.id}
+                            bg={backgroundColor}
                             title={chat.title}
                             subtitle={chat.lastMessage.messageContent}
                             value={JSON.stringify(chat.lastMessage) !== '{}' ? chat.lastMessage.messageDate : chat.createdAt}

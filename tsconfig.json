@@ -21,6 +21,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@theme":[
+        "src/shared/theme/index"
+      ],
       "@components":[
         "src/shared/components/index"
       ],

@@ -21,7 +21,7 @@ const AvatarMessageItem: React.FC<AvatarMessageItemProps> = ({
     
     return (
         <AvatarItem {...props}>
-            <Text color="gray.600">
+            <Text color="#8696a0">
                 {message}
             </Text>
         </AvatarItem>

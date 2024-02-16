@@ -105,7 +105,7 @@ const Layout: React.FC = () => {
   return (
     <Box>
       <Flex>
-        <Box w='30%' minH={'100vh'}>
+        <Box w='30%' minH={'100vh'} bg={'#111b21'}>
           <SideBarHeader data={user} />
           <ChatSearchBar />
           <Box maxH={chatHistoryHeight} overflowY={'auto'}>
@@ -117,7 +117,7 @@ const Layout: React.FC = () => {
             doesChatIdExist ? (
               <>
                 <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
-                <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
+                <Box flex={1} h={'100%'} maxH={messageHistoryHeight} bg={'#0b141a'}>
                   <MessageHistory messages={messages} chat={chat} user={user} />
                 </Box>
                 <Box position={'fixed'} bottom={'0'} w={'inherit'}>
@@ -131,12 +131,12 @@ const Layout: React.FC = () => {
             )
           }
         </Box>
-        <Box w={sidebarWidth} minH={'100vh'}>
+        <Box w={sidebarWidth} minH={'100vh'} bg={'#0b141a'}>
           {
-            messageId ? 
-            <MessageInfo message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT}/>
-            :
-            undefined
+            messageId && message ?
+              <MessageInfo userId={user.userId} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
+              :
+              undefined
           }
         </Box>
       </Flex>

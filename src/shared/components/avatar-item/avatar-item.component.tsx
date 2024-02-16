@@ -24,12 +24,12 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
                     </Box>
                     <Stack direction={'column'}>
                         <Box>
-                            <Text fontSize={titleWidth ? titleWidth : "l"} as={'b'}>
+                            <Text fontSize={titleWidth ? titleWidth : "l"} color={'#e9edef'}>
                                 {title}
                             </Text>
                         </Box>
                         <Box w='200px'>
-                            <Text fontSize='sm' color="gray.600" overflow="hidden" textOverflow="ellipsis">
+                            <Text fontSize='sm' color="#8696a0" overflow="hidden" textOverflow="ellipsis">
                                 {subtitle}
                             </Text>
                         </Box>

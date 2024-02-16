@@ -1,7 +1,8 @@
 import { Message, UserMessageStatus } from "@model";
 
 export interface MessageInfoProps{
-    message?: Message;
+    message: Message;
+    userId: number;
     messageStatuses?: UserMessageStatus[];
     headerHeight?: number;
 }

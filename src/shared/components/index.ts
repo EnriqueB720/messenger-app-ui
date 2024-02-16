@@ -27,6 +27,7 @@ import MenuButton from "./menu-button/menu-button.component";
 import MenuList from "./menu-list/menu-list.component";
 import MenuItem from "./menu-item/menu-item.component";
 import MessageInfo from "./message-info/message-info.component";
+import DropdownIconButton from "./dropdown-icon-button/dropdown-icon-button.component";
 
 export {
     Button,
@@ -57,5 +58,6 @@ export {
     MenuButton,
     MenuList,
     MenuItem,
-    MessageInfo
+    MessageInfo,
+    DropdownIconButton
 }

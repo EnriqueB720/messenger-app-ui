@@ -6,6 +6,7 @@ export interface TextInputIconProps {
   rightIconType: IconName;
   inputPadding?: string;
   inputText?: string;
+  inputBackgroundColor?: string;
   onLeftIconClick?: () => void;
   onRightIconClick?: () => void;
   onInputChange?: React.ChangeEventHandler<HTMLInputElement>;

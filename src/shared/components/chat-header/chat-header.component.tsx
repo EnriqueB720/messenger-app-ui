@@ -11,8 +11,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
 
   return (
-    <Box h={`${height}px`}>
+    <Box h={`${height}px`} borderLeftColor="#2f3b43"
+    borderLeftWidth="2px">
       <AvatarIconItem
+        bg={'#202c33'}
         title={data.title}
         subtitle={data.subtitle}
         icons={
@@ -21,7 +23,6 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               style={{
                 marginTop: '4px'
               }}
-              color={'black'}
               icon={'search'}
               colorScheme={'inherit'}
               size={'lg'}
@@ -32,7 +33,6 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               style={{
                 marginTop: '4px'
               }}
-              color={'black'}
               icon={'dots'}
               colorScheme={'inherit'}
               size={'lg'}

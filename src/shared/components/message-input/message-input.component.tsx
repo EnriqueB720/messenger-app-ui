@@ -67,8 +67,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
 
 
   return (
-    <Box bg='lightgray' padding={2}>
+    <Box bg={'#202c33'} padding={2}>
       <TextInputIcon
+        inputBackgroundColor={'#2a3942'}
         leftIconType={'emoji'}
         rightIconType={'send'}
         onLeftIconClick={() => { alert('emoji clicked') }}
