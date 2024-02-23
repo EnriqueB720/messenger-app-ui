@@ -38,7 +38,7 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
               key={index}
               message={message}
               userId={user.userId}
-              username={chat.isGroup ? message.senderName : undefined}
+              username={chat.isGroup && !message.isUserMessage(user.userId) ? message.senderName : undefined}
             />
           ))
         }
