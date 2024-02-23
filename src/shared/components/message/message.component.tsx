@@ -108,7 +108,7 @@ const Message: React.FC<MessageProps> = ({
               {message?.messageContent}
             </Text>
           </Box>
-          <Box display={"flex"} alignItems={"end"} minW={"57px"} textAlign="right">
+          <Box display={"flex"} alignItems={"end"} minW={"75px"} textAlign="right" marginLeft={1.5}>
             <Text marginTop={"5px"} fontSize="xs" color="#9dab99">
               {formatTimestamp(message?.messageDate!)}
             </Text>

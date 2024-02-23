@@ -56,12 +56,12 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
       <Box
         h={'70%'}
       >
-        <Box padding={1} overflowY={'auto'} h={'50%'}>
+        <Box padding={1} h={'50%'} overflowY={'auto'}>
           <Stack direction="column" divider>
             <Text fontSize="lg" textAlign={"center"} color={titleColor}>
               Received by
             </Text>
-            <Box >
+            <Box>
               {receivedStatus?.map((receivedBy) => (
                 <AvatarMessageItem
                   key={receivedBy.userId}
@@ -73,7 +73,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
             </Box>
           </Stack>
         </Box>
-        <Box padding={1} overflowY={'auto'} h={'50%'}>
+        <Box padding={1} h={'50%'} overflowY={'auto'}>
           <Stack direction="column" divider>
             <Text fontSize="lg" textAlign={"center"} color={titleColor}>
               Read by

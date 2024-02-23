@@ -132,7 +132,7 @@ const Layout: React.FC = () => {
             )
           }
         </Box>
-        <Box w={sidebarWidth} minH={'100vh'} bg={'#0b141a'}>
+        <Box w={sidebarWidth} h={'100vh'} bg={'#0b141a'}>
           {
             messageId && message ?
               <MessageInfo userId={user.userId} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
