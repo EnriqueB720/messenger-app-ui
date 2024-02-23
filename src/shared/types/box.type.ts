@@ -60,6 +60,8 @@ export interface BoxProps {
   flexDirection?: ResponsiveValue<FlexDirection>;
   flex?: number;
   filter?: string;
+  opacity?: number;
+  zIndex?: string
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;

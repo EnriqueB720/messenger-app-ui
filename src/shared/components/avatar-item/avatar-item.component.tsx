@@ -13,14 +13,15 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
     title,
     avatarImage,
     titleWidth,
+    avatarSize,
     onClick
 }) => {
     return (
-        <Box bg={bg} style={style} padding={2} h={'72px'} onClick={onClick}>
+        <Box bg={bg} style={style} padding={2} h={'inherit'} onClick={onClick}>
             <Flex justifyContent={'space-between'}>
                 <Flex justifyContent={'center'} w={''}>
                     <Box margin={1} marginRight={4}>
-                        <Avatar src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
+                        <Avatar size={avatarSize ? avatarSize : undefined} src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
                     </Box>
                     <Stack direction={'column'}>
                         <Box>

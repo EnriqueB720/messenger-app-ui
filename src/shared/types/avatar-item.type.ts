@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode } from "react";
+import { AvatarSize } from "./avatar.type";
 
 
 export interface AvatarItemProps { 
@@ -9,5 +10,6 @@ export interface AvatarItemProps {
     children?: ReactNode;
     bg?: string;
     style?: CSSProperties;
+    avatarSize?: AvatarSize;
     onClick?: () => void 
 }

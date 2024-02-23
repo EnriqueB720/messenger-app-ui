@@ -17,37 +17,34 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
   const [messageInfo, setMessageInfo] = useState();
 
   const receivedMessageInfo = (message: any) => {
-      setMessageInfo(message);
+    setMessageInfo(message);
   }
 
 
   useEffect(() => {
-      // Scroll to the bottom of the chat box
-      inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
+    // Scroll to the bottom of the chat box
+    inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
   }, [messages]); // Scroll when messages change
 
   return (
-    <Box
-      backgroundImage={`url(./images/backgroundImage.png)`}
-      backgroundPosition={'center'}
-      backgroundSize="45%"
-      backgroundRepeat={'repeat'}
-      h={'100%'}
-      overflowY={'auto'}
-      // filter="brightness(0.5)"
-    >
-      {
-        messages.map((message, index) => (
-          <Message
-            key={index}
-            message={message}
-            userId={user.userId}
-            username={chat.isGroup ? message.senderName : undefined}
-          />
-        ))
-      }
-      <div ref={inputRef} />
-    </Box>
+    
+      <Box h={'100%'}
+        overflowY={'auto'}
+        zIndex={'2'}
+        position={'relative'}>
+        {
+          messages.map((message, index) => (
+            <Message
+              key={index}
+              message={message}
+              userId={user.userId}
+              username={chat.isGroup ? message.senderName : undefined}
+            />
+          ))
+        }
+        <div ref={inputRef} />
+      </Box>
+  
   );
 }
 

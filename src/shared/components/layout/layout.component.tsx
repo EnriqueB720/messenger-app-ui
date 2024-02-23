@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo } from '@components';
+import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage } from '@components';
 import { useSearchParams } from 'next/navigation';
 import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@/shared/generated/graphql-schema';
 import { Chat, Message, User, UserMessageStatus } from '@model';
@@ -13,7 +13,6 @@ const MESSSAGE_INPUT_HEIGHT = 56;
 const FULL_CONTENT_WIDTH = '70%';
 const COLLAPSE_CONTENT_WIDTH = '50%';
 const SIDEBAR_COLLAPSE_WIDTH = '20%';
-//Magic number for fullContentWidt, collapseWidth, etc
 
 
 const Layout: React.FC = () => {
@@ -112,11 +111,13 @@ const Layout: React.FC = () => {
             <ChatList data={chats} />
           </Box>
         </Box>
-        <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'}>
+        <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'}>
           {
             doesChatIdExist ? (
               <>
+                <BackgroundImage />
                 <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
+                
                 <Box flex={1} h={'100%'} maxH={messageHistoryHeight} bg={'#0b141a'}>
                   <MessageHistory messages={messages} chat={chat} user={user} />
                 </Box>

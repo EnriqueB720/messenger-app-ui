@@ -12,9 +12,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 
   return (
     <Box h={`${height}px`} borderLeftColor="#2f3b43"
-    borderLeftWidth="2px">
+    borderLeftWidth="2px" zIndex={'1000'}>
       <AvatarIconItem
         bg={'#202c33'}
+        avatarSize={'sm'}
         title={data.title}
         subtitle={data.subtitle}
         icons={

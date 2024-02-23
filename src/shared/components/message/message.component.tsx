@@ -85,6 +85,7 @@ const Message: React.FC<MessageProps> = ({
         color={"white"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        opacity={1}
       >
         {username ? (
           <Text
