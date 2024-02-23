@@ -37,7 +37,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
           variant={'filled'}
           style={{
             paddingLeft: inputPadding,
-            backgroundColor: inputBackgroundColor
+            backgroundColor: inputBackgroundColor,
+            color: 'white'
           }}
           value={inputText}
           onChange={onInputChange}
