@@ -1,9 +1,11 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Message } from '@components';
+import { Badge, Box, Message } from '@components';
 import { MessagesHistoryProps } from '@types';
 import { useEffect, useRef, useState } from 'react';
+import { Message as IMessage } from '@model';
+import { DateService } from '@services';
 
 
 const MessageHistory: React.FC<MessagesHistoryProps> = ({
@@ -12,13 +14,27 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
   user
 }) => {
 
+  const dateService = new DateService();
+
+  const x = messages.reduce((groupBy, message) => {
+    const dailyMessageGroup: IMessage[] = groupBy[groupBy.length - 1];
+    if (!dailyMessageGroup.length) {
+      dailyMessageGroup.push(message);
+    } else {
+      const { messageDate } = dailyMessageGroup[0];
+
+      if (dateService.isSameDay(messageDate, message.messageDate)) {
+        dailyMessageGroup.push(message)
+      } else {
+        groupBy.push([message])
+      }
+
+    }
+    return groupBy;
+  }, [[]] as (IMessage[])[]);
+
 
   const inputRef = useRef<null | HTMLDivElement>(null);
-  const [messageInfo, setMessageInfo] = useState();
-
-  const receivedMessageInfo = (message: any) => {
-    setMessageInfo(message);
-  }
 
 
   useEffect(() => {
@@ -27,24 +43,34 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
   }, [messages]); // Scroll when messages change
 
   return (
-    
-      <Box h={'100%'}
-        overflowY={'auto'}
-        zIndex={'2'}
-        position={'relative'}>
-        {
-          messages.map((message, index) => (
-            <Message
-              key={index}
-              message={message}
-              userId={user.userId}
-              username={chat.isGroup && !message.isUserMessage(user.userId) ? message.senderName : undefined}
-            />
-          ))
-        }
-        <div ref={inputRef} />
-      </Box>
-  
+
+    <Box h={'100%'}
+      overflowY={'auto'}
+      zIndex={'2'}
+      position={'relative'}>
+      {
+        x.map((messages) => {
+          return (<>
+            <Box textAlign={'center'}>
+              <Badge variant='solid' bg={'#2f3b43'} color={'#8696a0'}>
+                {messages[0]?.messageDate?.toDateString()}
+              </Badge>
+            </Box>
+            {messages.map((message, index) => (
+              <Message
+                key={index}
+                message={message}
+                userId={user.userId}
+                username={chat.isGroup && !message.isUserMessage(user.userId) ? message.senderName : undefined}
+              />
+            ))}
+          </>)
+        })
+
+      }
+      <div ref={inputRef} />
+    </Box>
+
   );
 }
 

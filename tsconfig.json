@@ -32,6 +32,9 @@
       ],
       "@model":[
         "src/shared/model/index"
+      ],
+      "@services":[
+        "src/shared/services/index"
       ]
     }
   },

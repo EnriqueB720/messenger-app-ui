@@ -10,7 +10,9 @@ const Badge: React.FC<BadgeProps> = ({
   fontSize,
   children,
   colorScheme,
-  variant
+  variant,
+  bg,
+  color
 }) => {
 
   return (
@@ -18,6 +20,8 @@ const Badge: React.FC<BadgeProps> = ({
       fontSize={fontSize}
       colorScheme={colorScheme}
       variant={variant}
+      bg={bg}
+      color={color}
     >
       {children}
     </CKBadge>

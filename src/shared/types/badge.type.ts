@@ -7,4 +7,6 @@ export interface BadgeProps{
     variant?: BadgeVariant;
     children?: ReactNode;
     fontSize?: string;
+    bg?: string;
+    color?: string;
 }
