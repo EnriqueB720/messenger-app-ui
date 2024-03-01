@@ -9,6 +9,7 @@ import {
   Stack,
   Icon,
   DropdownIconButton,
+  Avatar,
 } from "@components";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -73,8 +74,18 @@ const Message: React.FC<MessageProps> = ({
     <Flex
       direction="row"
       justifyContent={message.isUserMessage(userId) ? "flex-end" : "flex-start"}
+      mr= {message.isUserMessage(userId) ? '10' : undefined}
+      ml= {!message.isUserMessage(userId) ? '3' : undefined}
       mb="5"
     >
+      {
+        !message.isUserMessage(userId) && username ?
+        <Box margin={2}>
+          <Avatar name={username} size={"sm"}/>
+        </Box>
+        :
+        undefined
+      }
       <Box
         marginTop={1}
         maxW={maxWidth ? maxWidth : "60%"}

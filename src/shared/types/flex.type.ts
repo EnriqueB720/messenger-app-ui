@@ -13,6 +13,9 @@ export interface FlexProps{
     w?: string;
     h?: string;
     mb?: string;
+    mr?: string;
+    mt?: string;
+    ml?: string;
     children?: ReactNode;
     position?: ResponsiveValue<Position>;
 }
