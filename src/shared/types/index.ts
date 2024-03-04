@@ -26,3 +26,6 @@ export * from './menu-list.type';
 export * from './menu-item.type';
 export * from './message-info.type';
 export * from './dropdown-icon-button.type';
+export * from './paths.type';
+export * from './translation.type';
+export * from './global-states.type';

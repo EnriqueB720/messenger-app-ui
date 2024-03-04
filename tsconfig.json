@@ -35,6 +35,12 @@
       ],
       "@services":[
         "src/shared/services/index"
+      ],
+      "@generated":[
+        "src/shared/generated/graphql-schema.tsx"
+      ],
+      "@constants":[
+        "src/shared/constants/index"
       ]
     }
   },

@@ -144,6 +144,11 @@ export type GroupMessageCreateInput = {
   text: Scalars['String'];
 };
 
+export enum Language {
+  English = 'ENGLISH',
+  Spanish = 'SPANISH'
+}
+
 export type Message = {
   __typename?: 'Message';
   chatId?: Maybe<Scalars['Float']>;
@@ -293,6 +298,7 @@ export type User = {
   email?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Float']>;
+  language?: Maybe<Language>;
   messages?: Maybe<Array<Message>>;
   phoneNumber?: Maybe<Scalars['Int']>;
   type?: Maybe<Role>;

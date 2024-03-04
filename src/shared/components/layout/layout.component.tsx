@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@/shared/generated/graphql-schema';
 import { Chat, Message, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
+import { useTranslation } from '@/shared/hooks';
 
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
@@ -92,6 +93,10 @@ const Layout: React.FC = () => {
       setSidebarWidth('0%');
     }
   }, [])
+
+  const {t} = useTranslation()
+
+  console.log(t('register.title'));
 
   const user = new User(userResponse.data?.user!);
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
