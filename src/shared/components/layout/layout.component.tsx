@@ -94,9 +94,9 @@ const Layout: React.FC = () => {
     }
   }, [])
 
-  const {t} = useTranslation()
+  // const {t} = useTranslation()
 
-  console.log(t('register.title'));
+  // console.log(t('register.title'));
 
   const user = new User(userResponse.data?.user!);
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
@@ -116,14 +116,13 @@ const Layout: React.FC = () => {
             <ChatList data={chats} />
           </Box>
         </Box>
-        <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'}>
+        <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
+        <BackgroundImage />
           {
             doesChatIdExist ? (
               <>
-                <BackgroundImage />
                 <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
-                
-                <Box flex={1} h={'100%'} maxH={messageHistoryHeight} bg={'#0b141a'}>
+                <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
                   <MessageHistory messages={messages} chat={chat} user={user} />
                 </Box>
                 <Box position={'fixed'} bottom={'0'} w={'inherit'}>
@@ -132,7 +131,7 @@ const Layout: React.FC = () => {
               </>
             ) : (
               <Box>
-                No chat selected
+              
               </Box>
             )
           }

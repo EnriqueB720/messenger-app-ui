@@ -16,7 +16,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
   const readStatus = messageStatuses?.filter((status) => status.isRead);
 
   const router = useRouter();
-  const titleColor = "#8696a0";''
+  const titleColor = "#8696a0";
 
   const closeMessageInfo = () => {
     const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
@@ -25,7 +25,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
 
   return (
     <>
-      <Box bg={'#202c33'} textAlign={'right'} borderLeftColor="#2f3b43"
+      <Box bg={'#202c33'} textAlign={'left'} color={'white'} borderLeftColor="#2f3b43"
         borderLeftWidth="2px" h={`${headerHeight}px`} paddingTop={1}>
         <IconButton
           style={{
