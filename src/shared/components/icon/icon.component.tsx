@@ -39,13 +39,13 @@ const IconDictionary: {
 
 
 const Icon: React.FC<IconProps> = ({
-  name
+  name,
 }) => {
 
   const Component = IconDictionary[name];
 
   return (
-    <Component />
+    <Component  />
   );
 }
 

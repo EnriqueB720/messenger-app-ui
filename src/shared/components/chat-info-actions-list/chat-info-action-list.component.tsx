@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import _ from 'lodash';
 import { ChatInfoActionListProps } from '@types';
-import { Button, IconButton, Box } from '..';
+import { Button, IconButton, Box, Icon } from '..';
 
 
 const ChatInfoActionList: React.FC<ChatInfoActionListProps> = ({
@@ -15,13 +15,10 @@ const ChatInfoActionList: React.FC<ChatInfoActionListProps> = ({
         options?.map(({ text, onClick, iconType }, index) => (
           <Button bg={'inherit'} w={'full'} onClick={onClick} key={index}>
             <Box display={'flex'} color={'#f15c6d'} alignItems={'center'}>
-              <IconButton
-                icon={iconType}
-                colorScheme={'inherit'}
-                size={'lg'}
-                fontSize={'xl'}
-                color={'inherit'} />
-              <Box marginBottom={1}>
+              <Icon
+                name={iconType}
+              />
+              <Box marginBottom={0.5} marginLeft = {1}>
                 {text}
               </Box>
             </Box>
