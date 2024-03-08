@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Button as CKButton } from '@chakra-ui/react';
 
 import { ButtonProps } from '@types';
+import { useState } from 'react';
 
 // import { useTranslation } from '../../hooks';
 
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   uppercase,
   variant = 'solid',
   block = false,
+  children,
   onClick,
   ...otherStyles
 }) => {
@@ -33,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
       color={color}
       {...otherStyles}
     >
-      {text}
+      {text ? text : children}
     </CKButton>
   );
 }

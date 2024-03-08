@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage } from '@components';
+import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@/shared/generated/graphql-schema';
+import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@generated';
 import { Chat, Message, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from '@/shared/hooks';
@@ -25,6 +25,8 @@ const Layout: React.FC = () => {
   const chatId = Number.parseInt(searchParams.get('chatId')!);
 
   const messageId = Number.parseInt(searchParams.get('messageId')!);
+
+  const displayChatInfo = Boolean(searchParams.get('displayChatInfo')!);
 
   const windowInnerHeight = typeof window !== 'undefined' ? window.innerHeight : 754;
 
@@ -81,8 +83,9 @@ const Layout: React.FC = () => {
   })
 
   useEffect(() => {
-    toggleSidebar(!!messageId);
-  }, [messageId]);
+    toggleSidebar(!!messageId || displayChatInfo);
+  }, [messageId, displayChatInfo]);
+
 
   const toggleSidebar = useCallback((isOpen: boolean) => {
     if (isOpen) {
@@ -130,9 +133,7 @@ const Layout: React.FC = () => {
                 </Box>
               </>
             ) : (
-              <Box>
-              
-              </Box>
+              undefined
             )
           }
         </Box>
@@ -142,6 +143,12 @@ const Layout: React.FC = () => {
               <MessageInfo userId={user.userId} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
               :
               undefined
+          }
+          {
+            displayChatInfo ? 
+              <ChatInfo chat={chat} userId={user.userId} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user)! : undefined}/>
+            :
+            undefined
           }
         </Box>
       </Flex>

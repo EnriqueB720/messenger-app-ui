@@ -99,6 +99,7 @@ export type ChatWhereUniqueInput = {
 
 export type Contact = {
   __typename?: 'Contact';
+  contactUser?: Maybe<User>;
   contactUserId?: Maybe<Scalars['Float']>;
   fullName?: Maybe<Scalars['String']>;
   isBlocked?: Maybe<Scalars['Boolean']>;
@@ -369,6 +370,14 @@ export type ChatsQueryVariables = Exact<{
 
 export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null } | null }> | null }> };
 
+export type ContactsQueryVariables = Exact<{
+  where: ContactWhereInput;
+  cursor?: InputMaybe<ContactWhereUniqueInput>;
+}>;
+
+
+export type ContactsQuery = { __typename?: 'Query', Contacts: Array<{ __typename?: 'Contact', fullName?: string | null, userId?: number | null, contactUserId?: number | null, contactUser?: { __typename?: 'User', phoneNumber?: number | null } | null }> };
+
 export type CreateDirectMessageMutationVariables = Exact<{
   data: DirectMessageCreateInput;
 }>;
@@ -456,6 +465,47 @@ export function useChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Chat
 export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
 export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
 export type ChatsQueryResult = Apollo.QueryResult<ChatsQuery, ChatsQueryVariables>;
+export const ContactsDocument = gql`
+    query Contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput) {
+  Contacts(where: $where, cursor: $cursor) {
+    fullName
+    userId
+    contactUserId
+    contactUser {
+      phoneNumber
+    }
+  }
+}
+    `;
+
+/**
+ * __useContactsQuery__
+ *
+ * To run a query within a React component, call `useContactsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContactsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContactsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useContactsQuery(baseOptions: Apollo.QueryHookOptions<ContactsQuery, ContactsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ContactsQuery, ContactsQueryVariables>(ContactsDocument, options);
+      }
+export function useContactsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactsQuery, ContactsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ContactsQuery, ContactsQueryVariables>(ContactsDocument, options);
+        }
+export type ContactsQueryHookResult = ReturnType<typeof useContactsQuery>;
+export type ContactsLazyQueryHookResult = ReturnType<typeof useContactsLazyQuery>;
+export type ContactsQueryResult = Apollo.QueryResult<ContactsQuery, ContactsQueryVariables>;
 export const CreateDirectMessageDocument = gql`
     mutation createDirectMessage($data: DirectMessageCreateInput!) {
   createDirectMessage(data: $data) {

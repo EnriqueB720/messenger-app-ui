@@ -1,5 +1,6 @@
 import { As, ResponsiveValue } from "@chakra-ui/react";
 import { CSSProperties, ReactNode } from "react";
+import { JustifyContent } from "./flex.type";
 
 
 export type Display = 'none' | 'block' | 'flex' | 'inline' | 'inline-block'
@@ -61,7 +62,8 @@ export interface BoxProps {
   flex?: number;
   filter?: string;
   opacity?: number;
-  zIndex?: string
+  zIndex?: string;
+  justifyContent?: ResponsiveValue<JustifyContent>;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;

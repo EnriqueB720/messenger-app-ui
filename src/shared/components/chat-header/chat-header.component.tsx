@@ -3,6 +3,8 @@ import * as React from 'react';
 import _ from 'lodash';
 import { AvatarIconItem, Box, IconButton } from '@components';
 import { ChatHeaderProps } from '@types';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
@@ -10,14 +12,32 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   data
 }) => {
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleClick = () => {
+    if(!searchParams.has('displayChatInfo') && searchParams.has('chatId')){
+      const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
+      router.push(`${baseRoute}&displayChatInfo=true`);
+    }
+  };
+
   return (
-    <Box h={`${height}px`} borderLeftColor="#2f3b43"
-    borderLeftWidth="2px" zIndex={'1000'}>
+    <Box 
+    h={`${height}px`} 
+    borderLeftColor="#2f3b43"
+    borderLeftWidth="2px" 
+    zIndex={'1000'} 
+    >
       <AvatarIconItem
         bg={'#202c33'}
         avatarSize={'sm'}
         title={data.title}
         subtitle={data.subtitle}
+        onClick={() => {handleClick()}} 
+        style={{
+          cursor: 'pointer'
+        }}
         icons={
           <>
             <IconButton
@@ -28,7 +48,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               colorScheme={'inherit'}
               size={'lg'}
               fontSize={'xl'}
-              onClick={() => { }}
+              onClick={() => { alert('search click') }}
             />
             <IconButton
               style={{

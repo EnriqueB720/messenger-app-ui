@@ -1,5 +1,5 @@
 import { ResponsiveValue } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { FlexDirection, Position } from "./box.type";
 
 export type JustifyContent = 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end'
@@ -18,4 +18,6 @@ export interface FlexProps{
     ml?: string;
     children?: ReactNode;
     position?: ResponsiveValue<Position>;
+    style?: CSSProperties;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
 }

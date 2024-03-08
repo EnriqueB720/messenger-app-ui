@@ -17,9 +17,9 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
     onClick
 }) => {
     return (
-        <Box bg={bg} style={style} padding={2} h={'inherit'} onClick={onClick}>
+        <Box bg={bg} padding={2} h={'inherit'} >
             <Flex justifyContent={'space-between'}>
-                <Flex justifyContent={'center'} w={''}>
+                <Flex justifyContent={'center'} w={''} onClick={onClick} style={style}>
                     <Box margin={1} marginRight={4}>
                         <Avatar size={avatarSize ? avatarSize : undefined} src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
                     </Box>

@@ -65,6 +65,9 @@ const Message: React.FC<MessageProps> = ({
         const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
         router.push(`${baseRoute}&messageId=${messageId}`);
       }
+    } else if (searchParams.has('displayChatInfo')) {
+      const baseRoute = router.asPath.replace(/&?displayChatInfo=true+/, '');
+      router.push(`${baseRoute}&messageId=${messageId}`);
     } else {
       router.push(`${router.asPath}&messageId=${messageId}`);
     }
@@ -74,17 +77,17 @@ const Message: React.FC<MessageProps> = ({
     <Flex
       direction="row"
       justifyContent={message.isUserMessage(userId) ? "flex-end" : "flex-start"}
-      mr= {message.isUserMessage(userId) ? '10' : undefined}
-      ml= {!message.isUserMessage(userId) ? '3' : undefined}
+      mr={message.isUserMessage(userId) ? '10' : undefined}
+      ml={!message.isUserMessage(userId) ? '3' : undefined}
       mb="5"
     >
       {
         !message.isUserMessage(userId) && username ?
-        <Box margin={2}>
-          <Avatar name={username} size={"sm"}/>
-        </Box>
-        :
-        undefined
+          <Box margin={2}>
+            <Avatar name={username} size={"sm"} />
+          </Box>
+          :
+          undefined
       }
       <Box
         marginTop={1}

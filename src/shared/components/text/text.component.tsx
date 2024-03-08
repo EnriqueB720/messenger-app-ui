@@ -17,6 +17,9 @@ const Text: React.FC<TextProps> = ({
   textOverflow,
   alignSelf,
   marginTop,
+  marginBottom,
+  marginLeft,
+  marginRight,
   whiteSpace,
   overflowWrap
 }) => {
@@ -33,6 +36,9 @@ const Text: React.FC<TextProps> = ({
       alignSelf={alignSelf}
       whiteSpace={overflow ? 'nowrap' : whiteSpace}
       marginTop={marginTop}
+      marginBottom={marginBottom}
+      marginLeft={marginLeft}
+      marginRight={marginRight}
       overflowWrap={overflowWrap}
     >
       {children}

@@ -13,6 +13,10 @@ import { TbCheck } from "react-icons/tb";
 import { TbChecks } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
+import { HiUserAdd } from "react-icons/hi";
+import { IoExitOutline } from "react-icons/io5";
+import { MdBlock } from "react-icons/md";
+import { IoMdTrash } from "react-icons/io";
 
 
 const IconDictionary: {
@@ -26,7 +30,11 @@ const IconDictionary: {
   check: TbCheck,
   doubleCheck: TbChecks,
   downArrow: IoIosArrowDown,
-  close: IoCloseSharp
+  close: IoCloseSharp,
+  addUser: HiUserAdd,
+  exit: IoExitOutline,
+  delete: IoMdTrash,
+  block: MdBlock
 }
 
 

@@ -3,7 +3,7 @@ import * as React from "react";
 import _ from "lodash";
 
 import { MessageInfoProps } from "@types";
-import { Message, Box, Stack, AvatarMessageItem, Text, IconButton } from "@components";
+import { Message, Box, Stack, AvatarMessageItem, Text, IconButton, RightSideBarHeader } from "@components";
 import { useRouter } from "next/router";
 
 const MessageInfo: React.FC<MessageInfoProps> = ({
@@ -25,19 +25,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
 
   return (
     <>
-      <Box bg={'#202c33'} textAlign={'left'} color={'white'} borderLeftColor="#2f3b43"
-        borderLeftWidth="2px" h={`${headerHeight}px`} paddingTop={1}>
-        <IconButton
-          style={{
-            marginTop: '4px'
-          }}
-          icon={'close'}
-          colorScheme={'inherit'}
-          size={'lg'}
-          fontSize={'xl'}
-          onClick={closeMessageInfo}
-        />
-      </Box>
+     <RightSideBarHeader text={'Message Information.'} height={headerHeight} onCloseFunction={closeMessageInfo}/>
       <Box
         backgroundImage={`url(./images/backgroundImage.png)`}
         h={"20%"}

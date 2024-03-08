@@ -17,6 +17,9 @@ export interface TextProps{
     textOverflow?: ResponsiveValue<TextOverflow>;
     alignSelf?: ResponsiveValue<JustifyContent>;
     marginTop?: string;
+    marginLeft?: string;
+    marginBottom?: string;
+    marginRight?: string;
     overflowWrap?: ResponsiveValue<OverflowWrap>;
     whiteSpace?: ResponsiveValue<WhiteSpace>;
 }

@@ -1,0 +1,10 @@
+query Contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput){
+  Contacts(where: $where, cursor: $cursor){
+    fullName,
+    userId,
+    contactUserId,
+    contactUser{
+      phoneNumber
+    }
+  }  
+}

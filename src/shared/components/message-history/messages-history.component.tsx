@@ -49,8 +49,9 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
       zIndex={'2'}
       position={'relative'}>
       {
-        x.map((messages) => {
-          return (<>
+        x.map((messages, index) => {
+          return (
+          <>
             <Box textAlign={'center'}>
               <Badge variant='solid' bg={'#2f3b43'} color={'#8696a0'}>
                 {messages[0]?.messageDate?.toDateString()}

@@ -29,6 +29,9 @@ import MenuItem from "./menu-item/menu-item.component";
 import MessageInfo from "./message-info/message-info.component";
 import DropdownIconButton from "./dropdown-icon-button/dropdown-icon-button.component";
 import BackgroundImage from "./background-image/background-image.component";
+import ChatInfo from './chat-info/chat-info.component';
+import RightSideBarHeader from './right-side-bar-header/right-side-bar-header.component';
+import ChatInfoActionList from './chat-info-actions-list/chat-info-action-list.component';
 
 export {
     Button,
@@ -61,5 +64,8 @@ export {
     MenuItem,
     MessageInfo,
     DropdownIconButton,
-    BackgroundImage
+    BackgroundImage,
+    ChatInfo,
+    RightSideBarHeader,
+    ChatInfoActionList
 }

@@ -44,4 +44,8 @@ export class Chat {
         return loggedUserIndex && !this.isGroup ? new ChatParticipant(this.data?.participants![loggedUserIndex!]).chatParticipantUserId : null;
     }
 
+    getAmountOfParticipants(){
+        return this.data?.participants?.length;
+    }
+
 }
