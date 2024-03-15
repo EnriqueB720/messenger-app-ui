@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 const ChatInfo: React.FC<ChatInfoProps> = ({
   chat,
-  userId,
+  user,
   contactId,
   headerHeight
 }) => {
@@ -25,13 +25,13 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
         contactUserId: contactId
       },
       cursor: {
-        userId: userId,
+        userId: user?.userId,
         contactUserId: contactId
       }
     }
   })
 
-  const contact = new Contact(contactResponse.data?.Contacts[0]!);
+  const contact = new Contact(contactResponse.data?.contacts[0]!);
 
   const chatParticipants = chat?.participants!;
 
@@ -93,8 +93,11 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                 <AvatarMessageItem
                   key={participant.userId}
                   bg={'#111b21'}
-                  title={participant.user?.fullName}
-                  titleWidth="sm" />
+                  title={user?.isThisUserMyContact(participant.userId!) ? user.getContactName(participant.userId!) : participant.user?.phoneNumber?.toString()} 
+                  subtitle={user?.isThisUserMyContact(participant.userId!) ? undefined : participant.user?.fullName}
+                  avatarImage={user?.isThisUserMyContact(participant.userId!) ? undefined : `./images/defaultUserImage.png`}
+                  titleWidth="sm" 
+                  subtitleWidth='200px'/>
               ))}
             </Box>
             <Box bg={'#111b21'} marginTop={3} marginBottom={6}>

@@ -75,7 +75,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
         onLeftIconClick={() => { alert('emoji clicked') }}
         onRightIconClick={sendDirectMessage(!!chat.isGroup)}
         inputPlaceholder={'Type a message...'}
-        inputPadding={'4%'}
+        inputPadding={'5%'}
         onInputChange={onInputChange}
         onKeyDown={handleKeyDown}
         inputText={message} />

@@ -12,7 +12,8 @@
           isFavorite
     },  
         sender{
-          fullName
+          fullName,
+          phoneNumber
     }
     }
   }

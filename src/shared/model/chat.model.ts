@@ -25,11 +25,23 @@ export class Chat {
     }
     
     get title(){
-        return this.data?.isGroup ? this.data.name : new ChatParticipant(this.data?.participants![1]).chatParticipantName;
+        return this.data?.name;
+    }
+    
+    set title(newTitle: any | undefined) {
+        if (this.data) {
+          this.data = { ...this.data, name: newTitle || "" };
+        }
     }
 
-    get subtitle(){
-        return this.data?.isGroup ? this.data.participants?.map(p =>  p.user?.fullName).join(',') : " "
+    getSubtitle(loggedUser: User){
+        return this.data?.isGroup ? this.data.participants?.map(p =>  {
+            if(loggedUser.isThisUserMyContact(p.user?.id!)){
+               return loggedUser.getContactName(p.user?.id!);
+            }else{
+               return p.user?.phoneNumber
+            }
+        }).join(', ') : " "
     }
 
     get participants(){

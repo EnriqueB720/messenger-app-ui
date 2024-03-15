@@ -14,6 +14,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
     avatarImage,
     titleWidth,
     avatarSize,
+    subtitleWidth,
     onClick
 }) => {
     return (
@@ -21,7 +22,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
             <Flex justifyContent={'space-between'}>
                 <Flex justifyContent={'center'} w={''} onClick={onClick} style={style}>
                     <Box margin={1} marginRight={4}>
-                        <Avatar size={avatarSize ? avatarSize : undefined} src={avatarImage ? avatarImage : undefined} name={title ? title : undefined} />
+                        <Avatar size={avatarSize ? avatarSize : undefined} src={avatarImage ? avatarImage : undefined} name={title && !avatarImage ? title : undefined} />
                     </Box>
                     <Stack direction={'column'}>
                         <Box>
@@ -29,7 +30,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
                                 {title}
                             </Text>
                         </Box>
-                        <Box w='200px'>
+                        <Box w={subtitleWidth? subtitleWidth : '300px'}>
                             <Text fontSize='sm' color="#8696a0" overflow="hidden" textOverflow="ellipsis">
                                 {subtitle}
                             </Text>

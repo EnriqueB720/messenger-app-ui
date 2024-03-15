@@ -1,5 +1,5 @@
-query Contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput){
-  Contacts(where: $where, cursor: $cursor){
+query contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput){
+  contacts(where: $where, cursor: $cursor){
     fullName,
     userId,
     contactUserId,

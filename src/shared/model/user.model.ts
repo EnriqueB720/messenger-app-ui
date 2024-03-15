@@ -1,4 +1,5 @@
 import { User as UserRequestData } from "@/shared/generated/graphql-schema"
+import { Contact } from "@model";
 
 export class User {
 
@@ -13,5 +14,17 @@ export class User {
 
     get userName(){
         return this.data?.fullName!;
+    }
+
+    get contacts(){
+        return this.data?.contacts?.map(contact => new Contact(contact))
+    }
+
+    isThisUserMyContact(contactId: number){
+        return (contactId === this.contacts?.find(c => c.contactId === contactId)?.contactId)
+    }
+
+    getContactName(contactId: number){
+        return this.contacts?.find(c => c.contactId === contactId)?.name;
     }
 }

@@ -12,8 +12,32 @@ query chats($where: ChatWhereInput!) {
     }
     participants{
       user{
-        fullName,
-        id
+      id
+      fullName
+      phoneNumber
+      },
+      userId
+    }
+  }
+}
+
+query chat($where: ChatWhereUniqueInput!) {
+  chat(where: $where){
+    uuid
+    id
+    name
+    createdAt
+    updatedAt
+    isGroup
+    messages{
+      text,
+      createdAt
+    }
+    participants{
+      user{
+      fullName
+      id
+      phoneNumber
       },
       userId
     }

@@ -9,8 +9,15 @@ import { useRouter } from 'next/router';
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
   height,
-  data
+  data,
+  user
 }) => {
+
+		if(!data?.isGroup){
+      const contactName = user.getContactName(data.getContactParticipants(user)!);
+			data.title = contactName;
+		}
+	
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -33,7 +40,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
         bg={'#202c33'}
         avatarSize={'sm'}
         title={data.title}
-        subtitle={data.subtitle}
+        subtitle={data.getSubtitle(user)}
         onClick={() => {handleClick()}} 
         style={{
           cursor: 'pointer'

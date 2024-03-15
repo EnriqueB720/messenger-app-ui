@@ -23,6 +23,14 @@ export class Message {
         return this.data.sender?.fullName!;
     }
 
+    get senderId(){
+        return this.data.senderId;
+    }
+
+    get senderPhoneNumber(){
+        return this.data.sender?.phoneNumber;
+    }
+
     isUserMessage(senderId: number): boolean{
         return true ? this.data.senderId! == senderId : false;
     }

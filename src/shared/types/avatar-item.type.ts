@@ -11,5 +11,6 @@ export interface AvatarItemProps {
     bg?: string;
     style?: CSSProperties;
     avatarSize?: AvatarSize;
+    subtitleWidth?: string;
     onClick?: () => void 
 }

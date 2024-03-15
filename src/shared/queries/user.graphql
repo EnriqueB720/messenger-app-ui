@@ -6,5 +6,9 @@ query user($where: UserWhereUniqueInput!) {
     username
     fullName
     phoneNumber
+    contacts{
+      fullName,
+      contactUserId
+    },
   }
 }

@@ -62,7 +62,14 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
                 key={index}
                 message={message}
                 userId={user.userId}
-                username={chat.isGroup && !message.isUserMessage(user.userId) ? message.senderName : undefined}
+                username={
+                  chat.isGroup &&
+                  !message.isUserMessage(user.userId) ?
+                    user.isThisUserMyContact(message.senderId!) ? 
+                      user.getContactName(message.senderId!)!
+                      :
+                      `${message.senderPhoneNumber} - ${message.senderName}`  
+                  : undefined}
               />
             ))}
           </>)

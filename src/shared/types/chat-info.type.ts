@@ -1,8 +1,8 @@
-import { Chat, Contact } from "@model";
+import { Chat, User } from "@model";
 
 export interface ChatInfoProps{
     chat?: Chat;
     contactId?: number;
-    userId?: number;
+    user?: User;
     headerHeight?: number;
 }

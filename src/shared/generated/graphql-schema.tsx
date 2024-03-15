@@ -235,8 +235,9 @@ export enum OrderByArg {
 export type Query = {
   __typename?: 'Query';
   ChatParticipant: Array<ChatParticipant>;
-  Contacts: Array<Contact>;
+  chat: Chat;
   chats: Array<Chat>;
+  contacts: Array<Contact>;
   messages: Array<Message>;
   user: User;
   userMessageStatus: Array<UserMessageStatus>;
@@ -248,12 +249,8 @@ export type QueryChatParticipantArgs = {
 };
 
 
-export type QueryContactsArgs = {
-  cursor?: InputMaybe<ContactWhereUniqueInput>;
-  orderBy?: InputMaybe<ContactOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  take?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ContactWhereInput>;
+export type QueryChatArgs = {
+  where: ChatWhereUniqueInput;
 };
 
 
@@ -263,6 +260,15 @@ export type QueryChatsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ChatWhereInput>;
+};
+
+
+export type QueryContactsArgs = {
+  cursor?: InputMaybe<ContactWhereUniqueInput>;
+  orderBy?: InputMaybe<ContactOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ContactWhereInput>;
 };
 
 
@@ -368,7 +374,14 @@ export type ChatsQueryVariables = Exact<{
 }>;
 
 
-export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null } | null }> | null }> };
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> | null }> };
+
+export type ChatQueryVariables = Exact<{
+  where: ChatWhereUniqueInput;
+}>;
+
+
+export type ChatQuery = { __typename?: 'Query', chat: { __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null, phoneNumber?: number | null } | null }> | null } };
 
 export type ContactsQueryVariables = Exact<{
   where: ContactWhereInput;
@@ -376,7 +389,7 @@ export type ContactsQueryVariables = Exact<{
 }>;
 
 
-export type ContactsQuery = { __typename?: 'Query', Contacts: Array<{ __typename?: 'Contact', fullName?: string | null, userId?: number | null, contactUserId?: number | null, contactUser?: { __typename?: 'User', phoneNumber?: number | null } | null }> };
+export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', fullName?: string | null, userId?: number | null, contactUserId?: number | null, contactUser?: { __typename?: 'User', phoneNumber?: number | null } | null }> };
 
 export type CreateDirectMessageMutationVariables = Exact<{
   data: DirectMessageCreateInput;
@@ -397,7 +410,7 @@ export type MessagesQueryVariables = Exact<{
 }>;
 
 
-export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null } | null }> };
+export type MessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null }> };
 
 export type UserMessageStatusQueryVariables = Exact<{
   where: UserMessageStatusWhereInput;
@@ -411,7 +424,7 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null } };
+export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } };
 
 
 export const ChatsDocument = gql`
@@ -429,8 +442,9 @@ export const ChatsDocument = gql`
     }
     participants {
       user {
-        fullName
         id
+        fullName
+        phoneNumber
       }
       userId
     }
@@ -465,9 +479,61 @@ export function useChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Chat
 export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
 export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
 export type ChatsQueryResult = Apollo.QueryResult<ChatsQuery, ChatsQueryVariables>;
+export const ChatDocument = gql`
+    query chat($where: ChatWhereUniqueInput!) {
+  chat(where: $where) {
+    uuid
+    id
+    name
+    createdAt
+    updatedAt
+    isGroup
+    messages {
+      text
+      createdAt
+    }
+    participants {
+      user {
+        fullName
+        id
+        phoneNumber
+      }
+      userId
+    }
+  }
+}
+    `;
+
+/**
+ * __useChatQuery__
+ *
+ * To run a query within a React component, call `useChatQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChatQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChatQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useChatQuery(baseOptions: Apollo.QueryHookOptions<ChatQuery, ChatQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ChatQuery, ChatQueryVariables>(ChatDocument, options);
+      }
+export function useChatLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChatQuery, ChatQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ChatQuery, ChatQueryVariables>(ChatDocument, options);
+        }
+export type ChatQueryHookResult = ReturnType<typeof useChatQuery>;
+export type ChatLazyQueryHookResult = ReturnType<typeof useChatLazyQuery>;
+export type ChatQueryResult = Apollo.QueryResult<ChatQuery, ChatQueryVariables>;
 export const ContactsDocument = gql`
-    query Contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput) {
-  Contacts(where: $where, cursor: $cursor) {
+    query contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput) {
+  contacts(where: $where, cursor: $cursor) {
     fullName
     userId
     contactUserId
@@ -596,6 +662,7 @@ export const MessagesDocument = gql`
     }
     sender {
       fullName
+      phoneNumber
     }
   }
 }
@@ -677,6 +744,10 @@ export const UserDocument = gql`
     username
     fullName
     phoneNumber
+    contacts {
+      fullName
+      contactUserId
+    }
   }
 }
     `;

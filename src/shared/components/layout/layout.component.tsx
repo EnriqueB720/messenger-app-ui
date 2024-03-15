@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery } from '@generated';
+import { useUserQuery, useChatsQuery, useMessagesQuery, useUserMessageStatusQuery, useChatQuery } from '@generated';
 import { Chat, Message, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from '@/shared/hooks';
@@ -55,7 +55,7 @@ const Layout: React.FC = () => {
     }
   });
 
-  const chatResponse = useChatsQuery({
+  const chatResponse = useChatQuery({
     fetchPolicy: 'cache-and-network',
     variables: {
       where: {
@@ -103,7 +103,7 @@ const Layout: React.FC = () => {
 
   const user = new User(userResponse.data?.user!);
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
-  const chat = new Chat(chatResponse.data?.chats[0]!);
+  const chat = new Chat(chatResponse.data?.chat!);
   const messages = (messagesResponse.data?.messages || []).map(data => new Message(data));
   const message = messages.find(m => m.id === messageId);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
@@ -116,7 +116,7 @@ const Layout: React.FC = () => {
           <SideBarHeader data={user} />
           <ChatSearchBar />
           <Box maxH={chatHistoryHeight} overflowY={'auto'}>
-            <ChatList data={chats} />
+            <ChatList data={chats} user={user}/>
           </Box>
         </Box>
         <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
@@ -124,7 +124,7 @@ const Layout: React.FC = () => {
           {
             doesChatIdExist ? (
               <>
-                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} />
+                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} user={user} />
                 <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
                   <MessageHistory messages={messages} chat={chat} user={user} />
                 </Box>
@@ -146,7 +146,7 @@ const Layout: React.FC = () => {
           }
           {
             displayChatInfo ? 
-              <ChatInfo chat={chat} userId={user.userId} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user)! : undefined}/>
+              <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user)! : undefined}/>
             :
             undefined
           }
