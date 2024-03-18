@@ -14,7 +14,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
     avatarImage,
     titleWidth,
     avatarSize,
-    subtitleWidth,
+    subtitleWidth = '200px',
     onClick
 }) => {
     return (
@@ -30,7 +30,7 @@ const AvatarItem: React.FC<AvatarItemProps> = ({
                                 {title}
                             </Text>
                         </Box>
-                        <Box w={subtitleWidth? subtitleWidth : '300px'}>
+                        <Box w={subtitleWidth ? subtitleWidth : '300px'}>
                             <Text fontSize='sm' color="#8696a0" overflow="hidden" textOverflow="ellipsis">
                                 {subtitle}
                             </Text>

@@ -90,6 +90,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                 </Box>
               </Box>
               {chatParticipants?.map((participant) => (
+                user?.userId !== participant.userId ?
                 <AvatarMessageItem
                   key={participant.userId}
                   bg={'#111b21'}
@@ -98,6 +99,8 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                   avatarImage={user?.isThisUserMyContact(participant.userId!) ? undefined : `./images/defaultUserImage.png`}
                   titleWidth="sm" 
                   subtitleWidth='200px'/>
+                  :
+                  undefined
               ))}
             </Box>
             <Box bg={'#111b21'} marginTop={3} marginBottom={6}>

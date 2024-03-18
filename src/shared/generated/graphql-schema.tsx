@@ -381,7 +381,7 @@ export type ChatQueryVariables = Exact<{
 }>;
 
 
-export type ChatQuery = { __typename?: 'Query', chat: { __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null, phoneNumber?: number | null } | null }> | null } };
+export type ChatQuery = { __typename?: 'Query', chat: { __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null, phoneNumber?: number | null } | null }> | null } };
 
 export type ContactsQueryVariables = Exact<{
   where: ContactWhereInput;
@@ -417,7 +417,7 @@ export type UserMessageStatusQueryVariables = Exact<{
 }>;
 
 
-export type UserMessageStatusQuery = { __typename?: 'Query', userMessageStatus: Array<{ __typename?: 'UserMessageStatus', isReceived?: boolean | null, isRead?: boolean | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null } | null }> };
+export type UserMessageStatusQuery = { __typename?: 'Query', userMessageStatus: Array<{ __typename?: 'UserMessageStatus', isReceived?: boolean | null, isRead?: boolean | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -489,8 +489,21 @@ export const ChatDocument = gql`
     updatedAt
     isGroup
     messages {
+      id
+      uuid
+      chatId
+      senderId
       text
       createdAt
+      userMessageStatuses {
+        isRead
+        isReceived
+        isFavorite
+      }
+      sender {
+        fullName
+        phoneNumber
+      }
     }
     participants {
       user {
@@ -703,6 +716,7 @@ export const UserMessageStatusDocument = gql`
     user {
       id
       fullName
+      phoneNumber
     }
   }
 }

@@ -4,7 +4,8 @@ query userMessageStatus($where: UserMessageStatusWhereInput!) {
     isRead,
     user{
       id,
-      fullName
+      fullName,
+      phoneNumber
     }
   }
 }

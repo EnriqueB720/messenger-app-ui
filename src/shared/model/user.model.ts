@@ -16,6 +16,10 @@ export class User {
         return this.data?.fullName!;
     }
 
+    get phoneNumber(){
+        return this.data?.phoneNumber!;
+    }
+
     get contacts(){
         return this.data?.contacts?.map(contact => new Contact(contact))
     }

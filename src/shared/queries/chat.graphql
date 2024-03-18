@@ -30,8 +30,21 @@ query chat($where: ChatWhereUniqueInput!) {
     updatedAt
     isGroup
     messages{
-      text,
-      createdAt
+      id,
+        uuid,
+        chatId,
+        senderId,
+        text,
+        createdAt,
+        userMessageStatuses{
+          isRead,
+          isReceived,
+          isFavorite
+    },  
+        sender{
+          fullName,
+          phoneNumber
+    },
     }
     participants{
       user{

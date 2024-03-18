@@ -10,7 +10,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
   message,
   messageStatuses,
   headerHeight,
-  userId
+  user
 }) => {
   const receivedStatus = messageStatuses?.filter((status) => status.isReceived);
   const readStatus = messageStatuses?.filter((status) => status.isRead);
@@ -37,7 +37,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
       >
         <Message
           message={message}
-          userId={userId}
+          userId={user.userId}
           maxWidth="45vh"
         />
       </Box>
@@ -52,9 +52,11 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
             <Box>
               {receivedStatus?.map((receivedBy) => (
                 <AvatarMessageItem
-                  key={receivedBy.userId}
+                  key={receivedBy.userId+'receivedBy'}
                   bg={'#111b21'}
-                  title={receivedBy.user?.fullName}
+                  title={user?.isThisUserMyContact(receivedBy.userId!) ? user.getContactName(receivedBy.userId!) : receivedBy.user?.phoneNumber?.toString()} 
+                  subtitle={user?.isThisUserMyContact(receivedBy.userId!) ? undefined : receivedBy.user?.fullName}
+                  avatarImage={user?.isThisUserMyContact(receivedBy.userId!) ? undefined : `./images/defaultUserImage.png`}
                   titleWidth='sm'
                 />
               ))}
@@ -69,9 +71,11 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
             <Box>
               {readStatus?.map((readBy) => (
                 <AvatarMessageItem
-                  key={readBy.userId}
+                  key={readBy.userId+'readBy'}
                   bg={'#111b21'}
-                  title={readBy.user?.fullName}
+                  title={user?.isThisUserMyContact(readBy.userId!) ? user.getContactName(readBy.userId!) : readBy.user?.phoneNumber?.toString()} 
+                  subtitle={user?.isThisUserMyContact(readBy.userId!) ? undefined : readBy.user?.fullName}
+                  avatarImage={user?.isThisUserMyContact(readBy.userId!) ? undefined : `./images/defaultUserImage.png`}
                   titleWidth="sm"
                 />
               ))}

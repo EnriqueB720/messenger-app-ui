@@ -1,5 +1,6 @@
 import { Chat as ChatRequestData } from "@/shared/generated/graphql-schema"
 import { ChatParticipant, Message, User } from "@model";
+import { userAgent } from "next/server";
 
 export class Chat {
 
@@ -34,21 +35,26 @@ export class Chat {
         }
     }
 
+    get participants(){
+        return this.data?.participants;
+    }
+
+    get createdAt(){
+        return new Date(this.data?.createdAt);
+    }
+
+    get messages(){
+        return this.data?.messages?.map(m => new Message(m))!;
+    }
+
     getSubtitle(loggedUser: User){
         return this.data?.isGroup ? this.data.participants?.map(p =>  {
             if(loggedUser.isThisUserMyContact(p.user?.id!)){
                return loggedUser.getContactName(p.user?.id!);
             }else{
-               return p.user?.phoneNumber
+               return p.user?.phoneNumber == loggedUser.phoneNumber ? 'Me' : p.user?.phoneNumber
             }
         }).join(', ') : " "
-    }
-
-    get participants(){
-        return this.data?.participants;
-    }
-    get createdAt(){
-        return new Date(this.data?.createdAt);
     }
 
     getContactParticipants(loggedUser: User){

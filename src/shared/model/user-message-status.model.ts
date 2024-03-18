@@ -8,7 +8,7 @@ export class UserMessageStatus {
     }
 
     get userId(){
-        return this.data.userId
+        return this.data.user?.id
     }
 
     get isReceived(){

@@ -10,13 +10,12 @@ import { DateService } from '@services';
 
 const MessageHistory: React.FC<MessagesHistoryProps> = ({
   chat,
-  messages,
   user
 }) => {
 
   const dateService = new DateService();
 
-  const x = messages.reduce((groupBy, message) => {
+  const messagesPerDay = chat.messages?.reduce((groupBy, message) => {
     const dailyMessageGroup: IMessage[] = groupBy[groupBy.length - 1];
     if (!dailyMessageGroup.length) {
       dailyMessageGroup.push(message);
@@ -40,7 +39,7 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
   useEffect(() => {
     // Scroll to the bottom of the chat box
     inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
-  }, [messages]); // Scroll when messages change
+  }, [chat.messages]); // Scroll when messages change
 
   return (
 
@@ -49,30 +48,30 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
       zIndex={'2'}
       position={'relative'}>
       {
-        x.map((messages, index) => {
+        messagesPerDay?.map((messages, index) => {
           return (
-          <>
-            <Box textAlign={'center'}>
-              <Badge variant='solid' bg={'#2f3b43'} color={'#8696a0'}>
-                {messages[0]?.messageDate?.toDateString()}
-              </Badge>
-            </Box>
-            {messages.map((message, index) => (
-              <Message
-                key={index}
-                message={message}
-                userId={user.userId}
-                username={
-                  chat.isGroup &&
-                  !message.isUserMessage(user.userId) ?
-                    user.isThisUserMyContact(message.senderId!) ? 
-                      user.getContactName(message.senderId!)!
-                      :
-                      `${message.senderPhoneNumber} - ${message.senderName}`  
-                  : undefined}
-              />
-            ))}
-          </>)
+            <Box key={index}>
+              <Box textAlign={'center'} key={"badge-"+index}>
+                <Badge variant='solid' bg={'#2f3b43'} color={'#8696a0'}>
+                  {messages[0]?.messageDate?.toDateString()}
+                </Badge>
+              </Box>
+              {messages.map((message) => (
+                <Message
+                  key={message.id}
+                  message={message}
+                  userId={user.userId}
+                  username={
+                    chat.isGroup &&
+                      !message.isUserMessage(user.userId) ?
+                      user.isThisUserMyContact(message.senderId!) ?
+                        user.getContactName(message.senderId!)!
+                        :
+                        `${message.senderPhoneNumber} - ${message.senderName}`
+                      : undefined}
+                />
+              ))}
+            </Box>)
         })
 
       }
