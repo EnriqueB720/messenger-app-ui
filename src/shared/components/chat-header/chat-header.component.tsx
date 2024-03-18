@@ -5,6 +5,7 @@ import { AvatarIconItem, Box, IconButton } from '@components';
 import { ChatHeaderProps } from '@types';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
+import { useTranslation } from '@/shared/hooks';
 
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
@@ -21,6 +22,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const {t} = useTranslation()
 
   const handleClick = () => {
     if(!searchParams.has('displayChatInfo') && searchParams.has('chatId')){
@@ -40,7 +42,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
         bg={'#202c33'}
         avatarSize={'sm'}
         title={data.title}
-        subtitle={data.getSubtitle(user)}
+        subtitle={data.getSubtitle(user, t('chatHeader.ReferToMySelfAs'))}
         onClick={() => {handleClick()}} 
         style={{
           cursor: 'pointer'

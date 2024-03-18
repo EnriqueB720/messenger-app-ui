@@ -5,6 +5,7 @@ import { Box, TextInputIcon } from '@components';
 import { useCallback, useState } from 'react';
 import { useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
 import { MessageInputProps } from '@types';
+import { useTranslation } from '@/shared/hooks';
 
 const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
 
@@ -64,7 +65,8 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
       await sendDirectMessage(!!chat.isGroup)();
     }
   };
-
+  
+  const {t} = useTranslation();
 
   return (
     <Box bg={'#202c33'} padding={2}>
@@ -74,7 +76,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
         rightIconType={'send'}
         onLeftIconClick={() => { alert('emoji clicked') }}
         onRightIconClick={sendDirectMessage(!!chat.isGroup)}
-        inputPlaceholder={'Type a message...'}
+        inputPlaceholder={t('chatInput.placeholderText')}
         inputPadding={'5%'}
         onInputChange={onInputChange}
         onKeyDown={handleKeyDown}

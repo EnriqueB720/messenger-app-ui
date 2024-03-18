@@ -5,6 +5,7 @@ import _ from "lodash";
 import { MessageInfoProps } from "@types";
 import { Message, Box, Stack, AvatarMessageItem, Text, IconButton, RightSideBarHeader } from "@components";
 import { useRouter } from "next/router";
+import { useTranslation } from "@/shared/hooks";
 
 const MessageInfo: React.FC<MessageInfoProps> = ({
   message,
@@ -16,6 +17,8 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
   const readStatus = messageStatuses?.filter((status) => status.isRead);
 
   const router = useRouter();
+  const {t} = useTranslation();
+  
   const titleColor = "#8696a0";
 
   const closeMessageInfo = () => {
@@ -25,7 +28,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
 
   return (
     <>
-     <RightSideBarHeader text={'Message Information.'} height={headerHeight} onCloseFunction={closeMessageInfo}/>
+     <RightSideBarHeader text={t('messageInformation.closeTitle')} height={headerHeight} onCloseFunction={closeMessageInfo}/>
       <Box
         backgroundImage={`url(./images/backgroundImage.png)`}
         h={"20%"}
@@ -47,7 +50,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
         <Box padding={1} h={'50%'} overflowY={'auto'}>
           <Stack direction="column" divider>
             <Text fontSize="lg" textAlign={"center"} color={titleColor}>
-              Received by
+              {t('messageInformation.receivedBy')}
             </Text>
             <Box>
               {receivedStatus?.map((receivedBy) => (
@@ -66,7 +69,7 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
         <Box padding={1} h={'50%'} overflowY={'auto'}>
           <Stack direction="column" divider>
             <Text fontSize="lg" textAlign={"center"} color={titleColor}>
-              Read by
+              {t('messageInformation.readBy')}
             </Text>
             <Box>
               {readStatus?.map((readBy) => (

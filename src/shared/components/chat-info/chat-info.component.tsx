@@ -6,6 +6,7 @@ import { ChatInfoProps } from '@types';
 import { useContactsQuery } from '@generated';
 import { Contact } from '@model';
 import { useRouter } from 'next/router';
+import { useTranslation } from '@/shared/hooks';
 
 
 
@@ -39,12 +40,13 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
     const baseRoute = router.asPath.replace(/&?displayChatInfo=true+/, '');
     router.push(baseRoute);
   }
-
+  
+  const {t} = useTranslation();
 
   return (
     <Box h={'100%'} overflowY={'auto'}>
       <RightSideBarHeader
-        text={chat?.isGroup ? 'Group Information.' : 'Contact Information.'}
+        text={chat?.isGroup ? t('chatInformation.groupCloseTitle') : t('chatInformation.contactCloseTitle')}
         height={headerHeight}
         onCloseFunction={closeMessageInfo}
       />
@@ -58,7 +60,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
             {chat?.isGroup ? chat.name : contact.name}
           </Text>
           <Text color={"#8696a0"} marginTop={'8px'}>
-            {chat?.isGroup ? `Group · ${chat.getAmountOfParticipants()} members` : contact.phoneNumber}
+            {chat?.isGroup ? `${t('chatInformation.groupAmountOfParticipants')} · ${chat.getAmountOfParticipants()} ${t('chatInformation.members')}` : contact.phoneNumber}
           </Text>
         </Box>
       </Box>
@@ -68,7 +70,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
             <Box marginTop={3}>
               <Box color={"#8696a0"} bg={'#111b21'} display="flex" alignItems={'center'} h={'60px'}>
                 <Text marginLeft={'15px'}>
-                  {`${chat?.getAmountOfParticipants()} members`}
+                  {`${chat?.getAmountOfParticipants()} ${t('chatInformation.members')}`}
                 </Text>
               </Box>
               <Box
@@ -86,7 +88,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                     onClick={() => { }} />
                 </Box>
                 <Box>
-                  Add member
+                  {t('chatInformation.newMember')}
                 </Box>
               </Box>
               {chatParticipants?.map((participant) => (
@@ -108,7 +110,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                 {
                   iconType: 'exit',
                   onClick: () => {},
-                  text: 'Exit group'
+                  text: t('chatInformation.exitGroupButton')
                 }
               ]}/>
             </Box>
@@ -119,12 +121,12 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                 {
                   iconType: 'block',
                   onClick: () => {},
-                  text: `Block ${contact.name}`
+                  text: `${t('chatInformation.blockContactButton')} ${contact.name}`
                 },
                 {
                   iconType: 'delete',
                   onClick: () => {},
-                  text: 'Delete chat'
+                  text: t('chatInformation.deleteChatButton')
                 }
               ]}/>
           </Box>

@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
+import { useTranslation } from "@/shared/hooks";
 
 const Message: React.FC<MessageProps> = ({
   username,
@@ -43,6 +44,8 @@ const Message: React.FC<MessageProps> = ({
 
     return formattedTime;
   }
+
+  const {t} = useTranslation();
 
   const generateColor = () => {
     const randomColor = Math.floor(Math.random() * 16777215)
@@ -142,7 +145,7 @@ const Message: React.FC<MessageProps> = ({
         <Box float={'right'} color={iconMessageColor} marginLeft={-4} marginTop={1} onMouseEnter={handleMouseEnter}>
           <DropdownIconButton
             icon="downArrow"
-            options={[{ text: 'Message Info.', onClick: () => handleClick(message?.id) }]}
+            options={[{ text: t('messageOptions.messageInfo'), onClick: () => handleClick(message?.id) }]}
             boxColor={backgroundMessageColor}
           />
         </Box>
