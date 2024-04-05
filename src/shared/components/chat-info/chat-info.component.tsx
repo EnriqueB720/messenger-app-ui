@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Avatar, AvatarMessageItem, Box, Button, ChatInfoActionList, Icon, IconButton, RightSideBarHeader, Text } from '@components';
+import { Avatar, AvatarMessageItem, Box, ChatInfoActionList, IconButton, RightSideBarHeader, Text } from '@components';
 import { ChatInfoProps } from '@types';
-import { useContactsQuery } from '@generated';
+import { useContactsLazyQuery } from '@generated';
 import { Contact } from '@model';
 import { useRouter } from 'next/router';
 import { useTranslation } from '@/shared/hooks';
+import { useEffect } from 'react';
 
 
 
@@ -19,18 +20,23 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
 
   const router = useRouter();
 
-  const contactResponse = useContactsQuery({
-    fetchPolicy: 'cache-and-network',
-    variables: {
-      where: {
-        contactUserId: contactId
-      },
-      cursor: {
-        userId: user?.userId,
-        contactUserId: contactId
+  const [fetchContactByContactId ,contactResponse] = useContactsLazyQuery({
+    fetchPolicy: 'cache-and-network'
+  });
+
+  useEffect(() =>{
+    fetchContactByContactId({
+      variables: {
+        where: {
+          contactUserId: contactId
+        },
+        cursor: {
+          userId: user?.userId,
+          contactUserId: contactId
+        }
       }
-    }
-  })
+    })
+  }, [!chat?.isGroup])
 
   const contact = new Contact(contactResponse.data?.contacts[0]!);
 

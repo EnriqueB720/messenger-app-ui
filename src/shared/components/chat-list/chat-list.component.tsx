@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { AvatarMessageItem, Box, Stack } from '@components';
 import { useRouter } from 'next/router';
 import { ChatListProps } from '@types';
-import { useContactsQuery } from '@generated';
 
 
 const ChatList: React.FC<ChatListProps> = ({ data, user }) => {

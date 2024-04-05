@@ -109,6 +109,7 @@ const Message: React.FC<MessageProps> = ({
           <Text
             fontSize="xs"
             color={message.isUserMessage(userId) ? undefined : generateColor()}
+            as='b'
           >
             {username}
           </Text>
