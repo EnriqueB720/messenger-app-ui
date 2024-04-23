@@ -6,28 +6,48 @@ import { Box, TextInputIcon } from '@components';
 import { useTranslation } from '@/shared/hooks';
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const ChatSearchBar: React.FC = () => {
-	const {t} = useTranslation();
+	const { t } = useTranslation();
 
 	const [searchValue, setSearchValue] = useState('')
-  const [debouncedValue] = useDebounce(searchValue, 500);
+	const [debouncedValue] = useDebounce(searchValue, 500);
+
+	const router = useRouter();
+	const searchParams = useSearchParams();
+
+	const urlSearchParam = searchParams.get("searchBy")!;
 
 
-  const handleInputChange = (event: any) => {
-    const value = event.target.value;
-    setSearchValue(value);
-  };
+	const handleInputChange = (event: any) => {
+		const value = event.target.value;
+		setSearchValue(value);
+	};
+
 
 	const filterChatsBy = () => {
-		const isSearchEmpty = searchValue === '';
+		const isSearchEmpty = debouncedValue === '';
+
+		if (searchParams.has("searchBy") || isSearchEmpty) {
+			if (debouncedValue !== urlSearchParam) {
+				if (!isSearchEmpty) {
+					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
+					router.push(`${baseRoute}&searchBy=${debouncedValue}`);
+				} else {
+					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
+					router.push(baseRoute);
+				}
+			}
+		} else {
+			router.push(`${router.asPath}&searchBy=${debouncedValue}`);
+		}
 	}
 
-	const handleKeyDown = async (event: any) => {
-    if (event.key === 'Enter' && searchValue != '') {
-      
-    }
-  };
+	React.useEffect(() => {
+		filterChatsBy();
+	}, [debouncedValue])
 
 
 	return (
@@ -40,7 +60,6 @@ const ChatSearchBar: React.FC = () => {
 				onLeftIconClick={filterChatsBy}
 				onRightIconClick={() => { alert('filter clicked') }}
 				onInputChange={handleInputChange}
-        onKeyDown={handleKeyDown}
 				inputText={searchValue} />
 		</Box>
 	);

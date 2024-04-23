@@ -11,7 +11,7 @@ import {
   DropdownIconButton,
   Avatar,
 } from "@components";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
 import { useTranslation } from "@/shared/hooks";
@@ -47,12 +47,12 @@ const Message: React.FC<MessageProps> = ({
 
   const {t} = useTranslation();
 
-  const generateColor = () => {
+  const generateColor = useCallback(() => {
     const randomColor = Math.floor(Math.random() * 16777215)
       .toString(16)
       .padStart(6, "0");
     return `#${randomColor}`;
-  };
+  },[]);
 
   const handleMouseEnter = () => {
     setIsHover(true);

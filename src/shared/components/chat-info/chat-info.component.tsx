@@ -36,7 +36,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
         }
       }
     })
-  }, [!chat?.isGroup])
+  }, [contactId])
 
   const contact = new Contact(contactResponse.data?.contacts[0]!);
 

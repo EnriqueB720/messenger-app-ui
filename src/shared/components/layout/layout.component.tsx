@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery } from '@generated';
+import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery } from '@generated';
 import { Chat, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 
@@ -20,6 +20,8 @@ const Layout: React.FC = () => {
   const searchParams = useSearchParams();
 
   const doesChatIdExist = searchParams.has("chatId");
+
+  const searchBy = searchParams.get('searchBy')!;
 
   const chatId = Number.parseInt(searchParams.get('chatId')!);
 
@@ -53,6 +55,10 @@ const Layout: React.FC = () => {
       }
     }
   });
+
+  const [filteredChats, filteredChatResponse] = useFilteredChatsLazyQuery({
+    fetchPolicy: 'cache-and-network'
+  })
 
   const [fetchChatById, chatResponse] = useChatLazyQuery({
     fetchPolicy: 'cache-and-network'
@@ -90,6 +96,19 @@ const Layout: React.FC = () => {
     }
   }, [messageId])
 
+  useEffect(() => {
+    if(searchBy){
+      filteredChats({
+        variables:{
+          where:{
+            userId: userResponse.data?.user.id,
+            name: searchBy
+          }
+        }
+      })
+    }
+  }, [searchBy])
+
 
 
   const toggleSidebar = useCallback((isOpen: boolean) => {
@@ -103,10 +122,12 @@ const Layout: React.FC = () => {
   }, [])
 
   const user = new User(userResponse.data?.user!);
-  const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
+  const chats = (searchParams.has('searchBy') ? filteredChatResponse.data?.filteredChats || [] : chatsResponse.data?.chats || []).map(data => new Chat(data));
   const chat = new Chat(chatResponse.data?.chat!);
   const message = chat.messages?.find(m => m.id === messageId);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
+
+  console.log(chat.data, user.data);
 
   return (
     <Box>

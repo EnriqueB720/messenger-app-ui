@@ -41,6 +41,7 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
     inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
   }, [chat.messages]); // Scroll when messages change
 
+  console.log('Message-history', chat, user);
   return (
 
     <Box h={'100%'}
@@ -81,6 +82,6 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
   );
 }
 
-export default React.memo(MessageHistory, (prevProps, nextProps) => {
-  return _.isEqual(prevProps, nextProps);
+export default React.memo(MessageHistory,  (prevProps, nextProps) => {
+	return _.isEqual(prevProps, nextProps);
 });

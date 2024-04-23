@@ -238,6 +238,7 @@ export type Query = {
   chat: Chat;
   chats: Array<Chat>;
   contacts: Array<Contact>;
+  filteredChats: Array<Chat>;
   messages: Array<Message>;
   user: User;
   userMessageStatus: Array<UserMessageStatus>;
@@ -269,6 +270,15 @@ export type QueryContactsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ContactWhereInput>;
+};
+
+
+export type QueryFilteredChatsArgs = {
+  cursor?: InputMaybe<ChatWhereUniqueInput>;
+  orderBy?: InputMaybe<ChatOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ChatWhereInput>;
 };
 
 
@@ -382,6 +392,13 @@ export type ChatQueryVariables = Exact<{
 
 
 export type ChatQuery = { __typename?: 'Query', chat: { __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null, phoneNumber?: number | null } | null }> | null } };
+
+export type FilteredChatsQueryVariables = Exact<{
+  where: ChatWhereInput;
+}>;
+
+
+export type FilteredChatsQuery = { __typename?: 'Query', filteredChats: Array<{ __typename?: 'Chat', id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> | null }> };
 
 export type ContactsQueryVariables = Exact<{
   where: ContactWhereInput;
@@ -544,6 +561,57 @@ export function useChatLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChatQ
 export type ChatQueryHookResult = ReturnType<typeof useChatQuery>;
 export type ChatLazyQueryHookResult = ReturnType<typeof useChatLazyQuery>;
 export type ChatQueryResult = Apollo.QueryResult<ChatQuery, ChatQueryVariables>;
+export const FilteredChatsDocument = gql`
+    query filteredChats($where: ChatWhereInput!) {
+  filteredChats(where: $where) {
+    id
+    name
+    createdAt
+    updatedAt
+    isGroup
+    messages {
+      text
+      createdAt
+    }
+    participants {
+      user {
+        id
+        fullName
+        phoneNumber
+      }
+      userId
+    }
+  }
+}
+    `;
+
+/**
+ * __useFilteredChatsQuery__
+ *
+ * To run a query within a React component, call `useFilteredChatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilteredChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilteredChatsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFilteredChatsQuery(baseOptions: Apollo.QueryHookOptions<FilteredChatsQuery, FilteredChatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FilteredChatsQuery, FilteredChatsQueryVariables>(FilteredChatsDocument, options);
+      }
+export function useFilteredChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilteredChatsQuery, FilteredChatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FilteredChatsQuery, FilteredChatsQueryVariables>(FilteredChatsDocument, options);
+        }
+export type FilteredChatsQueryHookResult = ReturnType<typeof useFilteredChatsQuery>;
+export type FilteredChatsLazyQueryHookResult = ReturnType<typeof useFilteredChatsLazyQuery>;
+export type FilteredChatsQueryResult = Apollo.QueryResult<FilteredChatsQuery, FilteredChatsQueryVariables>;
 export const ContactsDocument = gql`
     query contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput) {
   contacts(where: $where, cursor: $cursor) {
