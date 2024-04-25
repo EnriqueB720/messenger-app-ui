@@ -8,9 +8,10 @@ import { SidebarHeaderProps } from '@types';
 
 const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 
-    const handleClick = (userId: any) => {
+    const handleClick = React.useCallback((userId: any) => {
         alert('user-info clicked: ' + userId)
-    }
+    }, []);
+    
     return (
         <Box bg={'#202c33'} padding={1}>
             <Flex justifyContent={'space-between'}>

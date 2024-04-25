@@ -11,7 +11,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
 
   const contactUserId = chat.getContactParticipants(user);
   const [message, setMessage] = useState('')
-  const onInputChange = (event: any) => { setMessage(event.target.value) };
+  const onInputChange = useCallback((event: any) => { setMessage(event.target.value) }, []);
 
   const [createDirectMessage] = useCreateDirectMessageMutation()
   const [createGroupMessage] = useCreateGroupMessageMutation();
@@ -56,15 +56,15 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
           }
         })
       }
-
+      setMessage('');
     }
-  }, [message]);
+  }, [message, chat.id]);
 
-  const handleKeyDown = async (event: any) => {
+  const handleKeyDown = React.useCallback(async (event: any) => {
     if (event.key === 'Enter' && message != '') {
       await sendDirectMessage(!!chat.isGroup)();
     }
-  };
+  },[message, chat.id]);
   
   const {t} = useTranslation();
 

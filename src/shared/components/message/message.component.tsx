@@ -54,15 +54,15 @@ const Message: React.FC<MessageProps> = ({
     return `#${randomColor}`;
   },[]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     setIsHover(true);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setIsHover(false);
-  };
+  }, []);
 
-  const handleClick = (messageId: any) => {
+  const handleClick = useCallback((messageId: any) => {
     if (searchParams.has("messageId")) {
       if (messageId !== urlMessageId) {
         const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
@@ -74,7 +74,7 @@ const Message: React.FC<MessageProps> = ({
     } else {
       router.push(`${router.asPath}&messageId=${messageId}`);
     }
-  };
+  },[]);
 
   return (
     <Flex

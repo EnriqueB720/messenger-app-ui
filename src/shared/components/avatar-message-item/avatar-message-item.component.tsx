@@ -10,12 +10,12 @@ const AvatarMessageItem: React.FC<AvatarMessageItemProps> = ({
     ...props
 }) => {
 
-    const formatDate = (date: Date): string => {
+    const formatDate = React.useCallback((date: Date): string => {
         const day = date.getDate();
         const month = date.toLocaleString('default', { month: 'short' });
 
         return `${day} ${month}`;
-    };
+    }, []);
 
     const message = value instanceof Date ? formatDate(value) : value;
     

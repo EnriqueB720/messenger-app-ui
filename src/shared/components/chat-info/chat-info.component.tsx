@@ -42,10 +42,10 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
 
   const chatParticipants = chat?.participants!;
 
-  const closeMessageInfo = () => {
+  const closeMessageInfo = React.useCallback(() => {
     const baseRoute = router.asPath.replace(/&?displayChatInfo=true+/, '');
     router.push(baseRoute);
-  }
+  },[])
   
   const {t} = useTranslation();
 

@@ -11,9 +11,9 @@ const ChatList: React.FC<ChatListProps> = ({ data, user }) => {
 	const router = useRouter();
 	const backgroundColor = '#111b21';
 
-	const handleClick = (chatId: any) => {
+	const handleClick = React.useCallback((chatId: any) => {
 		router.push(`?chatId=${chatId}`);
-	}
+	}, []);
 
 	const modifiedChats = data.map((chat) => {
 		if(!chat.isGroup){

@@ -24,12 +24,12 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   const searchParams = useSearchParams();
   const {t} = useTranslation()
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     if(!searchParams.has('displayChatInfo') && searchParams.has('chatId')){
       const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
       router.push(`${baseRoute}&displayChatInfo=true`);
     }
-  };
+  }, [data.id]);
 
   return (
     <Box 

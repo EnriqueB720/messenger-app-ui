@@ -21,10 +21,10 @@ const MessageInfo: React.FC<MessageInfoProps> = ({
   
   const titleColor = "#8696a0";
 
-  const closeMessageInfo = () => {
+  const closeMessageInfo = React.useCallback(() => {
     const baseRoute = router.asPath.replace(/&?messageId=\d+/, '');
     router.push(baseRoute);
-  }
+  },[])
 
   return (
     <>

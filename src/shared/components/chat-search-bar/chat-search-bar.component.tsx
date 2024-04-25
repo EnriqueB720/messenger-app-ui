@@ -13,7 +13,7 @@ const ChatSearchBar: React.FC = () => {
 	const { t } = useTranslation();
 
 	const [searchValue, setSearchValue] = useState('')
-	const [debouncedValue] = useDebounce(searchValue, 500);
+	const [debouncedValue] = useDebounce(searchValue != '' ? searchValue : '', 700);
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -21,10 +21,10 @@ const ChatSearchBar: React.FC = () => {
 	const urlSearchParam = searchParams.get("searchBy")!;
 
 
-	const handleInputChange = (event: any) => {
+	const handleInputChange = React.useCallback((event: any) => {
 		const value = event.target.value;
 		setSearchValue(value);
-	};
+	}, []);
 
 
 	const filterChatsBy = () => {
@@ -34,20 +34,29 @@ const ChatSearchBar: React.FC = () => {
 			if (debouncedValue !== urlSearchParam) {
 				if (!isSearchEmpty) {
 					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
-					router.push(`${baseRoute}&searchBy=${debouncedValue}`);
+					if(searchParams.has("chatId")){
+						router.push(`${baseRoute}&searchBy=${debouncedValue}`);
+					}else{
+						router.push(`${baseRoute}?searchBy=${debouncedValue}`);
+					}
 				} else {
 					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
 					router.push(baseRoute);
 				}
 			}
 		} else {
-			router.push(`${router.asPath}&searchBy=${debouncedValue}`);
+			if(searchParams.has("chatId")){
+				router.push(`${router.asPath}&searchBy=${debouncedValue}`);
+			}else{
+				router.push(`${router.asPath}?searchBy=${debouncedValue}`);
+			}
 		}
-	}
+	};
 
 	React.useEffect(() => {
 		filterChatsBy();
 	}, [debouncedValue])
+
 
 
 	return (
