@@ -14,7 +14,8 @@ const Stack: React.FC<StackProps> = ({
     children,
     textAlign,
     width,
-    float
+    float,
+    ...props
 }) => {
         return (
             <CKStack
@@ -26,6 +27,7 @@ const Stack: React.FC<StackProps> = ({
                 float={float ? float : undefined}
                 divider={divider ? <StackDivider borderColor='gray.500' /> : undefined}
                 gap={0}
+                {...props}
             >
                 {children}
             </CKStack>
