@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ChatListProps } from '@types';
 
 
-const ChatList: React.FC<ChatListProps> = ({ data, user }) => {
+const ChatList: React.FC<ChatListProps> = ({ data, user, maxH }) => {
 
 	const router = useRouter();
 	const backgroundColor = '#111b21';
@@ -16,19 +16,21 @@ const ChatList: React.FC<ChatListProps> = ({ data, user }) => {
 	}, []);
 
 	const modifiedChats = data.map((chat) => {
-		if(!chat.isGroup){
+		if (!chat.isGroup) {
 
 			const contactName = user.contacts?.find(c => c.contactId == chat.getContactParticipants(user))?.name;
 			chat.title = contactName;
-			
+
 			return chat;
 		}
 
 		return chat;
 	})
 
+	//console.log('Height: '+maxH)
+
 	return (
-		<Box bg={backgroundColor}>
+		<Box bg={backgroundColor} overflowY={'auto'} maxH={maxH}>
 			<Stack direction='column' divider>
 				{
 					modifiedChats.map((chat) => (
@@ -42,6 +44,7 @@ const ChatList: React.FC<ChatListProps> = ({ data, user }) => {
 							value={JSON.stringify(chat.lastMessage) !== '{}' ? chat.lastMessage.messageDate : chat.createdAt}
 							onClick={() => { handleClick(chat.id) }} />
 					))
+
 				}
 			</Stack>
 		</Box>

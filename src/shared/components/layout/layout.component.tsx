@@ -40,6 +40,7 @@ const Layout: React.FC = () => {
   const [sidebarWidth, setSidebarWidth] = useState('0%');
 
   const userResponse = useUserQuery({
+    fetchPolicy: 'cache-and-network',
     variables: {
       where: {
         username: "test"
@@ -97,10 +98,10 @@ const Layout: React.FC = () => {
   }, [messageId])
 
   useEffect(() => {
-    if(searchBy){
+    if (searchBy) {
       filteredChats({
-        variables:{
-          where:{
+        variables: {
+          where: {
             userId: userResponse.data?.user.id,
             name: searchBy
           }
@@ -127,7 +128,9 @@ const Layout: React.FC = () => {
   const message = chat.messages?.find(m => m.id === messageId);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
 
-  console.log(chat.data, user.data);
+  console.log(user);
+
+  //console.log('Height: '+chatHistoryHeight)
 
   return (
     <Box>
@@ -135,9 +138,7 @@ const Layout: React.FC = () => {
         <Box w='30%' minH={'100vh'} bg={'#111b21'}>
           <SideBarHeader data={user} />
           <ChatSearchBar />
-          <Box maxH={chatHistoryHeight} overflowY={'auto'}>
-            <ChatList data={chats} user={user} />
-          </Box>
+          <ChatList data={chats} user={user} maxH={chatHistoryHeight}/>
         </Box>
         <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
           <BackgroundImage />

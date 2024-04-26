@@ -11,6 +11,8 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
     const handleClick = React.useCallback((userId: any) => {
         alert('user-info clicked: ' + userId)
     }, []);
+
+    console.log('SideBarHeader')
     
     return (
         <Box bg={'#202c33'} padding={1}>
@@ -38,5 +40,8 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 }
 
 export default React.memo(SideBarHeader, (prevProps, nextProps) => {
+    // if(prevProps.data != undefined || nextProps.data != undefined){
+    //     return true;
+    // }
     return _.isEqual(prevProps, nextProps);
 });
