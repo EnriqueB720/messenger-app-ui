@@ -309,6 +309,11 @@ export enum Role {
   User = 'USER'
 }
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  messageSent: Message;
+};
+
 export type User = {
   __typename?: 'User';
   contacts?: Maybe<Array<Contact>>;
@@ -421,6 +426,11 @@ export type CreateGroupMessageMutationVariables = Exact<{
 
 
 export type CreateGroupMessageMutation = { __typename?: 'Mutation', createGroupMessage: { __typename?: 'Message', id?: number | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null } };
+
+export type MessageSentSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MessageSentSubscription = { __typename?: 'Subscription', messageSent: { __typename?: 'Message', id?: number | null } };
 
 export type MessagesQueryVariables = Exact<{
   where: MessageWhereInput;
@@ -727,6 +737,35 @@ export function useCreateGroupMessageMutation(baseOptions?: Apollo.MutationHookO
 export type CreateGroupMessageMutationHookResult = ReturnType<typeof useCreateGroupMessageMutation>;
 export type CreateGroupMessageMutationResult = Apollo.MutationResult<CreateGroupMessageMutation>;
 export type CreateGroupMessageMutationOptions = Apollo.BaseMutationOptions<CreateGroupMessageMutation, CreateGroupMessageMutationVariables>;
+export const MessageSentDocument = gql`
+    subscription messageSent {
+  messageSent {
+    id
+  }
+}
+    `;
+
+/**
+ * __useMessageSentSubscription__
+ *
+ * To run a query within a React component, call `useMessageSentSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useMessageSentSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessageSentSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMessageSentSubscription(baseOptions?: Apollo.SubscriptionHookOptions<MessageSentSubscription, MessageSentSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<MessageSentSubscription, MessageSentSubscriptionVariables>(MessageSentDocument, options);
+      }
+export type MessageSentSubscriptionHookResult = ReturnType<typeof useMessageSentSubscription>;
+export type MessageSentSubscriptionResult = Apollo.SubscriptionResult<MessageSentSubscription>;
 export const MessagesDocument = gql`
     query messages($where: MessageWhereInput!) {
   messages(where: $where) {

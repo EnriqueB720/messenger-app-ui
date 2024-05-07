@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery } from '@generated';
+import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery, useMessageSentSubscription } from '@generated';
 import { Chat, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 
@@ -69,6 +69,13 @@ const Layout: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   })
 
+  const messageSentResponse = useMessageSentSubscription()
+
+  useEffect(() => {
+    console.log(messageSentResponse.data);
+  }, [messageSentResponse.data])
+
+
   useEffect(() => {
     toggleSidebar(!!messageId || displayChatInfo);
   }, [messageId, displayChatInfo]);
@@ -128,7 +135,7 @@ const Layout: React.FC = () => {
   const message = chat.messages?.find(m => m.id === messageId);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
 
-  console.log(user);
+  // console.log(user);
 
   //console.log('Height: '+chatHistoryHeight)
 
