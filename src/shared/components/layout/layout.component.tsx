@@ -3,9 +3,10 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery, useMessageSentSubscription } from '@generated';
+import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery, useMessageSentSubscription, ChatDocument } from '@generated';
 import { Chat, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
+import { cache } from '@/pages/_app';
 
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
@@ -69,12 +70,27 @@ const Layout: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   })
 
-  const messageSentResponse = useMessageSentSubscription()
-
-  useEffect(() => {
-    console.log(messageSentResponse.data);
-  }, [messageSentResponse.data])
-
+  const messageSentResponse = useMessageSentSubscription({
+    onData: ({data}) => {
+      cache.writeQuery({
+        query: ChatDocument,
+        variables: {
+          where: {
+            id: chat.id
+          }
+        },
+        data: {
+          chat: {
+            ...chat.data,
+            messages: [
+              ...chat.data.messages as any,
+              data?.data?.messageSent
+            ]
+          }
+        }
+      });
+    }
+  });
 
   useEffect(() => {
     toggleSidebar(!!messageId || displayChatInfo);

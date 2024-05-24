@@ -35,14 +35,13 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
 
   const inputRef = useRef<null | HTMLDivElement>(null);
 
-
+  
   useEffect(() => {
     // Scroll to the bottom of the chat box
     inputRef.current ? inputRef.current.scrollIntoView({ behavior: 'smooth' }) : undefined;
   }, [chat.messages]); // Scroll when messages change
 
   return (
-
     <Box h={'100%'}
       overflowY={'auto'}
       zIndex={'2'}
@@ -73,7 +72,6 @@ const MessageHistory: React.FC<MessagesHistoryProps> = ({
               ))}
             </Box>)
         })
-
       }
       <div ref={inputRef} />
     </Box>

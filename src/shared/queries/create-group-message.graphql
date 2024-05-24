@@ -1,9 +1,19 @@
 mutation createGroupMessage($data:  GroupMessageCreateInput!){
     createGroupMessage(data: $data){
-      id
-      chatId,
-      senderId,
-      text,
-      createdAt
+        id,
+        uuid,
+        chatId,
+        senderId,
+        text,
+        createdAt,
+        userMessageStatuses{
+          isRead,
+          isReceived,
+          isFavorite
+    },  
+        sender{
+          fullName,
+          phoneNumber
+    },
     }
 }

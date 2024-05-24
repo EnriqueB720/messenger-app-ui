@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, TextInputIcon } from '@components';
 import { useCallback, useState } from 'react';
-import { useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
+import { ChatDocument, useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
 import { MessageInputProps } from '@types';
 import { useTranslation } from '@/shared/hooks';
 
@@ -36,7 +36,26 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
               },
               text: message
             }
-          }
+          },
+          update: (cache, { data }) => {
+            cache.writeQuery({
+              query: ChatDocument,
+              variables: {
+                where: {
+                  id: chat.id
+                }
+              },
+              data: {
+                chat: {
+                  ...chat.data,
+                  messages: [
+                    ...chat.data.messages as any,
+                    data?.createGroupMessage
+                  ]
+                }
+              }
+            })
+        }
         })
       } else {
         await createDirectMessage({
@@ -53,6 +72,25 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
               },
               text: message
             }
+          },
+          update: (cache, { data }) => {
+              cache.writeQuery({
+                query: ChatDocument,
+                variables: {
+                  where: {
+                    id: chat.id
+                  }
+                },
+                data: {
+                  chat: {
+                    ...chat.data,
+                    messages: [
+                      ...chat.data.messages as any,
+                      data?.createDirectMessage
+                    ]
+                  }
+                }
+              })
           }
         })
       }
@@ -64,9 +102,9 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
     if (event.key === 'Enter' && message != '') {
       await sendDirectMessage(!!chat.isGroup)();
     }
-  },[message, chat.id]);
-  
-  const {t} = useTranslation();
+  }, [message, chat.id]);
+
+  const { t } = useTranslation();
 
   return (
     <Box bg={'#202c33'} padding={2}>

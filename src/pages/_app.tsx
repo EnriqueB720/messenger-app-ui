@@ -8,6 +8,9 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
+export const cache = new InMemoryCache({
+  addTypename: false
+});
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -40,11 +43,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
     const client = new ApolloClient({
         link: splitLink,
-        cache: new InMemoryCache({
-            addTypename: false
-        }),
+        cache
     });
-
    
 
     return <RecoilRoot>

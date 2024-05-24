@@ -1,9 +1,19 @@
 mutation createDirectMessage($data:  DirectMessageCreateInput!){
   createDirectMessage(data: $data){
-      id
-      chatId,
-      senderId,
-      text,
-      createdAt
+      id,
+        uuid,
+        chatId,
+        senderId,
+        text,
+        createdAt,
+        userMessageStatuses{
+          isRead,
+          isReceived,
+          isFavorite
+    },  
+        sender{
+          fullName,
+          phoneNumber
+    },
   }
 }

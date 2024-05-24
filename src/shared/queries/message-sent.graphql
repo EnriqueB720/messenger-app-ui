@@ -1,5 +1,19 @@
 subscription messageSent{
   messageSent{
-    id
+        id,
+        uuid,
+        chatId,
+        senderId,
+        text,
+        createdAt,
+        userMessageStatuses{
+          isRead,
+          isReceived,
+          isFavorite
+    },  
+        sender{
+          fullName,
+          phoneNumber
+    }
   }
 }

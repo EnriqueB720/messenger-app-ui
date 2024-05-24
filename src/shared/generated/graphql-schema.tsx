@@ -418,19 +418,19 @@ export type CreateDirectMessageMutationVariables = Exact<{
 }>;
 
 
-export type CreateDirectMessageMutation = { __typename?: 'Mutation', createDirectMessage: { __typename?: 'Message', id?: number | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null } };
+export type CreateDirectMessageMutation = { __typename?: 'Mutation', createDirectMessage: { __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null } };
 
 export type CreateGroupMessageMutationVariables = Exact<{
   data: GroupMessageCreateInput;
 }>;
 
 
-export type CreateGroupMessageMutation = { __typename?: 'Mutation', createGroupMessage: { __typename?: 'Message', id?: number | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null } };
+export type CreateGroupMessageMutation = { __typename?: 'Mutation', createGroupMessage: { __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null } };
 
 export type MessageSentSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MessageSentSubscription = { __typename?: 'Subscription', messageSent: { __typename?: 'Message', id?: number | null } };
+export type MessageSentSubscription = { __typename?: 'Subscription', messageSent: { __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null } };
 
 export type MessagesQueryVariables = Exact<{
   where: MessageWhereInput;
@@ -667,10 +667,20 @@ export const CreateDirectMessageDocument = gql`
     mutation createDirectMessage($data: DirectMessageCreateInput!) {
   createDirectMessage(data: $data) {
     id
+    uuid
     chatId
     senderId
     text
     createdAt
+    userMessageStatuses {
+      isRead
+      isReceived
+      isFavorite
+    }
+    sender {
+      fullName
+      phoneNumber
+    }
   }
 }
     `;
@@ -704,10 +714,20 @@ export const CreateGroupMessageDocument = gql`
     mutation createGroupMessage($data: GroupMessageCreateInput!) {
   createGroupMessage(data: $data) {
     id
+    uuid
     chatId
     senderId
     text
     createdAt
+    userMessageStatuses {
+      isRead
+      isReceived
+      isFavorite
+    }
+    sender {
+      fullName
+      phoneNumber
+    }
   }
 }
     `;
@@ -741,6 +761,20 @@ export const MessageSentDocument = gql`
     subscription messageSent {
   messageSent {
     id
+    uuid
+    chatId
+    senderId
+    text
+    createdAt
+    userMessageStatuses {
+      isRead
+      isReceived
+      isFavorite
+    }
+    sender {
+      fullName
+      phoneNumber
+    }
   }
 }
     `;
