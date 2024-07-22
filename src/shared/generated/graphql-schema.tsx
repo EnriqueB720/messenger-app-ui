@@ -292,7 +292,7 @@ export type QueryMessagesArgs = {
 
 
 export type QueryUserArgs = {
-  where: UserWhereUniqueInput;
+  where: UserWhereInput;
 };
 
 
@@ -376,6 +376,14 @@ export type UserMessageStatusWhereUniqueInput = {
   userId?: InputMaybe<Scalars['String']>;
 };
 
+export type UserWhereInput = {
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  phoneNumber?: InputMaybe<Scalars['Int']>;
+  username?: InputMaybe<Scalars['String']>;
+  uuid?: InputMaybe<Scalars['String']>;
+};
+
 export type UserWhereUniqueInput = {
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -389,7 +397,7 @@ export type ChatsQueryVariables = Exact<{
 }>;
 
 
-export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> | null }> };
+export type ChatsQuery = { __typename?: 'Query', chats: Array<{ __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null, senderId?: number | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> | null }> };
 
 export type ChatQueryVariables = Exact<{
   where: ChatWhereUniqueInput;
@@ -447,7 +455,7 @@ export type UserMessageStatusQueryVariables = Exact<{
 export type UserMessageStatusQuery = { __typename?: 'Query', userMessageStatus: Array<{ __typename?: 'UserMessageStatus', isReceived?: boolean | null, isRead?: boolean | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> };
 
 export type UserQueryVariables = Exact<{
-  where: UserWhereUniqueInput;
+  where: UserWhereInput;
 }>;
 
 
@@ -466,6 +474,7 @@ export const ChatsDocument = gql`
     messages {
       text
       createdAt
+      senderId
     }
     participants {
       user {
@@ -891,7 +900,7 @@ export type UserMessageStatusQueryHookResult = ReturnType<typeof useUserMessageS
 export type UserMessageStatusLazyQueryHookResult = ReturnType<typeof useUserMessageStatusLazyQuery>;
 export type UserMessageStatusQueryResult = Apollo.QueryResult<UserMessageStatusQuery, UserMessageStatusQueryVariables>;
 export const UserDocument = gql`
-    query user($where: UserWhereUniqueInput!) {
+    query user($where: UserWhereInput!) {
   user(where: $where) {
     id
     uuid

@@ -9,7 +9,7 @@ export class Chat {
     }
 
     get lastMessage(){
-        return new Message(this.data.messages![0]);
+        return new Message(this.data.messages![this.data.messages?.length! - 1 ]);
     }
 
     get isGroup(){

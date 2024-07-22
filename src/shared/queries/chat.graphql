@@ -8,7 +8,8 @@ query chats($where: ChatWhereInput!) {
     isGroup
     messages{
       text,
-      createdAt
+      createdAt,
+      senderId
     }
     participants{
       user{

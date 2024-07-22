@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, TextInputIcon } from '@components';
 import { useCallback, useState } from 'react';
-import { ChatDocument, useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@/shared/generated/graphql-schema';
+import { ChatDocument, ChatsDocument, ChatsQuery, useCreateDirectMessageMutation, useCreateGroupMessageMutation } from '@generated';
 import { MessageInputProps } from '@types';
 import { useTranslation } from '@/shared/hooks';
 
@@ -54,7 +54,43 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
                   ]
                 }
               }
-            })
+            });
+
+            
+            const { chats } = cache.readQuery({
+              query: ChatsDocument,
+              variables:{
+                where:{
+                  userId: user.userId
+                }
+              }
+            }) as ChatsQuery;
+
+            cache.writeQuery({
+              query: ChatsDocument,
+              variables:{
+                where:{
+                  userId: user.userId
+                }
+              },
+              data: {
+                chats: chats.map(item => {
+                  const newChat = { ...item }
+                  if (chat.id === newChat.id) {
+                    newChat.messages = [
+                      ...(newChat.messages || []),
+                      {
+                        text: data?.createGroupMessage.text,
+                        createdAt: data?.createGroupMessage.createdAt,
+                        senderId: data?.createGroupMessage.senderId
+                      }
+                    ]
+                  }
+
+                  return newChat
+                })
+              }
+            });
         }
         })
       } else {
@@ -85,12 +121,47 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
                   chat: {
                     ...chat.data,
                     messages: [
-                      ...chat.data.messages as any,
+                      ...(chat.data.messages || []),
                       data?.createDirectMessage
                     ]
                   }
                 }
-              })
+              });
+
+              const { chats } = cache.readQuery({
+                query: ChatsDocument,
+                variables:{
+                  where:{
+                    userId: user.userId
+                  }
+                }
+              }) as ChatsQuery;
+
+              cache.writeQuery({
+                query: ChatsDocument,
+                variables:{
+                  where:{
+                    userId: user.userId
+                  }
+                },
+                data: {
+                  chats: chats.map(item => {
+                    const newChat = { ...item }
+                    if (chat.id === newChat.id) {
+                      newChat.messages = [
+                        ...(newChat.messages || []),
+                        {
+                          text: data?.createDirectMessage.text,
+                          createdAt: data?.createDirectMessage.createdAt,
+                          senderId: data?.createDirectMessage.senderId
+                        }
+                      ]
+                    }
+
+                    return newChat
+                  })
+                }
+              });
           }
         })
       }

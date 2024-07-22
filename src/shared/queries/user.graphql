@@ -1,4 +1,4 @@
-query user($where: UserWhereUniqueInput!) {
+query user($where: UserWhereInput!) {
   user(where: $where) {
     id
     uuid
