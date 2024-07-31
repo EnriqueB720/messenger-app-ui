@@ -1,5 +1,3 @@
-import { from } from "@apollo/client";
-
 export * from "./button.type";
 export * from "./image.type";
 export * from "./avatar.type";
@@ -34,3 +32,4 @@ export * from './global-states.type';
 export * from './chat-info.type';
 export * from './right-side-bar-header.type';
 export * from './chat-info-action-list.type';
+export * from './auth-provider.type';

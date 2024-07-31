@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useFilteredChatsLazyQuery, useMessageSentSubscription, ChatDocument } from '@generated';
+import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useMessageSentSubscription, ChatDocument } from '@generated';
 import { Chat, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { cache } from '@/pages/_app';
@@ -59,9 +59,9 @@ const Layout: React.FC = () => {
     }
   });
 
-  const [filteredChats, filteredChatResponse] = useFilteredChatsLazyQuery({
-    fetchPolicy: 'cache-and-network'
-  })//move this logic to the chats query endpoint
+  // const [filteredChats, filteredChatResponse] = useFilteredChatsLazyQuery({
+  //   fetchPolicy: 'cache-and-network'
+  // })//move this logic to the chats query endpoint
 
   const [fetchChatById, chatResponse] = useChatLazyQuery({
     fetchPolicy: 'cache-and-network'

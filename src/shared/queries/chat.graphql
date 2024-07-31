@@ -58,24 +58,24 @@ query chat($where: ChatWhereUniqueInput!) {
   }
 }
 
-query filteredChats($where: ChatWhereInput!){
-  filteredChats(where: $where){
-      id
-      name
-      createdAt
-      updatedAt
-      isGroup
-      messages{
-        text
-        createdAt
-      }
-      participants{
-        user{
-          id
-          fullName
-          phoneNumber
-        }
-        userId
-     }
-    }
-  }
+# query filteredChats($where: ChatWhereInput!){
+#   filteredChats(where: $where){
+#       id
+#       name
+#       createdAt
+#       updatedAt
+#       isGroup
+#       messages{
+#         text
+#         createdAt
+#       }
+#       participants{
+#         user{
+#           id
+#           fullName
+#           phoneNumber
+#         }
+#         userId
+#      }
+#     }
+#   }

@@ -150,6 +150,18 @@ export enum Language {
   Spanish = 'SPANISH'
 }
 
+export type LoginOutput = {
+  __typename?: 'LoginOutput';
+  access_token: Scalars['String'];
+  expiresAt: Scalars['DateTime'];
+  user: User;
+};
+
+export type LoginUserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Message = {
   __typename?: 'Message';
   chatId?: Maybe<Scalars['Float']>;
@@ -195,6 +207,7 @@ export type Mutation = {
   createGroupMessage: Message;
   createNewGroupParticipant: ChatParticipant;
   createUser: User;
+  signup: User;
 };
 
 
@@ -227,6 +240,11 @@ export type MutationCreateUserArgs = {
   data: UserCreateInput;
 };
 
+
+export type MutationSignupArgs = {
+  data: SignUpInput;
+};
+
 export enum OrderByArg {
   Asc = 'ASC',
   Desc = 'DESC'
@@ -238,7 +256,7 @@ export type Query = {
   chat: Chat;
   chats: Array<Chat>;
   contacts: Array<Contact>;
-  filteredChats: Array<Chat>;
+  login: LoginOutput;
   messages: Array<Message>;
   user: User;
   userMessageStatus: Array<UserMessageStatus>;
@@ -273,12 +291,8 @@ export type QueryContactsArgs = {
 };
 
 
-export type QueryFilteredChatsArgs = {
-  cursor?: InputMaybe<ChatWhereUniqueInput>;
-  orderBy?: InputMaybe<ChatOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  take?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ChatWhereInput>;
+export type QueryLoginArgs = {
+  data: LoginUserInput;
 };
 
 
@@ -308,6 +322,14 @@ export enum Role {
   Admin = 'ADMIN',
   User = 'USER'
 }
+
+export type SignUpInput = {
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  passwordHash: Scalars['String'];
+  phoneNumber: Scalars['Int'];
+  username: Scalars['String'];
+};
 
 export type Subscription = {
   __typename?: 'Subscription';
@@ -392,6 +414,20 @@ export type UserWhereUniqueInput = {
   uuid?: InputMaybe<Scalars['String']>;
 };
 
+export type LoginQueryVariables = Exact<{
+  data: LoginUserInput;
+}>;
+
+
+export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'LoginOutput', access_token: string, expiresAt: any, user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } } };
+
+export type SignupMutationVariables = Exact<{
+  data: SignUpInput;
+}>;
+
+
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'User', email?: string | null, id?: number | null } };
+
 export type ChatsQueryVariables = Exact<{
   where: ChatWhereInput;
 }>;
@@ -405,13 +441,6 @@ export type ChatQueryVariables = Exact<{
 
 
 export type ChatQuery = { __typename?: 'Query', chat: { __typename?: 'Chat', uuid?: string | null, id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', id?: number | null, uuid?: string | null, chatId?: number | null, senderId?: number | null, text?: string | null, createdAt?: any | null, userMessageStatuses?: Array<{ __typename?: 'UserMessageStatus', isRead?: boolean | null, isReceived?: boolean | null, isFavorite?: boolean | null }> | null, sender?: { __typename?: 'User', fullName?: string | null, phoneNumber?: number | null } | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', fullName?: string | null, id?: number | null, phoneNumber?: number | null } | null }> | null } };
-
-export type FilteredChatsQueryVariables = Exact<{
-  where: ChatWhereInput;
-}>;
-
-
-export type FilteredChatsQuery = { __typename?: 'Query', filteredChats: Array<{ __typename?: 'Chat', id?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, isGroup?: boolean | null, messages?: Array<{ __typename?: 'Message', text?: string | null, createdAt?: any | null }> | null, participants?: Array<{ __typename?: 'ChatParticipant', userId?: number | null, user?: { __typename?: 'User', id?: number | null, fullName?: string | null, phoneNumber?: number | null } | null }> | null }> };
 
 export type ContactsQueryVariables = Exact<{
   where: ContactWhereInput;
@@ -462,6 +491,88 @@ export type UserQueryVariables = Exact<{
 export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } };
 
 
+export const LoginDocument = gql`
+    query login($data: LoginUserInput!) {
+  login(data: $data) {
+    access_token
+    expiresAt
+    user {
+      id
+      uuid
+      email
+      username
+      fullName
+      phoneNumber
+      contacts {
+        fullName
+        contactUserId
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useLoginQuery__
+ *
+ * To run a query within a React component, call `useLoginQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLoginQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLoginQuery({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+      }
+export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+        }
+export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
+export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
+export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export const SignupDocument = gql`
+    mutation signup($data: SignUpInput!) {
+  signup(data: $data) {
+    email
+    id
+  }
+}
+    `;
+export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, options);
+      }
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const ChatsDocument = gql`
     query chats($where: ChatWhereInput!) {
   chats(where: $where) {
@@ -580,57 +691,6 @@ export function useChatLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChatQ
 export type ChatQueryHookResult = ReturnType<typeof useChatQuery>;
 export type ChatLazyQueryHookResult = ReturnType<typeof useChatLazyQuery>;
 export type ChatQueryResult = Apollo.QueryResult<ChatQuery, ChatQueryVariables>;
-export const FilteredChatsDocument = gql`
-    query filteredChats($where: ChatWhereInput!) {
-  filteredChats(where: $where) {
-    id
-    name
-    createdAt
-    updatedAt
-    isGroup
-    messages {
-      text
-      createdAt
-    }
-    participants {
-      user {
-        id
-        fullName
-        phoneNumber
-      }
-      userId
-    }
-  }
-}
-    `;
-
-/**
- * __useFilteredChatsQuery__
- *
- * To run a query within a React component, call `useFilteredChatsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFilteredChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFilteredChatsQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useFilteredChatsQuery(baseOptions: Apollo.QueryHookOptions<FilteredChatsQuery, FilteredChatsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FilteredChatsQuery, FilteredChatsQueryVariables>(FilteredChatsDocument, options);
-      }
-export function useFilteredChatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilteredChatsQuery, FilteredChatsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FilteredChatsQuery, FilteredChatsQueryVariables>(FilteredChatsDocument, options);
-        }
-export type FilteredChatsQueryHookResult = ReturnType<typeof useFilteredChatsQuery>;
-export type FilteredChatsLazyQueryHookResult = ReturnType<typeof useFilteredChatsLazyQuery>;
-export type FilteredChatsQueryResult = Apollo.QueryResult<FilteredChatsQuery, FilteredChatsQueryVariables>;
 export const ContactsDocument = gql`
     query contacts($where: ContactWhereInput!, $cursor: ContactWhereUniqueInput) {
   contacts(where: $where, cursor: $cursor) {

@@ -1,0 +1,18 @@
+query login($data: LoginUserInput!){
+  login(data: $data){
+    access_token,
+    expiresAt,
+    user{
+      id
+      uuid
+      email
+      username
+      fullName
+      phoneNumber
+      contacts{
+        fullName,
+        contactUserId
+      },
+    }
+  }
+}

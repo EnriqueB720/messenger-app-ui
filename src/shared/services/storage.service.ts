@@ -3,7 +3,8 @@ import { Constants } from '@constants';
 import { Language } from '@generated';
 
 enum StorageName {
-  LANGUAGE = '@language'
+  LANGUAGE = '@language',
+  JWT_TOKEN = '@token'
 }
 
 class StorageService {
@@ -24,6 +25,25 @@ class StorageService {
 
   async setLanguage(value: Language) {
     return localStorage.setItem(StorageName.LANGUAGE, value);
+  }
+
+  async setJwtToken(token: string){
+    return localStorage.SetItem(StorageName.JWT_TOKEN, token);
+  }
+
+  async getJwtToken(){
+    try {
+      const token = await localStorage.getItem(StorageName.JWT_TOKEN) as string;
+
+      return token;
+
+    } catch(error) {
+      return "Not JWT token created";
+    }
+  }
+
+  async removeJwtToken(){
+    return localStorage.removeItem(StorageName.JWT_TOKEN);
   }
     
 }
