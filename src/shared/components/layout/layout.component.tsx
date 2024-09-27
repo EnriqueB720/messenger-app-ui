@@ -65,10 +65,6 @@ const Layout: React.FC = () => {
     }
   });
 
-  // const [filteredChats, filteredChatResponse] = useFilteredChatsLazyQuery({
-  //   fetchPolicy: 'cache-and-network'
-  // })//move this logic to the chats query endpoint
-
   const [fetchChatById, chatResponse] = useChatLazyQuery({
     fetchPolicy: 'cache-and-network'
   });
