@@ -29,18 +29,19 @@ const ChatSearchBar: React.FC = () => {
 
 	const filterChatsBy = () => {
 		const isSearchEmpty = debouncedValue === '';
-
+		console.log('IsSearchEmpty: '+isSearchEmpty);
 		if (searchParams.has("searchBy") || isSearchEmpty) {
 			if (debouncedValue !== urlSearchParam) {
 				if (!isSearchEmpty) {
-					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
+					const baseRoute = router.asPath.replace(/[?&]searchBy=[^&]+/, '');
 					if(searchParams.has("chatId")){
+						console.log(baseRoute);
 						router.push(`${baseRoute}&searchBy=${debouncedValue}`);
 					}else{
 						router.push(`${baseRoute}?searchBy=${debouncedValue}`);
 					}
 				} else {
-					const baseRoute = router.asPath.replace(/&?searchBy=\w+/, '');
+					const baseRoute = router.asPath.replace(/[?&]searchBy=[^&]+/, '');
 					router.push(baseRoute);
 				}
 			}
