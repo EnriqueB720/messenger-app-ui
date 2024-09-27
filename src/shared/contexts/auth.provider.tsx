@@ -47,7 +47,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     } catch (error: any) {
       setIsLoading(false);
     }
-  }, []);
+  }, [loginQuery, setIsLoading, setIsAuthenticated, setUser]);
 
   const logout = async () => {
     try {
@@ -62,17 +62,16 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     setIsLoading(false);
   };
 
-  
-  const value: IAuthContext = {
-    user,
-    isLoading,
-    isAuthenticated,
-    login,
-    logout,
-  };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        isAuthenticated,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

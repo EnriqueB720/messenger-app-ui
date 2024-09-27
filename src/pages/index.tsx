@@ -7,14 +7,14 @@ import { useRouter } from "next/router";
 
 export default function Home(prop: any) {
 
-  // const { isAuthenticated } = useContext(AuthContext);
-  // const router = useRouter();
+  const { isAuthenticated } = useContext(AuthContext);
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   if(!isAuthenticated){
-  //     router.push("/login");
-  //   }
-  // },[isAuthenticated]);
+  useEffect(() => {
+    if(!isAuthenticated){
+      router.push("/login");
+    }
+  },[isAuthenticated]);
 
   return (
     <Layout />

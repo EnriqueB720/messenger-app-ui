@@ -6,6 +6,7 @@ import { loginSchema } from '@schemas';
 import { useTranslation } from '@/shared/hooks';
 import { AuthContext } from '@contexts';
 import { AuthCredentials } from '@model';
+import { useRouter } from 'next/navigation';
 
 export interface LoginFormValues {
     email: string;
@@ -15,12 +16,14 @@ export interface LoginFormValues {
 const Login: React.FC = () => {
 
     const { login } = React.useContext(AuthContext);
+    const router = useRouter();
 
     const { t } = useTranslation();
     
     const onSubmit = async (values: LoginFormValues) => {
         try {
             await login(new AuthCredentials({email: values.email, password: values.password}));
+            router.push('/');
         } catch (error) {
             throw error;
         }

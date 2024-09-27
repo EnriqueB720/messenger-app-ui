@@ -42,22 +42,13 @@ const Layout: React.FC = () => {
 
   const [searchBy, setSearchBy] = useState(searchParams.get('searchBy')!);
   
-  //const { isAuthenticated, user } = React.useContext(AuthContext);
-
-  const userResponse = useUserQuery({
-    fetchPolicy: 'cache-and-network',
-    variables: {
-      where: {
-        username: "test"
-      }
-    }
-  });
+  const { isAuthenticated, user } = React.useContext(AuthContext);
 
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
     variables: {
       where: {
-        userId: userResponse.data?.user.id,
+        userId: user?.userId!,
         name: searchBy ? searchBy : undefined
       }
     }
@@ -137,7 +128,6 @@ const Layout: React.FC = () => {
     }
   }, [])
 
-  const user = new User(userResponse.data?.user!);
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
   const chat = new Chat(chatResponse.data?.chat!);
   const message = chat.messages?.find(m => m.id === messageId);
