@@ -24,7 +24,7 @@ export class Message {
     }
 
     get senderId(){
-        return this.data.senderId;
+        return this.data?.senderId;
     }
 
     get senderPhoneNumber(){

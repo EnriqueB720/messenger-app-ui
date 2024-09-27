@@ -130,7 +130,7 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     setSearchBy(searchParams.get('searchBy')!);
-  }, [searchBy])
+  }, [searchParams.get('searchBy')])
 
 
   const toggleSidebar = useCallback((isOpen: boolean) => {
