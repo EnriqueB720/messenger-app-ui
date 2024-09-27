@@ -41,6 +41,12 @@
       ],
       "@constants":[
         "src/shared/constants/index"
+      ],
+      "@schemas":[
+        "src/shared/schemas/index"
+      ],
+      "@contexts":[
+        "src/shared/contexts/index.ts"
       ]
     }
   },

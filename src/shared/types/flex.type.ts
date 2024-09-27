@@ -1,10 +1,10 @@
-import { ResponsiveValue } from "@chakra-ui/react";
+import { ResponsiveValue, FlexProps as FlexProperties } from "@chakra-ui/react";
 import { CSSProperties, ReactNode } from "react";
 import { FlexDirection, Position } from "./box.type";
 
 export type JustifyContent = 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end'
 
-export interface FlexProps{
+export interface FlexProps extends FlexProperties{
     alignItems?: ResponsiveValue<AlignSetting>;
     justifyContent?: ResponsiveValue<JustifyContent>;
     direction?: ResponsiveValue<FlexDirection>;

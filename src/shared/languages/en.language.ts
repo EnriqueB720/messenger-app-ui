@@ -118,6 +118,9 @@ const EnglishDictionary: Dictionary = {
     blockContactButton: 'Block',
     deleteChatButton: 'Delete chat',
     newMember: 'Add member'
+  },
+  form:{
+    selectPlaceHolder: 'Select one option'
   }
 }
 

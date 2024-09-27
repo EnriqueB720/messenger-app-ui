@@ -1,8 +1,9 @@
 import { CSSProperties } from "react";
+import { InputProps as InputProperties} from '@chakra-ui/react';
 
 export type InputVariant = 'outline' | 'filled' | 'flushed' | 'unstyled'
 
-export interface InputProps {
+export interface InputProps extends InputProperties {
     width?: string;
     height?: string;
     placeholder?: string;
@@ -10,7 +11,6 @@ export interface InputProps {
     variant?: InputVariant;
     value?: string;
     style?: CSSProperties;
-    type?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }

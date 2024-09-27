@@ -10,11 +10,13 @@ const FormControl: React.FC<FormControlProps> = ({
     children,
     as,
     isInvalid,
-    isRequired
+    isRequired,
+    ...props
 }) => {
 
   return (
     <CKFormControl
+      {...props}
       as={as}
       isInvalid={isInvalid}
       isRequired={isRequired}

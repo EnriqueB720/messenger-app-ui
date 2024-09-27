@@ -6,4 +6,3 @@ export * from "./user-message-status.model";
 export * from "./contact.model";
 export * from "./auth-credentials.model";
 export * from "./sigup-user.model";
-export * from "./sigup-user.model";

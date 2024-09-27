@@ -7,6 +7,8 @@ import { useUserQuery, useChatsQuery, useChatLazyQuery, useUserMessageStatusLazy
 import { Chat, User, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { cache } from '@/pages/_app';
+import {AuthContext} from '@contexts';
+
 
 const SIDEBAR_HEADER_HEIGHT = 64;
 const CHAT_SEARCHBAR_HEADER_HEIGHT = 48;
@@ -39,6 +41,8 @@ const Layout: React.FC = () => {
   const [sidebarWidth, setSidebarWidth] = useState('0%');
 
   const [searchBy, setSearchBy] = useState(searchParams.get('searchBy')!);
+  
+  //const { isAuthenticated, user } = React.useContext(AuthContext);
 
   const userResponse = useUserQuery({
     fetchPolicy: 'cache-and-network',
@@ -48,6 +52,8 @@ const Layout: React.FC = () => {
       }
     }
   });
+
+  //console.log(isAuthenticated);
 
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
@@ -71,6 +77,7 @@ const Layout: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   })
 
+  //TBD: Pulls message info once a new message is recevied by the client
   const messageSentResponse = useMessageSentSubscription({
     onData: ({data}) => {
       cache.writeQuery({
@@ -142,29 +149,26 @@ const Layout: React.FC = () => {
   const message = chat.messages?.find(m => m.id === messageId);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
 
-  // console.log(user);
-
-  //console.log('Height: '+chatHistoryHeight)
-
   return (
     <Box>
-      <Flex>
+      {user ? (<>
+        <Flex>
         <Box w='30%' minH={'100vh'} bg={'#111b21'}>
-          <SideBarHeader data={user} />
+          <SideBarHeader data={user!} />
           <ChatSearchBar />
-          <ChatList data={chats} user={user} maxH={chatHistoryHeight}/>
+          <ChatList data={chats} user={user!} maxH={chatHistoryHeight}/>
         </Box>
         <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
           <BackgroundImage />
           {
             doesChatIdExist ? (
               <>
-                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} user={user} />
+                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} user={user!} />
                 <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
-                  <MessageHistory chat={chat} user={user} />
+                  <MessageHistory chat={chat} user={user!} />
                 </Box>
                 <Box position={'fixed'} bottom={'0'} w={'inherit'}>
-                  <MessageInput chat={chat} user={user} />
+                  <MessageInput chat={chat} user={user!} />
                 </Box>
               </>
             ) : (
@@ -175,18 +179,19 @@ const Layout: React.FC = () => {
         <Box w={sidebarWidth} h={'100vh'} bg={'#0b141a'}>
           {
             messageId && message ?
-              <MessageInfo user={user} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
+              <MessageInfo user={user!} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
               :
               undefined
           }
           {
             displayChatInfo ?
-              <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user)! : undefined} />
+              <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user!)! : undefined} />
               :
               undefined
           }
         </Box>
       </Flex>
+      </>): null}
     </Box>
 
   );

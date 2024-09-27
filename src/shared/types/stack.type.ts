@@ -1,10 +1,11 @@
 import { ResponsiveValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { Float, Overflow } from ".";
+import { StackProps as StackPropsProperties } from "@chakra-ui/react"
 
 export type StackDirection = 'row' | 'column'
 
-export interface StackProps {
+export interface StackProps extends Omit<StackPropsProperties, 'divider'>{
     spacing?: number;
     align?: string;
     divider?: boolean;

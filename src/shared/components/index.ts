@@ -32,6 +32,10 @@ import BackgroundImage from "./background-image/background-image.component";
 import ChatInfo from './chat-info/chat-info.component';
 import RightSideBarHeader from './right-side-bar-header/right-side-bar-header.component';
 import ChatInfoActionList from './chat-info-actions-list/chat-info-action-list.component';
+import Signup from './signup/signup.component';
+import Login from './login/login.component';
+import Field from './field/field.component';
+import Form from './form/form.component';
 
 export {
     Button,
@@ -67,5 +71,9 @@ export {
     BackgroundImage,
     ChatInfo,
     RightSideBarHeader,
-    ChatInfoActionList
+    ChatInfoActionList,
+    Login,
+    Signup,
+    Field,
+    Form
 }

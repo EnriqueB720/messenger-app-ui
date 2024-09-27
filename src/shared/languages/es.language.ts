@@ -72,7 +72,7 @@ const SpanishDictionary: Dictionary = {
     }
   },
   login: {
-    title: 'Ingresar',
+    title: 'Inicio de sesión',
     form: {
       submit: 'Ingresar',
       email: 'Correo Electrónico',
@@ -118,6 +118,9 @@ const SpanishDictionary: Dictionary = {
     blockContactButton: 'Bloquear',
     deleteChatButton: 'Eliminar la conversacion',
     newMember: 'Agregar miembro'
+  },
+  form:{
+    selectPlaceHolder: 'Seleccione una opcion'
   }
 }
 

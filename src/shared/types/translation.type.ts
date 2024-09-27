@@ -136,6 +136,9 @@ export interface Dictionary {
   notFound: {
     title: string;
   }
+  form: {
+    selectPlaceHolder: string;
+  }
 };
 
 export type GenderDictionary = {

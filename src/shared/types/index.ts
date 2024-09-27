@@ -33,3 +33,5 @@ export * from './chat-info.type';
 export * from './right-side-bar-header.type';
 export * from './chat-info-action-list.type';
 export * from './auth-provider.type';
+export * from './field.type';
+export * from './form.type';

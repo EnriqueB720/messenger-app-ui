@@ -17,6 +17,8 @@ import { HiUserAdd } from "react-icons/hi";
 import { IoExitOutline } from "react-icons/io5";
 import { MdBlock } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 
 const IconDictionary: {
@@ -34,18 +36,21 @@ const IconDictionary: {
   addUser: HiUserAdd,
   exit: IoExitOutline,
   delete: IoMdTrash,
-  block: MdBlock
+  block: MdBlock,
+  visibilityOff: MdVisibilityOff,
+  visibilityOn: MdVisibility
 }
 
 
 const Icon: React.FC<IconProps> = ({
   name,
+  onClick
 }) => {
 
   const Component = IconDictionary[name];
 
   return (
-    <Component  />
+    <Component  onClick={onClick} />
   );
 }
 

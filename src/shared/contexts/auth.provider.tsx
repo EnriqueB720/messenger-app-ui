@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 
-import AuthContext from './auth.context';
+import AuthContext, { IAuthContext } from './auth.context';
 
-import { AuthCredentials } from '@model';
+import { AuthCredentials, User } from '@model';
 import { AuthService } from '@services';
 import { AuthProviderProps } from '@types';
+import { useLoginLazyQuery } from '@generated';
+import { StorageService } from '@services';
 
 
 const AuthProvider: FC<AuthProviderProps> = ({children}) => {
@@ -14,23 +16,38 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
   const client = useApolloClient();
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User>();
 
-  const login = async ({ credentials }: AuthCredentials) => {
+  const [loginQuery] = useLoginLazyQuery({
+    fetchPolicy: 'cache-and-network'
+  });
+
+  const login = useCallback(async ({ credentials }: AuthCredentials) => {
     try {
       const { email, password } = credentials;
 
       setIsLoading(true);
 
-      const user =  await AuthService.login(email, password);
-      setUser(user as any);
+      let result = await loginQuery({
+        variables:{
+          data:{
+            email,
+            password
+          }
+        }
+      });
+     
+      StorageService.setJwtToken(result.data?.login!.access_token!);
+
+      const user =  new User(result.data?.login!.user!);
+      setUser(user);
 
 
       setIsAuthenticated(true);
     } catch (error: any) {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   const logout = async () => {
     try {
@@ -45,8 +62,17 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     setIsLoading(false);
   };
 
+  
+  const value: IAuthContext = {
+    user,
+    isLoading,
+    isAuthenticated,
+    login,
+    logout,
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, user, login, logout}}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

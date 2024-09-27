@@ -28,7 +28,7 @@ class StorageService {
   }
 
   async setJwtToken(token: string){
-    return localStorage.SetItem(StorageName.JWT_TOKEN, token);
+    return localStorage.setItem(StorageName.JWT_TOKEN, token);
   }
 
   async getJwtToken(){
