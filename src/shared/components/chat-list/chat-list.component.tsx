@@ -28,9 +28,7 @@ const ChatList: React.FC<ChatListProps> = ({ data, user, maxH }) => {
 		}
 
 		return chat;
-	})
-
-	//console.log('Height: '+maxH)
+	});
 
 	return (
 		<Box bg={backgroundColor} overflowY={'auto'} maxH={maxH}>

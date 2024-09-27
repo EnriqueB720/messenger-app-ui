@@ -34,7 +34,6 @@ const ChatSearchBar: React.FC = () => {
 				if (!isSearchEmpty) {
 					const baseRoute = router.asPath.replace(/[?&]searchBy=[^&]+/, '');
 					if (searchParams.has("chatId")) {
-						console.log(baseRoute);
 						router.push(`${baseRoute}&searchBy=${debouncedValue}`);
 					} else {
 						router.push(`${baseRoute}?searchBy=${debouncedValue}`);

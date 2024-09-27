@@ -53,8 +53,6 @@ const Layout: React.FC = () => {
     }
   });
 
-  //console.log(isAuthenticated);
-
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
     variables: {

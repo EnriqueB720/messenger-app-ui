@@ -31,7 +31,6 @@ const Field: React.FC<FieldProps> = ({
 
   const switchVisibility = () => {
     setVisibility(!visibility);
-    console.log('Entro', visibility)
   }
 
   function renderFieldSwitch() {
