@@ -46,7 +46,16 @@
         "src/shared/schemas/index"
       ],
       "@contexts":[
-        "src/shared/contexts/index.ts"
+        "src/shared/contexts/index"
+      ],
+      "@atoms":[
+        "src/shared/components/atoms/index"
+      ],
+      "@molecules":[
+        "src/shared/components/molecules/index"
+      ],
+      "@organisms":[
+        "src/shared/components/organisms/index"
       ]
     }
   },

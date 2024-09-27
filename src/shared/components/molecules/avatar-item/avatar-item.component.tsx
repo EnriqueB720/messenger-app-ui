@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 
 import { AvatarItemProps } from '@types';
-import { Avatar, Box, Stack, Text, Flex } from '..';
+import { Avatar, Box, Stack, Text, Flex } from '../..';
 
 const AvatarItem: React.FC<AvatarItemProps> = ({
     style,

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { IconButton as CKIconButton } from '@chakra-ui/react';
 
 import { IconButtonProps } from '@types';
-import { Icon } from '..';
+import { Icon } from '../..';
 
 const IconButton: React.FC<IconButtonProps> = ({
   style,

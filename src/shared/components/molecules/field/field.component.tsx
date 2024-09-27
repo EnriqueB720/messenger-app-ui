@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { useTranslation } from '../../hooks';
+import { useTranslation } from '../../../hooks';
 
 import { FieldProps } from '@types';
 import { FormControl, FormErrorMessage, FormLabel, Radio, RadioGroup, Select } from '@chakra-ui/react';

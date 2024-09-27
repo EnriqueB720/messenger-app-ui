@@ -1,41 +1,48 @@
-import Button from "./button/button.component";
-import Image from "./image/image.component";
-import Avatar from "./avatar/avatar.component";
-import Box from "./box/box.component";
-import Input from "./input/input.component";
-import Stack from "./stack/stack.component";
-import Icon from "./icon/icon.component";
-import IconButton from './icon-button/icon-button.component';
-import Text from './text/text.component';
-import Badge from './badge/badge.component';
-import FormControl from './form-control/form-control.component';
-import AvatarItem from './avatar-item/avatar-item.component';
-import Flex from './flex/flex.component';
-import AvatarMessageItem from './avatar-message-item/avatar-message-item.component';
-import AvatarIconItem from './avatar-icon-item/avatar-icon-item.component';
-import ChatList from "./chat-list/chat-list.component";
-import SideBarHeader from "./side-bar-header/side-bar-header.component";
-import TextInputIcon from './text-input-icon/text-input-icon.component';
-import ChatSearchBar from './chat-search-bar/chat-search-bar.component';
-import ChatHeader from './chat-header/chat-header.component';
-import MessageHistory from './message-history/messages-history.component';
-import MessageInput from './message-input/message-input.component';
-import Layout from "./layout/layout.component";
-import Message from "./message/message.component";
-import Menu from "./menu/menu.component";
-import MenuButton from "./menu-button/menu-button.component";
-import MenuList from "./menu-list/menu-list.component";
-import MenuItem from "./menu-item/menu-item.component";
-import MessageInfo from "./message-info/message-info.component";
-import DropdownIconButton from "./dropdown-icon-button/dropdown-icon-button.component";
-import BackgroundImage from "./background-image/background-image.component";
-import ChatInfo from './chat-info/chat-info.component';
-import RightSideBarHeader from './right-side-bar-header/right-side-bar-header.component';
-import ChatInfoActionList from './chat-info-actions-list/chat-info-action-list.component';
-import Signup from './signup/signup.component';
-import Login from './login/login.component';
-import Field from './field/field.component';
-import Form from './form/form.component';
+import { 
+    Button, 
+    Image, 
+    Avatar, 
+    Box, 
+    Input, 
+    Badge, 
+    FormControl, 
+    Icon, 
+    IconButton, 
+    Stack, 
+    Text, 
+    MenuList, 
+    Menu, 
+    MenuButton, 
+    MenuItem,
+    Flex } from "@atoms";
+
+import {
+    AvatarIconItem,
+    AvatarItem, 
+    AvatarMessageItem, 
+    BackgroundImage, 
+    ChatHeader, 
+    ChatInfoActionList, 
+    ChatSearchBar, 
+    DropdownIconButton, 
+    Field, 
+    Form, 
+    Message, 
+    MessageInput, 
+    RightSideBarHeader, 
+    SideBarHeader, 
+    TextInputIcon
+} from "@molecules"
+
+import { 
+    ChatList, 
+    MessageHistory, 
+    MessageInfo, 
+    ChatInfo, 
+    Login, 
+    Signup } from "@organisms";
+    
+import { Layout } from "./templates";
 
 export {
     Button,

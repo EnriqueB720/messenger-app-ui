@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import _ from 'lodash';
 import { ChatInfoActionListProps } from '@types';
-import { Button, IconButton, Box, Icon } from '..';
+import { Button, IconButton, Box, Icon } from '../..';
 
 
 const ChatInfoActionList: React.FC<ChatInfoActionListProps> = ({

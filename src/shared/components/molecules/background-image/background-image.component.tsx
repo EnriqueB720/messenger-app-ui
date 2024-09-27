@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import _ from 'lodash';
 
-import { Box } from '..';
+import { Box } from '../..';
 
 const BackgroundImage: React.FC = () => {
     return (

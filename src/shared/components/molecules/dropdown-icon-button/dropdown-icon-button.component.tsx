@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from 'lodash';
 
 import { DropdownIconButtonProps } from '@types';
-import { Menu, MenuButton, Icon, MenuItem, Box, MenuList } from '..';
+import { Menu, MenuButton, Icon, MenuItem, Box, MenuList } from '../..';
 
 const DropdownIconButton: React.FC<DropdownIconButtonProps> = ({
   icon,
