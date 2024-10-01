@@ -12,7 +12,7 @@ export interface IAuthContext {
 
 export default createContext<IAuthContext>({
   user: undefined,
-  isLoading: true,
+  isLoading: false,
   isAuthenticated: false,
   login: () => Promise.resolve(),
   logout: () => Promise.resolve()

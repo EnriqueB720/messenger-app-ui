@@ -12,6 +12,7 @@ const Form = <T extends FormikValues,>({
   fields,
   validationSchema,
   formValues,
+  isLoading,
   onSubmit }: React.PropsWithChildren<FormProps<T>>) => {
 
   const { t } = useTranslation();
@@ -47,17 +48,19 @@ const Form = <T extends FormikValues,>({
                 inputValue={value}
                 onChange={formik.handleChange(name)}
                 onBlur={formik.handleBlur(name)}
-                isSubmitting={formik.isSubmitting}
+                isSubmitting={isLoading}
               />
             );
           })!}
 
           <Button
             marginTop={'10px'}
-            isLoading={formik.isSubmitting}
-            isDisabled={formik.isSubmitting}
+            isLoading={isLoading}
+            isDisabled={isLoading}
             key='submit'
-            onClick={formik.handleSubmit}>
+            onClick={formik.handleSubmit}
+            bg={'#00a884'}
+            >
             {t('login.form.submit')}
           </Button>
         </>)}

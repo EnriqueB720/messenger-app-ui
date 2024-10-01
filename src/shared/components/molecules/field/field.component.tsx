@@ -42,11 +42,8 @@ const Field: React.FC<FieldProps> = ({
             isRequired={isRequired}
             isDisabled={isSubmitting}
             onBlur={onBlur}>
-            <FormLabel color={'white'}>{label}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             {!isPassword ? <Input
-              style={{
-                color: 'white'
-              }}
               onChange={onChange}
               type="text"
               name={name}
@@ -56,9 +53,6 @@ const Field: React.FC<FieldProps> = ({
               :
               <Flex>
                 <Input
-                  style={{
-                    color: 'white'
-                  }}
                   onChange={onChange}
                   type={visibility ? "text" : "password"}
                   name={name}
@@ -67,9 +61,10 @@ const Field: React.FC<FieldProps> = ({
                 <IconButton
                   icon={visibility ? 'visibilityOn' : 'visibilityOff'}
                   size={'md'}
-                  colorScheme={'black'}
+                  color={'black'}
                   fontSize={'xl'}
                   onClick={switchVisibility}
+                  variant={'link'}
                 />
               </Flex>
             }

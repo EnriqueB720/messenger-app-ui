@@ -11,7 +11,7 @@ import { StorageService } from '@services';
 
 
 const AuthProvider: FC<AuthProviderProps> = ({children}) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const client = useApolloClient();

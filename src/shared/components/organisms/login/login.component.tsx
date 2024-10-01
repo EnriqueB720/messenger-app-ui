@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Form, Text } from '@components';
+import { Box, Flex, Form, Text, Image } from '@components';
 import { loginSchema } from '@schemas';
 import { useTranslation } from '@/shared/hooks';
 import { AuthContext } from '@contexts';
 import { AuthCredentials } from '@model';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export interface LoginFormValues {
     email: string;
@@ -15,33 +16,56 @@ export interface LoginFormValues {
 
 const Login: React.FC = () => {
 
-    const { login } = React.useContext(AuthContext);
+    const { login, isLoading } = React.useContext(AuthContext);
+    const [windowInnerHeight, setWindowInnerHeight] = useState<number>();
     const router = useRouter();
 
     const { t } = useTranslation();
-    
+
     const onSubmit = async (values: LoginFormValues) => {
         try {
-            await login(new AuthCredentials({email: values.email, password: values.password}));
-            router.push('/');
+            await login(new AuthCredentials({ email: values.email, password: values.password }));
+            if (!isLoading) router.push('/');
+
         } catch (error) {
             throw error;
         }
     }
 
+    useEffect(() => {
+        setWindowInnerHeight(window.innerHeight);
+    }, []);
+
     return (
-        <Box backgroundColor='#202c33' w='600px' border="1px solid #ffffff47" padding={5} h='320px' marginTop={16}>
-            <Text fontSize={'24px'} marginBottom={'10px'} color='white'>{t('login.title')}</Text>
-            <Form<LoginFormValues>
-                validationSchema={loginSchema}
-                formValues={{ email: '', password: '' }}
-                onSubmit={onSubmit}
-                fields={[
-                    { fieldType: 'field', label: t('login.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('login.form.email') },
-                    { fieldType: 'field', label: t('login.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('login.form.password'), isPassword: true }
-                ]}
-            />
-        </Box>
+        <>
+            <Box bg='#00a884' h='222px' position={'absolute'} top={'0'} zIndex={'-1'} left={'0'} width={'100%'}>
+            </Box>
+            <Box bg='#e1e1de' height={'100%'} position={'absolute'} zIndex={'-2'} width={'100%'}>
+            </Box>
+            <Flex justifyContent={'center'} zIndex={'10'} height={windowInnerHeight}>
+                <Box w='1000px' rounded={'sm'} padding={5} h='320px' marginTop={16} bg="white" boxShadow='dark-lg' display={'flex'} justifyContent={'space-between'}>
+                    <Box w="70%">
+                        <Text fontSize={'24px'} marginBottom={'10px'}>{t('login.title')}</Text>
+                        <Form<LoginFormValues>
+                            validationSchema={loginSchema}
+                            formValues={{ email: '', password: '' }}
+                            onSubmit={onSubmit}
+                            isLoading={isLoading}
+                            fields={[
+                                { fieldType: 'field', label: t('login.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('login.form.email') },
+                                { fieldType: 'field', label: t('login.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('login.form.password'), isPassword: true }
+                            ]}
+                        />
+                    </Box>
+                    <Box textAlign={'center'}>
+                        <Image h='264px' w='264px' title={t('AppCreatorProfile.link')} src={'./images/qr-code.png'} />
+                        <Text>{t('AppCreatorProfile.referAs')}!</Text>
+                    </Box>
+                </Box>
+
+            </Flex>
+        </>
+
     )
 }
 

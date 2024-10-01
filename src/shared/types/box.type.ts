@@ -1,4 +1,4 @@
-import { As, ResponsiveValue } from "@chakra-ui/react";
+import { As, ResponsiveValue, BoxProps as BoxProperties } from "@chakra-ui/react";
 import { CSSProperties, ReactNode } from "react";
 import { JustifyContent } from "./flex.type";
 
@@ -9,7 +9,7 @@ export type Position = 'fixed' | 'absolute' | 'relative'
 export type Overflow = 'auto' | 'scroll' | 'hidden' | 'visible'
 export type FlexDirection = 'column' | 'row'
 
-export interface BoxProps {
+export interface BoxProps extends BoxProperties {
   bg?: string;
   w?: string;
   maxW?: string;

@@ -1,9 +1,9 @@
 import { CSSProperties } from "react";
 import { IconName } from "@types";
 
-export type IconButtonVariant = 'outline' | 'solid'
+export type IconButtonVariant = 'outline' | 'solid' | 'ghost' | 'link'
 
-export interface IconButtonProps {
+export interface IconButtonProps{
     isRound?: boolean;
     colorScheme?: string;
     ariaLabel?: string;

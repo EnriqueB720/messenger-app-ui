@@ -42,7 +42,7 @@ const Layout: React.FC = () => {
 
   const [searchBy, setSearchBy] = useState(searchParams.get('searchBy')!);
   
-  const { isAuthenticated, user } = React.useContext(AuthContext);
+  const { user } = React.useContext(AuthContext);
 
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',

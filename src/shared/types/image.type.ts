@@ -1,8 +1,7 @@
 import { CSSProperties } from "react";
+import { ImageProps as ImageProperties } from "@chakra-ui/react";
 
-//export type ButtonVariant = 'ghost' | 'outline' | 'solid' | 'subtle' | 'unstyled' | 'link'
-
-export interface ImageProps {
+export interface ImageProps extends ImageProperties {
     src?: string;
     w?: string;
     h?: string;

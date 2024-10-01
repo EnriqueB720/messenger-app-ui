@@ -8,5 +8,6 @@ export interface FormProps<T> {
   fields: FieldProps[];
   validationSchema: yup.AnySchema;
   formValues: T;
+  isLoading: boolean;
   onSubmit: (values: T) => void;
 }
