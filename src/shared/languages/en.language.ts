@@ -121,6 +121,10 @@ const EnglishDictionary: Dictionary = {
   },
   form:{
     selectPlaceHolder: 'Select one option'
+  },
+  AppCreatorProfile:{
+    link: "Link to creator's profile",
+    referAs: 'Creator of the app'
   }
 }
 

@@ -121,6 +121,10 @@ const SpanishDictionary: Dictionary = {
   },
   form:{
     selectPlaceHolder: 'Seleccione una opcion'
+  },
+  AppCreatorProfile:{
+    link: 'Enlace al perfil del creador',
+    referAs: 'Creador del App'
   }
 }
 

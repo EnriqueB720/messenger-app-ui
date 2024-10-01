@@ -2,9 +2,9 @@ import { Leaves } from '.';
 
 import { Language } from '@generated';
 
-interface Content {
-  title: string;
-  description: string;
+interface AppCreatorProfile {
+  link: string;
+  referAs: string;
 }
 
 interface Form {
@@ -139,6 +139,7 @@ export interface Dictionary {
   form: {
     selectPlaceHolder: string;
   }
+  AppCreatorProfile: AppCreatorProfile;
 };
 
 export type GenderDictionary = {
