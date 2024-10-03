@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, Form, Text, Image } from '@components';
+import { Box, Flex, Form, Text, Image, Button } from '@components';
 import { loginSchema } from '@schemas';
 import { useTranslation } from '@/shared/hooks';
 import { AuthContext } from '@contexts';
@@ -56,13 +56,13 @@ const Login: React.FC = () => {
                                 { fieldType: 'field', label: t('login.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('login.form.password'), isPassword: true }
                             ]}
                         />
+                        <Button mt={2.5} ml={2} bg={'#e1e1de'} onClick={() => router.push('/signup')}>{t('login.noAccount')}</Button>
                     </Box>
                     <Box textAlign={'center'}>
                         <Image h='264px' w='264px' title={t('AppCreatorProfile.link')} src={'./images/qr-code.png'} />
                         <Text>{t('AppCreatorProfile.referAs')}!</Text>
                     </Box>
                 </Box>
-
             </Flex>
         </>
 
