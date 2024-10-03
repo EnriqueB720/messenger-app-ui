@@ -87,7 +87,8 @@ const EnglishDictionary: Dictionary = {
         submit: 'Verify Account',
         sendNewCode: 'Send me a new code!'
       }
-    }
+    },
+    noAccount: 'Sign Up'
   },
   notFound: {
     title: 'Oops...',

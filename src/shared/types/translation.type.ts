@@ -105,6 +105,7 @@ export interface Dictionary {
         sendNewCode: string;
       };
     };
+    noAccount: string;
   };
   chatSearchBar: {
     placeholderText: string;

@@ -87,7 +87,8 @@ const SpanishDictionary: Dictionary = {
         submit: 'Verificar Contraseña',
         sendNewCode: 'Enviar código nuevo',
       }
-    }
+    },
+    noAccount: 'Crear una cuenta'
   },
   notFound: {
     title: 'Oops...'
