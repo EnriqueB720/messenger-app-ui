@@ -27,6 +27,11 @@ class StorageService {
     return localStorage.setItem(StorageName.LANGUAGE, value);
   }
 
+  async removeLanguage(){
+    localStorage.removeItem(StorageName.LANGUAGE);
+    this.setLanguage(Language.English);
+  }
+
   async setJwtToken(token: string){
     return localStorage.setItem(StorageName.JWT_TOKEN, token);
   }

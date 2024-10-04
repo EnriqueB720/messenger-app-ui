@@ -1,12 +1,12 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 
-import AuthContext, { IAuthContext } from './auth.context';
+import AuthContext from './auth.context';
 
-import { AuthCredentials, User } from '@model';
+import { AuthCredentials, User, SignUpUser } from '@model';
 import { AuthService } from '@services';
 import { AuthProviderProps } from '@types';
-import { useLoginLazyQuery } from '@generated';
+import { useLoginLazyQuery, useSignupMutation } from '@generated';
 import { StorageService } from '@services';
 
 
@@ -21,6 +21,8 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
   const [loginQuery] = useLoginLazyQuery({
     fetchPolicy: 'cache-and-network'
   });
+
+  const [signupQuery] = useSignupMutation();
 
   const login = useCallback(async ({ credentials }: AuthCredentials) => {
     try {
@@ -42,12 +44,31 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
       const user =  new User(result.data?.login!.user!);
       setUser(user);
 
-
       setIsAuthenticated(true);
     } catch (error: any) {
       setIsLoading(false);
     }
   }, [loginQuery, setIsLoading, setIsAuthenticated, setUser]);
+
+  const register = useCallback(async ({data}: SignUpUser)  => {
+    try {
+      setIsLoading(true);
+
+      let result = await signupQuery({
+        variables:{
+          data
+        }
+      });
+
+      if(result.errors){
+        console.log(result.errors);
+      }
+
+    } catch (error: any) {
+      setIsLoading(false);
+    }
+    
+  }, [setIsLoading]);
 
   const logout = async () => {
     try {
@@ -55,7 +76,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
       await client.clearStore();
       await AuthService.logout();
-
+  
       setIsAuthenticated(false);
     } catch (error) {}
 
@@ -69,6 +90,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         isLoading,
         isAuthenticated,
         login,
+        register,
         logout,
       }}
     >

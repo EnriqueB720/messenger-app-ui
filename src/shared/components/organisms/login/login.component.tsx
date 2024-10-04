@@ -16,7 +16,7 @@ export interface LoginFormValues {
 
 const Login: React.FC = () => {
 
-    const { login, isLoading } = React.useContext(AuthContext);
+    const { login, isLoading, isAuthenticated } = React.useContext(AuthContext);
     const [windowInnerHeight, setWindowInnerHeight] = useState<number>();
     const router = useRouter();
 
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     const onSubmit = async (values: LoginFormValues) => {
         try {
             await login(new AuthCredentials({ email: values.email, password: values.password }));
-            if (!isLoading) router.push('/');
+            if (isAuthenticated) router.push('/');
 
         } catch (error) {
             throw error;

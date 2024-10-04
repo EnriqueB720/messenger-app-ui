@@ -57,10 +57,12 @@ const SpanishDictionary: Dictionary = {
       email: 'Correo Eléctronico',
       username: 'Nombre de usuario',
       firstName: 'Nombre',
-      lastName: 'Apellido',
+      lastName: 'Apellidos',
+      phoneNumber: 'Telefono',
       password: 'Contraseña',
       repeatPassword: 'Repetir contraseña'
-    }
+    },
+    alreadyAnAccount: 'Ya tienes una cuenta? Inicia sesión'
   },
   forgotPassword: {
     title: 'Resetear Contraseña',

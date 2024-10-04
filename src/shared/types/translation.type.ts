@@ -16,6 +16,7 @@ interface ProfileForm extends Form {
   lastName: string;
   username: string;
   password: string;
+  phoneNumber: string;
 }
 
 interface RegisterForm extends ProfileForm {
@@ -78,6 +79,7 @@ export interface Dictionary {
   register: {
     title: string;
     form: RegisterForm;
+    alreadyAnAccount: string;
   };
   forgotPassword: {
     title: string;

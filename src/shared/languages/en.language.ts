@@ -57,10 +57,12 @@ const EnglishDictionary: Dictionary = {
       email: 'Email',
       firstName: 'First name',
       lastName: 'Last name',
+      phoneNumber: 'Phone number',
       username: 'Username',
       password: 'Password',
       repeatPassword: 'Repeat password'
     },
+    alreadyAnAccount: 'Already an account? Sign in!'
   },
   forgotPassword: {
     title: 'Reset password',
