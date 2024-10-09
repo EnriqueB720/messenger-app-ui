@@ -143,6 +143,7 @@ export interface Dictionary {
     selectPlaceHolder: string;
   }
   AppCreatorProfile: AppCreatorProfile;
+  logoutMessage: string;
 };
 
 export type GenderDictionary = {

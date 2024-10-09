@@ -10,6 +10,7 @@ query login($data: LoginUserInput!){
       username
       fullName
       phoneNumber
+      language
       contacts{
         fullName,
         contactUserId

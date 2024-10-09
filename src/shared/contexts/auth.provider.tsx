@@ -8,6 +8,7 @@ import { AuthService } from '@services';
 import { AuthProviderProps } from '@types';
 import { useLoginLazyQuery, useSignupMutation } from '@generated';
 import { StorageService } from '@services';
+import { useTranslation } from '../hooks';
 
 
 const AuthProvider: FC<AuthProviderProps> = ({children}) => {
@@ -23,6 +24,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
   });
 
   const [signupQuery] = useSignupMutation();
+  const { setLanguage } = useTranslation();
 
   const login = useCallback(async ({ credentials }: AuthCredentials) => {
     try {
@@ -30,7 +32,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
       setIsLoading(true);
 
-      let result = await loginQuery({
+      let {data} = await loginQuery({
         variables:{
           data:{
             email,
@@ -39,9 +41,12 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         }
       });
      
-      StorageService.setJwtToken(result.data?.login!.access_token!);
+      StorageService.setLanguage(data?.login.user.language!);
+      setLanguage(data?.login.user.language!);
+      
+      StorageService.setJwtToken(data?.login!.access_token!);
 
-      const user =  new User(result.data?.login!.user!);
+      const user =  new User(data?.login!.user!);
       setUser(user);
 
       setIsAuthenticated(true);
@@ -67,7 +72,6 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     } catch (error: any) {
       setIsLoading(false);
     }
-    
   }, [setIsLoading]);
 
   const logout = async () => {

@@ -8,7 +8,6 @@ export class AuthService {
   public async logout(): Promise<void> {
     try {
       await StorageService.removeJwtToken();
-      await StorageService.removeLanguage();
     } catch (error) {
       throw new AuthError();
     }

@@ -419,7 +419,7 @@ export type LoginQueryVariables = Exact<{
 }>;
 
 
-export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'LoginOutput', access_token: string, expiresAt: any, user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, type?: Role | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } } };
+export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'LoginOutput', access_token: string, expiresAt: any, user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, type?: Role | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, language?: Language | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } } };
 
 export type SignupMutationVariables = Exact<{
   data: SignUpInput;
@@ -504,6 +504,7 @@ export const LoginDocument = gql`
       username
       fullName
       phoneNumber
+      language
       contacts {
         fullName
         contactUserId

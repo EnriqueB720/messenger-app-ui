@@ -7,7 +7,7 @@ import { useTranslation } from '@/shared/hooks';
 import { AuthContext } from '@contexts';
 import { AuthCredentials } from '@model';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export interface LoginFormValues {
     email: string;
@@ -16,7 +16,7 @@ export interface LoginFormValues {
 
 const Login: React.FC = () => {
 
-    const { login, isLoading, isAuthenticated } = React.useContext(AuthContext);
+    const { login, isLoading, isAuthenticated } = useContext(AuthContext);
     const [windowInnerHeight, setWindowInnerHeight] = useState<number>();
     const router = useRouter();
 
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     const onSubmit = async (values: LoginFormValues) => {
         try {
             await login(new AuthCredentials({ email: values.email, password: values.password }));
-            if (isAuthenticated) router.push('/');
+            if (!isLoading) router.push('/');
 
         } catch (error) {
             throw error;
@@ -33,6 +33,7 @@ const Login: React.FC = () => {
     }
 
     useEffect(() => {
+        if(isAuthenticated) router.push('/');
         setWindowInnerHeight(window.innerHeight);
     }, []);
 

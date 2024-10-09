@@ -128,7 +128,8 @@ const SpanishDictionary: Dictionary = {
   AppCreatorProfile:{
     link: 'Enlace al perfil del creador',
     referAs: 'Creador del App'
-  }
+  },
+  logoutMessage: 'Cerrar Sesion'
 }
 
 export default SpanishDictionary

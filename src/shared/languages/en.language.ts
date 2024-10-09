@@ -128,7 +128,8 @@ const EnglishDictionary: Dictionary = {
   AppCreatorProfile:{
     link: "Link to creator's profile",
     referAs: 'Creator of the app'
-  }
+  },
+  logoutMessage: 'Log out'
 }
 
 export default EnglishDictionary
