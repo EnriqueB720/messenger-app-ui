@@ -1,0 +1,20 @@
+query refreshUser($data: String!){
+  refreshUser(data: $data){
+    access_token,
+    expiresAt,
+    user{
+      id
+      uuid
+      email
+      type
+      username
+      fullName
+      phoneNumber
+      language
+      contacts{
+        fullName,
+        contactUserId
+      },
+    }
+  }
+}

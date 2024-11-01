@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { useTranslation } from '../../../hooks';
 
 import { FieldProps } from '@types';
-import { FormControl, FormErrorMessage, FormLabel, Radio, RadioGroup, Select } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, InputGroup, InputRightElement, Radio, RadioGroup, Select } from '@chakra-ui/react';
 import { Input, Stack, IconButton, Flex } from '@components';
 import { useState } from 'react';
 
@@ -38,6 +38,8 @@ const Field: React.FC<FieldProps> = ({
       case 'field':
         return (
           <FormControl
+            mb={2}
+            mr={2}
             isInvalid={isErrors}
             isRequired={isRequired}
             isDisabled={isSubmitting}
@@ -52,20 +54,24 @@ const Field: React.FC<FieldProps> = ({
             />
               :
               <Flex>
-                <Input
-                  onChange={onChange}
-                  type={visibility ? "text" : "password"}
-                  name={name}
-                  placeholder={inputPlaceholder}
-                  value={inputValue} />
-                <IconButton
-                  icon={visibility ? 'visibilityOn' : 'visibilityOff'}
-                  size={'md'}
-                  color={'black'}
-                  fontSize={'xl'}
-                  onClick={switchVisibility}
-                  variant={'link'}
-                />
+                <InputGroup>
+                  <Input
+                    onChange={onChange}
+                    type={visibility ? "text" : "password"}
+                    name={name}
+                    placeholder={inputPlaceholder}
+                    value={inputValue} />
+                  <InputRightElement>
+                    <IconButton
+                      icon={visibility ? 'visibilityOn' : 'visibilityOff'}
+                      size={'md'}
+                      color={'black'}
+                      fontSize={'xl'}
+                      onClick={switchVisibility}
+                      variant={'link'}
+                    />
+                  </InputRightElement>
+                </InputGroup>
               </Flex>
             }
             {isErrors && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
@@ -73,7 +79,7 @@ const Field: React.FC<FieldProps> = ({
         );
       case 'radio':
         return (
-          <FormControl>
+          <FormControl mr={2} mb={2} isRequired={isRequired} isDisabled={isSubmitting} onBlur={onBlur}>
             <FormLabel>{label}</FormLabel>
             <RadioGroup defaultValue={radioButtonOptions![0]}>
               <Stack spacing={10}>
@@ -88,7 +94,7 @@ const Field: React.FC<FieldProps> = ({
         );
       case 'select':
         return (
-          <FormControl isRequired={isRequired}>
+          <FormControl isRequired={isRequired} mr={2} mb={2} isDisabled={isSubmitting} onBlur={onBlur}>
             <FormLabel>{label}</FormLabel>
             <Select
               placeholder={t('form.selectPlaceHolder')}

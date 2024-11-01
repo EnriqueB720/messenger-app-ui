@@ -10,4 +10,5 @@ export interface FormProps<T> {
   formValues: T;
   isLoading: boolean;
   onSubmit: (values: T) => void;
+  groupings?: number[]
 }

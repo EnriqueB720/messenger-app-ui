@@ -9,6 +9,7 @@ export interface IAuthContext {
   login: (credentials: AuthCredentials) => Promise<void>;
   register: (values: SignUpUser) => Promise<void>;
   logout: () => Promise<void>;
+  refreshUserToken: () => Promise<void>;
 }
 
 export default createContext<IAuthContext>({
@@ -17,5 +18,6 @@ export default createContext<IAuthContext>({
   isAuthenticated: false,
   login: () => Promise.resolve(),
   register: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
+  refreshUserToken: () => Promise.resolve()
 });

@@ -258,6 +258,7 @@ export type Query = {
   contacts: Array<Contact>;
   login: LoginOutput;
   messages: Array<Message>;
+  refreshUser: LoginOutput;
   user: User;
   userMessageStatus: Array<UserMessageStatus>;
 };
@@ -302,6 +303,11 @@ export type QueryMessagesArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<MessageWhereInput>;
+};
+
+
+export type QueryRefreshUserArgs = {
+  data: Scalars['String'];
 };
 
 
@@ -420,6 +426,13 @@ export type LoginQueryVariables = Exact<{
 
 
 export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'LoginOutput', access_token: string, expiresAt: any, user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, type?: Role | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, language?: Language | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } } };
+
+export type RefreshUserQueryVariables = Exact<{
+  data: Scalars['String'];
+}>;
+
+
+export type RefreshUserQuery = { __typename?: 'Query', refreshUser: { __typename?: 'LoginOutput', access_token: string, expiresAt: any, user: { __typename?: 'User', id?: number | null, uuid?: string | null, email?: string | null, type?: Role | null, username?: string | null, fullName?: string | null, phoneNumber?: number | null, language?: Language | null, contacts?: Array<{ __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null }> | null } } };
 
 export type SignupMutationVariables = Exact<{
   data: SignUpInput;
@@ -541,6 +554,56 @@ export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Logi
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
 export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
 export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export const RefreshUserDocument = gql`
+    query refreshUser($data: String!) {
+  refreshUser(data: $data) {
+    access_token
+    expiresAt
+    user {
+      id
+      uuid
+      email
+      type
+      username
+      fullName
+      phoneNumber
+      language
+      contacts {
+        fullName
+        contactUserId
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useRefreshUserQuery__
+ *
+ * To run a query within a React component, call `useRefreshUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRefreshUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRefreshUserQuery({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useRefreshUserQuery(baseOptions: Apollo.QueryHookOptions<RefreshUserQuery, RefreshUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RefreshUserQuery, RefreshUserQueryVariables>(RefreshUserDocument, options);
+      }
+export function useRefreshUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RefreshUserQuery, RefreshUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RefreshUserQuery, RefreshUserQueryVariables>(RefreshUserDocument, options);
+        }
+export type RefreshUserQueryHookResult = ReturnType<typeof useRefreshUserQuery>;
+export type RefreshUserLazyQueryHookResult = ReturnType<typeof useRefreshUserLazyQuery>;
+export type RefreshUserQueryResult = Apollo.QueryResult<RefreshUserQuery, RefreshUserQueryVariables>;
 export const SignupDocument = gql`
     mutation signup($data: SignUpInput!) {
   signup(data: $data) {

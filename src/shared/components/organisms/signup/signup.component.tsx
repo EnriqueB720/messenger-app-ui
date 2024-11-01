@@ -33,13 +33,13 @@ const Signup: React.FC = () => {
 			await register({
 				data: {
 					email: values.email,
-					fullName: values.firstName+' '+values.lastName,
+					fullName: values.firstName + ' ' + values.lastName,
 					passwordHash: values.password,
 					phoneNumber: Number.parseInt(values.phoneNumber!),
 					username: values.username
 				}
 			});
-			
+
 			if (!isLoading) router.push('/login');
 
 		} catch (error) {
@@ -58,7 +58,7 @@ const Signup: React.FC = () => {
 			<Box bg='#e1e1de' height={'100%'} position={'absolute'} zIndex={'-2'} width={'100%'}>
 			</Box>
 			<Flex justifyContent={'center'} zIndex={'10'} height={windowInnerHeight}>
-				<Box w='1000px' rounded={'sm'} h={'inherit'} padding={5} marginTop={16} bg="white" boxShadow='dark-lg'>
+				<Box w='1000px' rounded={'sm'} h={'600px'} padding={5} marginTop={16} bg="white" boxShadow='dark-lg'>
 					<Text fontSize={'24px'} marginBottom={'10px'}>{t('register.title')}</Text>
 					<Form<SignUpFormValues>
 						validationSchema={signUpSchema}
@@ -74,14 +74,15 @@ const Signup: React.FC = () => {
 						onSubmit={onSubmit}
 						isLoading={isLoading}
 						fields={[
-							{ fieldType: 'field', label: t('register.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('register.form.email') },
 							{ fieldType: 'field', label: t('register.form.firstName'), isRequired: true, name: 'firstName', inputPlaceholder: t('register.form.firstName') },
 							{ fieldType: 'field', label: t('register.form.lastName'), isRequired: true, name: 'lastName', inputPlaceholder: t('register.form.lastName') },
+							{ fieldType: 'field', label: t('register.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('register.form.email') },
 							{ fieldType: 'field', label: t('register.form.phoneNumber'), isRequired: true, name: 'phoneNumber', inputPlaceholder: t('register.form.phoneNumber') },
 							{ fieldType: 'field', label: t('register.form.username'), isRequired: true, name: 'username', inputPlaceholder: t('register.form.username') },
 							{ fieldType: 'field', label: t('register.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('register.form.password'), isPassword: true },
 							{ fieldType: 'field', label: t('register.form.repeatPassword'), isRequired: true, name: 'repeatPassword', inputPlaceholder: t('register.form.repeatPassword'), isPassword: true }
 						]}
+						groupings={[2,1,2,2]}
 					/>
 					<Button mt={2.5} ml={2} bg={'#e1e1de'} onClick={() => router.push('/login')}>{t('register.alreadyAnAccount')}</Button>
 				</Box>

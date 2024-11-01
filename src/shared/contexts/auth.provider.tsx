@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 
 import AuthContext from './auth.context';
@@ -6,7 +6,7 @@ import AuthContext from './auth.context';
 import { AuthCredentials, User, SignUpUser } from '@model';
 import { AuthService } from '@services';
 import { AuthProviderProps } from '@types';
-import { useLoginLazyQuery, useSignupMutation } from '@generated';
+import { useLoginLazyQuery, useSignupMutation, useRefreshUserLazyQuery } from '@generated';
 import { StorageService } from '@services';
 import { useTranslation } from '../hooks';
 
@@ -23,8 +23,23 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     fetchPolicy: 'cache-and-network'
   });
 
+  const [refreshUser] = useRefreshUserLazyQuery({
+    fetchPolicy: 'cache-and-network'
+  })
+
   const [signupQuery] = useSignupMutation();
   const { setLanguage } = useTranslation();
+
+
+  useEffect(() => {
+    
+    const refreshUserTokenAsync = async () => {
+      await refreshUserToken();
+    }
+
+    refreshUserTokenAsync();
+
+  }, []);
 
   const login = useCallback(async ({ credentials }: AuthCredentials) => {
     try {
@@ -87,6 +102,38 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     setIsLoading(false);
   };
 
+  const refreshUserToken = useCallback(async () => {
+    try {
+      
+      let token = await StorageService.getJwtToken();
+
+
+      let {data} = await refreshUser({
+        variables:{
+          data: token
+        }
+      });
+
+     if(data){
+      StorageService.setLanguage(data?.refreshUser.user.language!);
+      setLanguage(data?.refreshUser.user.language!);
+      
+      StorageService.setJwtToken(data?.refreshUser!.access_token!);
+
+      const user =  new User(data?.refreshUser!.user!);
+      setUser(user);
+
+      setIsAuthenticated(true);
+     }else{
+      setIsAuthenticated(false);
+      setUser(undefined);
+     }
+
+    } catch (error: any) {
+      console.log(error.message)
+    }
+  }, [refreshUser, setIsAuthenticated, setUser])
+
   return (
     <AuthContext.Provider
       value={{
@@ -96,6 +143,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         login,
         register,
         logout,
+        refreshUserToken
       }}
     >
       {children}

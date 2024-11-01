@@ -44,14 +44,15 @@ const Login: React.FC = () => {
             <Box bg='#e1e1de' height={'100%'} position={'absolute'} zIndex={'-2'} width={'100%'}>
             </Box>
             <Flex justifyContent={'center'} zIndex={'10'} height={windowInnerHeight}>
-                <Box w='1000px' rounded={'sm'} padding={5} h='320px' marginTop={16} bg="white" boxShadow='dark-lg' display={'flex'} justifyContent={'space-between'}>
-                    <Box w="70%">
+                <Box rounded={'sm'} padding={5} h='320px' marginTop={16} bg="white" boxShadow='dark-lg' display={'flex'} justifyContent={'space-between'}>
+                    <Box w='386px'>
                         <Text fontSize={'24px'} marginBottom={'10px'}>{t('login.title')}</Text>
                         <Form<LoginFormValues>
                             validationSchema={loginSchema}
                             formValues={{ email: '', password: '' }}
                             onSubmit={onSubmit}
                             isLoading={isLoading}
+                            groupings={[1,1]}
                             fields={[
                                 { fieldType: 'field', label: t('login.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('login.form.email') },
                                 { fieldType: 'field', label: t('login.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('login.form.password'), isPassword: true }
