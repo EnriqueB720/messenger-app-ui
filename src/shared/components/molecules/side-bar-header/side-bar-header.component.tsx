@@ -7,13 +7,15 @@ import { SidebarHeaderProps } from '@types';
 import { useCallback, useContext } from 'react';
 import { useTranslation } from '@/shared/hooks';
 import { AuthContext } from '@contexts';
-import { Language } from '@/shared/generated/graphql-schema';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 
 const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 
 	const { t } = useTranslation();
 	const { logout } = useContext(AuthContext);
+	const router = useRouter();
 
 	const handleClick = useCallback((userId: any) => {
 		alert('user-info clicked: ' + userId)
@@ -22,6 +24,14 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 	const logUserOut = useCallback(async () => {
 		await logout();
 	}, []);
+
+	const addNewContact = useCallback(() => {
+		//clears route
+		router.push(router.basePath);
+
+	  router.push('/?addContact');
+
+	}, [])
 	
 	return (
 		<Box bg={'#202c33'} padding={1}>
@@ -54,6 +64,13 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 								onClick={logUserOut}
 							>
 								{t('logoutMessage')}
+							</MenuItem>
+							<MenuItem
+								backgroundColor={'#202c33'}
+								color={"white"}
+								onClick={addNewContact}
+							>
+								{t('addContactForm.formTitle')}
 							</MenuItem>
 						</MenuList>
 					</Menu>

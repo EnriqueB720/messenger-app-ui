@@ -129,6 +129,15 @@ const SpanishDictionary: Dictionary = {
     link: 'Enlace al perfil del creador',
     referAs: 'Creador del App'
   },
+  addContactForm:{
+    formTitle: "Agregar nuevo contacto",
+    lastName: "Apellido(s)",
+    firstName: "Nombre",
+    phoneNumber: "Numero de telefono",
+    submitButton: "Añadir nuevo contacto",
+    confirmationMessage: "Tu contacto se ha creado con exito!",
+    errorMessage: "Oops! El contacto no existe en la plataforma."
+  },
   logoutMessage: 'Cerrar Sesion'
 }
 

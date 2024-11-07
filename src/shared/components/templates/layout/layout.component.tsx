@@ -30,6 +30,8 @@ const Layout: React.FC = () => {
 
   const displayChatInfo = Boolean(searchParams.get('displayChatInfo')!);
 
+  const addNewContact = searchParams.has('addContact'!);
+
   const windowInnerHeight = typeof window !== 'undefined' ? window.innerHeight : 754;
 
   const messageHistoryHeight = windowInnerHeight - MESSSAGE_INPUT_HEIGHT - SIDEBAR_HEADER_HEIGHT;
@@ -43,7 +45,7 @@ const Layout: React.FC = () => {
   const [searchBy, setSearchBy] = useState(searchParams.get('searchBy')!);
   
   const { user } = React.useContext(AuthContext);
-
+  
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
     variables: {

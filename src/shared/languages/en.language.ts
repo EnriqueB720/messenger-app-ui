@@ -129,6 +129,15 @@ const EnglishDictionary: Dictionary = {
     link: "Link to creator's profile",
     referAs: 'Creator of the app'
   },
+  addContactForm:{
+    formTitle: "Add new contact",
+    lastName: "Last name",
+    firstName: "First name",
+    phoneNumber: "Phone number",
+    submitButton: "Add new contact",
+    confirmationMessage: "Your contact was added successffully!",
+    errorMessage: "Something happen! This contact does not exists in the app."
+  },
   logoutMessage: 'Log out'
 }
 

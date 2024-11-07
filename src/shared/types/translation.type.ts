@@ -141,6 +141,15 @@ export interface Dictionary {
   }
   form: {
     selectPlaceHolder: string;
+  },
+  addContactForm:{
+    formTitle: string;
+    lastName: string;
+    firstName: string;
+    phoneNumber: string;
+    submitButton: string;
+    confirmationMessage: string;
+    errorMessage: string;
   }
   AppCreatorProfile: AppCreatorProfile;
   logoutMessage: string;
