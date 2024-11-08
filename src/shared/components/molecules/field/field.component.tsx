@@ -12,6 +12,7 @@ import { useState } from 'react';
 const Field: React.FC<FieldProps> = ({
   label,
   name,
+  fieldColor = 'black',
   fieldType,
   inputPlaceholder,
   radioButtonOptions,
@@ -43,9 +44,11 @@ const Field: React.FC<FieldProps> = ({
             isInvalid={isErrors}
             isRequired={isRequired}
             isDisabled={isSubmitting}
-            onBlur={onBlur}>
-            <FormLabel>{label}</FormLabel>
+            onBlur={onBlur}
+            color={fieldColor}>
+            <FormLabel color={fieldColor}>{label}</FormLabel>
             {!isPassword ? <Input
+              
               onChange={onChange}
               type="text"
               name={name}
@@ -56,6 +59,7 @@ const Field: React.FC<FieldProps> = ({
               <Flex>
                 <InputGroup>
                   <Input
+                    color={fieldColor}
                     onChange={onChange}
                     type={visibility ? "text" : "password"}
                     name={name}

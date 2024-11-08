@@ -6,6 +6,7 @@ type InputType = 'field' | 'checkbox' | 'radio' | 'select';
 export interface FieldProps {
   label: string;
   name: string;
+  fieldColor:string;
   fieldType: InputType;
   inputPlaceholder?: string;
   radioButtonOptions?:string[];

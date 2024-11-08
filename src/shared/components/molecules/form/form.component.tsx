@@ -11,6 +11,7 @@ import { Formik, FormikValues } from 'formik';
 const Form = <T extends FormikValues,>({
   fields,
   validationSchema,
+  submitButtonText,
   formValues,
   isLoading,
   groupings = [fields.length],
@@ -74,7 +75,7 @@ const Form = <T extends FormikValues,>({
             onClick={formik.handleSubmit}
             bg={'#00a884'}
             >
-            {t('login.form.submit')}
+            {submitButtonText || t('login.form.submit')}
           </Button>
         </>)}
 
