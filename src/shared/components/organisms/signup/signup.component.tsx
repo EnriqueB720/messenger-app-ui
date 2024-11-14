@@ -77,7 +77,7 @@ const Signup: React.FC = () => {
 							{ fieldType: 'field', label: t('register.form.firstName'), isRequired: true, name: 'firstName', inputPlaceholder: t('register.form.firstName') },
 							{ fieldType: 'field', label: t('register.form.lastName'), isRequired: true, name: 'lastName', inputPlaceholder: t('register.form.lastName') },
 							{ fieldType: 'field', label: t('register.form.email'), isRequired: true, name: 'email', inputPlaceholder: t('register.form.email') },
-							{ fieldType: 'field', label: t('register.form.phoneNumber'), isRequired: true, name: 'phoneNumber', inputPlaceholder: t('register.form.phoneNumber') },
+							{ fieldType: 'phone', label: t('register.form.phoneNumber'), isRequired: true, name: 'phoneNumber', inputPlaceholder: t('register.form.phoneNumber') },
 							{ fieldType: 'field', label: t('register.form.username'), isRequired: true, name: 'username', inputPlaceholder: t('register.form.username') },
 							{ fieldType: 'field', label: t('register.form.password'), isRequired: true, name: 'password', inputPlaceholder: t('register.form.password'), isPassword: true },
 							{ fieldType: 'field', label: t('register.form.repeatPassword'), isRequired: true, name: 'repeatPassword', inputPlaceholder: t('register.form.repeatPassword'), isPassword: true }

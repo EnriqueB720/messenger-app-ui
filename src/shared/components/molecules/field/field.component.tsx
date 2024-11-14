@@ -8,6 +8,8 @@ import { FieldProps } from '@types';
 import { FormControl, FormErrorMessage, FormLabel, InputGroup, InputRightElement, Radio, RadioGroup, Select } from '@chakra-ui/react';
 import { Input, Stack, IconButton, Flex } from '@components';
 import { useState } from 'react';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
 const Field: React.FC<FieldProps> = ({
   label,
@@ -48,7 +50,6 @@ const Field: React.FC<FieldProps> = ({
             color={fieldColor}>
             <FormLabel color={fieldColor}>{label}</FormLabel>
             {!isPassword ? <Input
-              
               onChange={onChange}
               type="text"
               name={name}
@@ -73,6 +74,7 @@ const Field: React.FC<FieldProps> = ({
                       fontSize={'xl'}
                       onClick={switchVisibility}
                       variant={'link'}
+                      aria-label={''}
                     />
                   </InputRightElement>
                 </InputGroup>
@@ -81,6 +83,29 @@ const Field: React.FC<FieldProps> = ({
             {isErrors && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
           </FormControl>
         );
+      case 'phone':
+        return (
+          <FormControl
+            mb={2}
+            mr={2}
+            isInvalid={isErrors}
+            isRequired={isRequired}
+            isDisabled={isSubmitting}
+            onBlur={onBlur}
+            color={fieldColor}>
+            <FormLabel color={fieldColor}>{label}</FormLabel>
+            <PhoneInput
+              disabled={isSubmitting}
+              prefix=''
+              placeholder={inputPlaceholder}
+              defaultCountry="cr"
+              value={inputValue}
+              name={name}
+              onChange={onChange}
+            />
+             {isErrors && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+          </FormControl>
+        )
       case 'radio':
         return (
           <FormControl mr={2} mb={2} isRequired={isRequired} isDisabled={isSubmitting} onBlur={onBlur}>

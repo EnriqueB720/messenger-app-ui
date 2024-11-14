@@ -1,12 +1,12 @@
 import { ChangeEvent } from "react";
 
-type InputType = 'field' | 'checkbox' | 'radio' | 'select';
+type InputType = 'field' | 'phone' | 'checkbox' | 'radio' | 'select';
 
 
 export interface FieldProps {
   label: string;
   name: string;
-  fieldColor:string;
+  fieldColor?:string;
   fieldType: InputType;
   inputPlaceholder?: string;
   radioButtonOptions?:string[];

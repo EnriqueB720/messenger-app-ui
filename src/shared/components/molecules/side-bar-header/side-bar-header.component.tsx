@@ -43,7 +43,7 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 						onClick={() => handleClick(data.userId)} />
 				</Box>
 				<Box>
-					<Menu>
+					<Menu placement='top-end'>
 						<MenuButton
 							as={"button"}
 							title={"More options"}
@@ -55,7 +55,8 @@ const SideBarHeader: React.FC<SidebarHeaderProps> = ({ data }) => {
 								icon={'dots'}
 								size={'lg'}
 								colorScheme={'inherit'}
-								fontSize={'xl'} />
+								fontSize={'xl'} 
+								aria-label={''} />
 						</MenuButton>
 						<MenuList backgroundColor={'#202c33'}>
 							<MenuItem

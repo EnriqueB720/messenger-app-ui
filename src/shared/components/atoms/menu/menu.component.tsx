@@ -7,11 +7,13 @@ import { Menu as CKMenu } from '@chakra-ui/react';
 import { MenuProps } from '@types';
 
 const Menu: React.FC<MenuProps> = ({
-    children
+    children,
+    ...props
 }) => {
 
   return (
     <CKMenu
+    {...props}
     >
       {children}
     </CKMenu>

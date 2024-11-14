@@ -463,6 +463,13 @@ export type ContactsQueryVariables = Exact<{
 
 export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', fullName?: string | null, userId?: number | null, contactUserId?: number | null, contactUser?: { __typename?: 'User', phoneNumber?: number | null } | null }> };
 
+export type CreateContactMutationVariables = Exact<{
+  data: ContactCreateInput;
+}>;
+
+
+export type CreateContactMutation = { __typename?: 'Mutation', createContact: { __typename?: 'Contact', fullName?: string | null, contactUserId?: number | null } };
+
 export type CreateDirectMessageMutationVariables = Exact<{
   data: DirectMessageCreateInput;
 }>;
@@ -797,6 +804,40 @@ export function useContactsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<C
 export type ContactsQueryHookResult = ReturnType<typeof useContactsQuery>;
 export type ContactsLazyQueryHookResult = ReturnType<typeof useContactsLazyQuery>;
 export type ContactsQueryResult = Apollo.QueryResult<ContactsQuery, ContactsQueryVariables>;
+export const CreateContactDocument = gql`
+    mutation createContact($data: ContactCreateInput!) {
+  createContact(data: $data) {
+    fullName
+    contactUserId
+  }
+}
+    `;
+export type CreateContactMutationFn = Apollo.MutationFunction<CreateContactMutation, CreateContactMutationVariables>;
+
+/**
+ * __useCreateContactMutation__
+ *
+ * To run a mutation, you first call `useCreateContactMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateContactMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createContactMutation, { data, loading, error }] = useCreateContactMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateContactMutation(baseOptions?: Apollo.MutationHookOptions<CreateContactMutation, CreateContactMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateContactMutation, CreateContactMutationVariables>(CreateContactDocument, options);
+      }
+export type CreateContactMutationHookResult = ReturnType<typeof useCreateContactMutation>;
+export type CreateContactMutationResult = Apollo.MutationResult<CreateContactMutation>;
+export type CreateContactMutationOptions = Apollo.BaseMutationOptions<CreateContactMutation, CreateContactMutationVariables>;
 export const CreateDirectMessageDocument = gql`
     mutation createDirectMessage($data: DirectMessageCreateInput!) {
   createDirectMessage(data: $data) {

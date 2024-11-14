@@ -17,7 +17,8 @@ const IconButton: React.FC<IconButtonProps> = ({
   icon,
   size,
   color,
-  onClick
+  onClick,
+  ...props
 }) => {
 
   return (
@@ -29,9 +30,9 @@ const IconButton: React.FC<IconButtonProps> = ({
       fontSize={fontSize}
       colorScheme={colorScheme}
       icon={<Icon name={icon}/>}
-      aria-label={ariaLabel}
       color={color}
       onClick={onClick}
+      {...props}
       />
   );
 }

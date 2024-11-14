@@ -40,7 +40,8 @@ import {
     MessageInfo, 
     ChatInfo, 
     Login, 
-    Signup } from "@organisms";
+    Signup,
+    AddNewContact } from "@organisms";
     
 import { Layout } from "./templates";
 
@@ -81,6 +82,7 @@ export {
     ChatInfoActionList,
     Login,
     Signup,
+    AddNewContact,
     Field,
     Form
 }

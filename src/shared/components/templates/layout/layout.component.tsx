@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import _ from 'lodash';
-import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo } from '@components';
+import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo, AddNewContact } from '@components';
 import { useSearchParams } from 'next/navigation';
 import { useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useMessageSentSubscription, ChatDocument } from '@generated';
 import { Chat, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { cache } from '@/pages/_app';
-import {AuthContext} from '@contexts';
+import { AuthContext } from '@contexts';
 
 
 const SIDEBAR_HEADER_HEIGHT = 64;
@@ -43,9 +43,9 @@ const Layout: React.FC = () => {
   const [sidebarWidth, setSidebarWidth] = useState('0%');
 
   const [searchBy, setSearchBy] = useState(searchParams.get('searchBy')!);
-  
+
   const { user } = React.useContext(AuthContext);
-  
+
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
     variables: {
@@ -64,28 +64,30 @@ const Layout: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   })
 
-  //TBD: Pulls message info once a new message is recevied by the client
-  const messageSentResponse = useMessageSentSubscription({
-    onData: ({data}) => {
-      cache.writeQuery({
-        query: ChatDocument,
-        variables: {
-          where: {
-            id: chat.id
-          }
-        },
-        data: {
-          chat: {
-            ...chat.data,
-            messages: [
-              ...chat.data.messages as any,
-              data?.data?.messageSent
-            ]
-          }
-        }
-      });
-    }
-  });
+  // //TBD: Pulls message info once a new message is recevied by the client
+  // const messageSentResponse = useMessageSentSubscription({
+  //   onData: ({ data }) => {
+  //     cache.writeQuery({
+  //       query: ChatDocument,
+  //       variables: {
+  //         where: {
+  //           id: chat.id
+  //         }
+  //       },
+  //       data: {
+  //         chat: {
+  //           ...chat.data,
+  //           messages: [
+  //             ...chat.data.messages as any,
+  //             data?.data?.messageSent
+  //           ]
+  //         }
+  //       }
+  //     });
+  //   }
+  // });
+
+  // console.log(messageSentResponse);
 
   useEffect(() => {
     toggleSidebar(!!messageId || displayChatInfo);
@@ -139,45 +141,56 @@ const Layout: React.FC = () => {
     <Box>
       {user ? (<>
         <Flex>
-        <Box w='30%' minH={'100vh'} bg={'#111b21'}>
-          <SideBarHeader data={user!} />
-          <ChatSearchBar />
-          <ChatList data={chats} user={user!} maxH={chatHistoryHeight}/>
-        </Box>
-        <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
-          <BackgroundImage />
-          {
-            doesChatIdExist ? (
-              <>
-                <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} user={user!} />
-                <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
-                  <MessageHistory chat={chat} user={user!} />
-                </Box>
-                <Box position={'fixed'} bottom={'0'} w={'inherit'}>
-                  <MessageInput chat={chat} user={user!} />
-                </Box>
-              </>
-            ) : (
-              undefined
-            )
-          }
-        </Box>
-        <Box w={sidebarWidth} h={'100vh'} bg={'#0b141a'}>
-          {
-            messageId && message ?
-              <MessageInfo user={user!} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
-              :
-              undefined
-          }
-          {
-            displayChatInfo ?
-              <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user!)! : undefined} />
-              :
-              undefined
-          }
-        </Box>
-      </Flex>
-      </>): null}
+          <Box w='30%' minH={'100vh'} bg={'#111b21'}>
+            <SideBarHeader data={user!} />
+            <ChatSearchBar />
+            <ChatList data={chats} user={user!} maxH={chatHistoryHeight} />
+          </Box>
+          <Box w={contentWidth} display={'flex'} flexDirection={'column'} minH={'100vh'} position={'relative'} bg={'#0b141a'}>
+            {
+              addNewContact ? (
+                <>
+                  <AddNewContact user={user}/>
+                </>
+              ) : (
+                <>
+                  <BackgroundImage />
+                  {
+                    doesChatIdExist ? (
+                      <>
+                        <ChatHeader height={SIDEBAR_HEADER_HEIGHT} data={chat} user={user!} />
+                        <Box flex={1} h={'100%'} maxH={messageHistoryHeight}>
+                          <MessageHistory chat={chat} user={user!} />
+                        </Box>
+                        <Box position={'fixed'} bottom={'0'} w={'inherit'}>
+                          <MessageInput chat={chat} user={user!} />
+                        </Box>
+                      </>
+                    ) : (
+                      undefined
+                    )
+                  }
+                </>
+              )
+            }
+
+          </Box>
+          <Box w={sidebarWidth} h={'100vh'} bg={'#0b141a'}>
+            {
+              messageId && message ?
+                <MessageInfo user={user!} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
+                :
+                undefined
+            }
+            {
+              displayChatInfo ?
+                <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user!)! : undefined} />
+                :
+                undefined
+            }
+          </Box>
+        </Flex>
+      </>) : null}
     </Box>
 
   );

@@ -35,3 +35,4 @@ export * from './chat-info-action-list.type';
 export * from './auth-provider.type';
 export * from './field.type';
 export * from './form.type';
+export * from './add-new-contact.type';

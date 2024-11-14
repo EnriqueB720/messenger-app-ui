@@ -58,7 +58,7 @@ export class Chat {
 
     getContactParticipants(loggedUser: User){
         const loggedUserIndex = this.participants?.findIndex(p => p.userId != loggedUser.userId);
-        return loggedUserIndex && !this.isGroup ? new ChatParticipant(this.data?.participants![loggedUserIndex!]).chatParticipantUserId : null;
+        return typeof loggedUserIndex === "number" && !this.isGroup ? new ChatParticipant(this.data?.participants![loggedUserIndex!]).chatParticipantUserId : null;
     }
 
     getAmountOfParticipants(){
