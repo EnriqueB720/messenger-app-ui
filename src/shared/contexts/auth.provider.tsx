@@ -11,7 +11,7 @@ import { StorageService } from '@services';
 import { useTranslation } from '../hooks';
 
 
-const AuthProvider: FC<AuthProviderProps> = ({children}) => {
+const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
@@ -32,7 +32,7 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
 
   useEffect(() => {
-    
+
     const refreshUserTokenAsync = async () => {
       await refreshUserToken();
     }
@@ -41,46 +41,55 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
   }, []);
 
-  const login = useCallback(async ({ credentials }: AuthCredentials) => {
+  const login = useCallback(async ({ credentials }: AuthCredentials): Promise<boolean> => {
     try {
       const { email, password } = credentials;
 
       setIsLoading(true);
 
-      let {data} = await loginQuery({
-        variables:{
-          data:{
+      let { data, error } = await loginQuery({
+        variables: {
+          data: {
             email,
             password
           }
         }
       });
-     
+
+      if (error) {
+        setIsLoading(false);
+        return false;
+      }
+
+
       StorageService.setLanguage(data?.login.user.language!);
       setLanguage(data?.login.user.language!);
-      
+
       StorageService.setJwtToken(data?.login!.access_token!);
 
-      const user =  new User(data?.login!.user!);
+      const user = new User(data?.login!.user!);
       setUser(user);
 
       setIsAuthenticated(true);
+      return true;
+
     } catch (error: any) {
       setIsLoading(false);
+      return false;
     }
   }, [loginQuery, setIsLoading, setIsAuthenticated, setUser]);
 
-  const register = useCallback(async ({data}: SignUpUser)  => {
+  const register = useCallback(async ({ data }: SignUpUser) => {
     try {
       setIsLoading(true);
 
       let result = await signupQuery({
-        variables:{
+        variables: {
           data
         }
       });
 
-      if(result.errors){
+      if (result.errors) {
         console.log(result.errors);
       }
 
@@ -95,39 +104,39 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
       await client.clearStore();
       await AuthService.logout();
-  
+
       setIsAuthenticated(false);
-    } catch (error) {}
+    } catch (error) { }
 
     setIsLoading(false);
   };
 
   const refreshUserToken = useCallback(async () => {
     try {
-      
+
       let token = await StorageService.getJwtToken();
 
 
-      let {data} = await refreshUser({
-        variables:{
+      let { data } = await refreshUser({
+        variables: {
           data: token
         }
       });
 
-     if(data){
-      StorageService.setLanguage(data?.refreshUser.user.language!);
-      setLanguage(data?.refreshUser.user.language!);
-      
-      StorageService.setJwtToken(data?.refreshUser!.access_token!);
+      if (data) {
+        StorageService.setLanguage(data?.refreshUser.user.language!);
+        setLanguage(data?.refreshUser.user.language!);
 
-      const user =  new User(data?.refreshUser!.user!);
-      setUser(user);
+        StorageService.setJwtToken(data?.refreshUser!.access_token!);
 
-      setIsAuthenticated(true);
-     }else{
-      setIsAuthenticated(false);
-      setUser(undefined);
-     }
+        const user = new User(data?.refreshUser!.user!);
+        setUser(user);
+
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        setUser(undefined);
+      }
 
     } catch (error: any) {
       console.log(error.message)
