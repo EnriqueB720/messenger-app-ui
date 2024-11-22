@@ -28,8 +28,7 @@ const RightSideBarHeader: React.FC<RightSideBarHeaderProps> = ({
           colorScheme={'inherit'}
           size={'lg'}
           fontSize={'xl'}
-          onClick={onCloseFunction}
-        />
+          onClick={onCloseFunction} aria-label={''}/>
         <Box>
           {text}
         </Box>

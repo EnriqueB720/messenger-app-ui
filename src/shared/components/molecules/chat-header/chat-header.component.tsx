@@ -15,8 +15,13 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
 
 		if(!data?.isGroup){
-      const contactName = user.getContactName(data.getContactParticipants(user)!);
-			data.title = contactName;
+      let contactName = user.getContactName(data.getContactParticipants(user)!)
+			
+      if(!contactName){
+				contactName = data.participants?.find(cp => cp.userId != user.userId)?.user?.fullName!;
+			}
+      
+      data.title = contactName;
 		}
 	
 
@@ -57,8 +62,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               colorScheme={'inherit'}
               size={'lg'}
               fontSize={'xl'}
-              onClick={() => { alert('search click') }}
-            />
+              onClick={() => { alert('search click'); } } aria-label={''}/>
             <IconButton
               style={{
                 marginTop: '4px'
@@ -67,8 +71,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               colorScheme={'inherit'}
               size={'lg'}
               fontSize={'xl'}
-              onClick={() => { }}
-            />
+              onClick={() => { } } aria-label={''}/>
           </>
         } />
 

@@ -3,11 +3,12 @@ import * as React from 'react';
 import _ from 'lodash';
 import { Box, Flex, MessageHistory, ChatHeader, MessageInput, SideBarHeader, ChatList, ChatSearchBar, MessageInfo, BackgroundImage, ChatInfo, AddNewContact } from '@components';
 import { useSearchParams } from 'next/navigation';
-import { useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useMessageSentSubscription, ChatDocument } from '@generated';
+import { useChatsQuery, useChatLazyQuery, useUserMessageStatusLazyQuery, useMessageSentSubscription, ChatDocument, ChatsDocument, ChatsQuery } from '@generated';
 import { Chat, UserMessageStatus } from '@model';
 import { useEffect, useState, useCallback } from 'react';
 import { cache } from '@/pages/_app';
 import { AuthContext } from '@contexts';
+import { InsideCacheService } from '@services';
 
 
 const SIDEBAR_HEADER_HEIGHT = 64;
@@ -46,6 +47,8 @@ const Layout: React.FC = () => {
 
   const { user } = React.useContext(AuthContext);
 
+  const cacheService = new InsideCacheService(cache);
+
   let chatsResponse = useChatsQuery({
     fetchPolicy: 'cache-and-network',
     variables: {
@@ -65,29 +68,19 @@ const Layout: React.FC = () => {
   })
 
   // //TBD: Pulls message info once a new message is recevied by the client
-  // const messageSentResponse = useMessageSentSubscription({
-  //   onData: ({ data }) => {
-  //     cache.writeQuery({
-  //       query: ChatDocument,
-  //       variables: {
-  //         where: {
-  //           id: chat.id
-  //         }
-  //       },
-  //       data: {
-  //         chat: {
-  //           ...chat.data,
-  //           messages: [
-  //             ...chat.data.messages as any,
-  //             data?.data?.messageSent
-  //           ]
-  //         }
-  //       }
-  //     });
-  //   }
-  // });
+  const messageSentResponse = useMessageSentSubscription({
+    onData: ({ data }) => {
+       if(chatId){
+        cacheService.updateSubscriptionMessageChatDocument(chat, chatId, data.data!);
+       } 
+      
+       const chats = cacheService.getChatsDocumentByUser(user?.userId!);
+  
+       cacheService.updateChatsDocument(user?.userId!, chats, data.data?.messageSent!);
+      
+    }
+  });
 
-  // console.log(messageSentResponse);
 
   useEffect(() => {
     toggleSidebar(!!messageId || displayChatInfo);
@@ -134,7 +127,7 @@ const Layout: React.FC = () => {
 
   const chats = (chatsResponse.data?.chats || []).map(data => new Chat(data));
   const chat = new Chat(chatResponse.data?.chat!);
-  const message = chat.messages?.find(m => m.id === messageId);
+  const message = chat.messages?.find(m => m.id === messageId && m.senderId == user?.userId! && m.data.chatId == chat.id);
   const messageStatus = (userMessageStatusResponse.data?.userMessageStatus || []).map(data => new UserMessageStatus(data));
 
   return (
@@ -180,13 +173,25 @@ const Layout: React.FC = () => {
               messageId && message ?
                 <MessageInfo user={user!} message={message} messageStatuses={messageStatus} headerHeight={SIDEBAR_HEADER_HEIGHT} />
                 :
-                undefined
+                <>
+                  {
+                  // useEffect(() => {
+                  //   toggleSidebar(false)
+                  // }, [!message])
+                  }
+                </>
             }
             {
               displayChatInfo ?
                 <ChatInfo chat={chat} user={user} headerHeight={SIDEBAR_HEADER_HEIGHT} contactId={!chat.isGroup ? chat.getContactParticipants(user!)! : undefined} />
                 :
-                undefined
+                <>
+                   {
+                  // useEffect(() => {
+                  //   toggleSidebar(false)
+                  // }, [!message])
+                  }
+                </>
             }
           </Box>
         </Flex>

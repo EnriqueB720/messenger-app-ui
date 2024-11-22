@@ -21,7 +21,11 @@ const ChatList: React.FC<ChatListProps> = ({ data, user, maxH }) => {
 	const modifiedChats = data.map((chat) => {
 		if (!chat.isGroup) {
 
-			const contactName = user.contacts?.find(c => c.contactId == chat.getContactParticipants(user))?.name;
+			let contactName = user.contacts?.find(c => c.contactId == chat.getContactParticipants(user))?.name;
+			if(!contactName){
+				contactName = chat.participants?.find(cp => cp.userId != user.userId)?.user?.fullName! +" ("+chat.participants?.find(cp => cp.userId != user.userId)?.user?.phoneNumber?.toString()!+")"
+			}
+
 			chat.title = contactName;
 
 			return chat;

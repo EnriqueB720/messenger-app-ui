@@ -38,7 +38,15 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
     })
   }, [contactId])
 
-  const contact = new Contact(contactResponse.data?.contacts[0]!);
+  let contact = new Contact(contactResponse.data?.contacts[0]!);
+  
+  if(!contact.data){
+    contact = new Contact({
+      fullName: chat!.participants?.find(cp => cp.userId != user!.userId)?.user?.fullName!,
+      contactUserId: chat!.participants?.find(cp => cp.userId != user!.userId)?.user?.id!,
+      contactUser: chat!.participants?.find(cp => cp.userId != user!.userId)?.user!,
+    });
+  }
 
   const chatParticipants = chat?.participants!;
 
@@ -91,7 +99,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({
                     colorScheme={'inherit'}
                     size={'lg'}
                     fontSize={'xl'}
-                    onClick={() => { }} />
+                    onClick={() => { } } aria-label={''} />
                 </Box>
                 <Box>
                   {t('chatInformation.newMember')}
