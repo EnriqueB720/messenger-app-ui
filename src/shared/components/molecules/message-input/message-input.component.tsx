@@ -43,7 +43,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
           },
           update: (cache, { data }) => {
             
-            cacheService.updateGroupMessageChatDocument(chat, data!);
+            cacheService.updateChatDocument(chat, data?.createGroupMessage!);
             
             const chats = cacheService.getChatsDocumentByUser(user.userId!);
 
@@ -68,7 +68,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chat, user }) => {
           },
           update: (cache, { data }) => {
 
-            cacheService.updateDirectMessageChatDocument(chat, data!);
+            cacheService.updateChatDocument(chat, data?.createDirectMessage!);
 
             const chats = cacheService.getChatsDocumentByUser(user.userId!);
 

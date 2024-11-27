@@ -8,52 +8,13 @@ export default class InsideCacheService{
   constructor(cache: InMemoryCache){
     this.cache = cache;
   }
-  public updateDirectMessageChatDocument(chat: Chat, message: CreateDirectMessageMutation){
+
+  public updateChatDocument(chat: Chat, message: Message){
     this.cache.writeQuery({
       query: ChatDocument,
       variables: {
         where: {
           id: chat.id
-        }
-      },
-      data: {
-        chat: {
-          ...chat.data,
-          messages: [
-            ...(chat.data.messages || []),
-            message?.createDirectMessage
-          ]
-        }
-      }
-    });
-  }
-
-  public updateGroupMessageChatDocument(chat: Chat, message: CreateGroupMessageMutation){
-    this.cache.writeQuery({
-      query: ChatDocument,
-      variables: {
-        where: {
-          id: chat.id
-        }
-      },
-      data: {
-        chat: {
-          ...chat.data,
-          messages: [
-            ...chat.data.messages as any,
-            message?.createGroupMessage
-          ]
-        }
-      }
-    });
-  }
-
-  public updateSubscriptionMessageChatDocument(chat: Chat, openChatId: number, message: MessageSentSubscription){
-    this.cache.writeQuery({
-      query: ChatDocument,
-      variables: {
-        where: {
-          id: message.messageSent.chatId === openChatId ? chat.id : undefined
         }
       },
       data: {
@@ -61,7 +22,7 @@ export default class InsideCacheService{
           ...chat.data,
           messages: [
             ...chat.data?.messages! as any,
-            message.messageSent
+            message
           ]
         }
       }

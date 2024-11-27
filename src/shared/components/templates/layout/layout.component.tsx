@@ -70,8 +70,8 @@ const Layout: React.FC = () => {
   // //TBD: Pulls message info once a new message is recevied by the client
   const messageSentResponse = useMessageSentSubscription({
     onData: ({ data }) => {
-       if(chatId){
-        cacheService.updateSubscriptionMessageChatDocument(chat, chatId, data.data!);
+       if(chatId && data.data?.messageSent.chatId === chatId){
+        cacheService.updateChatDocument(chat, data.data?.messageSent!);
        } 
       
        const chats = cacheService.getChatsDocumentByUser(user?.userId!);
