@@ -1,11 +1,13 @@
-import { User as UserRequestData } from "@/shared/generated/graphql-schema"
+import { User as UserRequestData, Contact as ContactRequestedData } from "@/shared/generated/graphql-schema"
 import { Contact } from "@model";
 
 export class User {
 
     public data: UserRequestData;
+    public userContacts: ContactRequestedData[];
     constructor(data: UserRequestData){
         this.data = data;
+        this.userContacts = data.contacts!;
     }
 
     get userId(){
@@ -21,7 +23,11 @@ export class User {
     }
 
     get contacts(){
-        return this.data?.contacts?.map(contact => new Contact(contact))
+        return this.userContacts?.map(contact => new Contact(contact))
+    }
+
+    set contacts(contacts: Contact[] | undefined){
+       this.userContacts = contacts!.map(contact => contact.data);
     }
 
     isThisUserMyContact(contactId: number){

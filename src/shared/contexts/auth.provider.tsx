@@ -3,10 +3,10 @@ import { useApolloClient } from '@apollo/client';
 
 import AuthContext from './auth.context';
 
-import { AuthCredentials, User, SignUpUser } from '@model';
+import { AuthCredentials, User, SignUpUser , Contact} from '@model';
 import { AuthService } from '@services';
 import { AuthProviderProps } from '@types';
-import { useLoginLazyQuery, useSignupMutation, useRefreshUserLazyQuery } from '@generated';
+import { useLoginLazyQuery, useSignupMutation, useRefreshUserLazyQuery, Contact as ContactRequestedData } from '@generated';
 import { StorageService } from '@services';
 import { useTranslation } from '../hooks';
 
@@ -141,7 +141,17 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     } catch (error: any) {
       console.log(error.message)
     }
-  }, [refreshUser, setIsAuthenticated, setUser])
+  }, [refreshUser, setIsAuthenticated, setUser]);
+
+  const addNewContact = useCallback((newContact: ContactRequestedData) => {
+
+    let newUser: User = new User(user?.data!);
+    let contactList: Contact[] = [new Contact(newContact), ...newUser.contacts!];
+    
+    newUser!.contacts = contactList;
+    setUser(newUser);
+
+  }, [user, setUser]);
 
   return (
     <AuthContext.Provider
@@ -152,7 +162,8 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         login,
         register,
         logout,
-        refreshUserToken
+        refreshUserToken,
+        addNewContact
       }}
     >
       {children}

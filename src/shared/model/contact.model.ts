@@ -1,4 +1,4 @@
-import { Contact as ContactRequestData } from "@/shared/generated/graphql-schema"
+import { Contact as ContactRequestData } from "@generated"
 
 export class Contact {
 

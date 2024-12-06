@@ -5,8 +5,9 @@ import _ from 'lodash';
 import { Box, Form, Text } from "@components";
 import { useTranslation } from "@/shared/hooks";
 import { addContactSchema } from "@schemas";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UserDocument, useCreateContactMutation, ChatsDocument, ChatsQuery } from "@generated";
+import { AuthContext } from "@contexts";
 
 export interface NewContactValues {
 	firstName: string;
@@ -21,6 +22,7 @@ const AddNewContact: React.FC<AddNewContactProp> = ({
 }) => {
 
   const { t } = useTranslation();
+	const { addNewContact } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 	const [requestErrorMessage, setRequestErrorMessage] = useState<string>();
 	const [successMessage, setSuccessMessage] = useState<string>();
@@ -56,23 +58,7 @@ const AddNewContact: React.FC<AddNewContactProp> = ({
 					setIsLoading(false);
 				},
 				update: (cache, { data }) => {
-					cache.writeQuery({
-						query: UserDocument,
-						variables: {
-							where: {
-								id: user.userId
-							}
-						},
-						data: {
-							user:{
-								...user.data,
-								contacts: [
-									...user.contacts as any,
-									data?.createContact
-								]
-							}
-						}
-					});
+					addNewContact(data?.createContact!);
 				}
 			});
 

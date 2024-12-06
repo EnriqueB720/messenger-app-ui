@@ -33,7 +33,7 @@ const ChatSearchBar: React.FC = () => {
 			if (debouncedValue !== urlSearchParam) {
 				if (!isSearchEmpty) {
 					const baseRoute = router.asPath.replace(/[?&]searchBy=[^&]+/, '');
-					if (searchParams.has("chatId")) {
+					if (searchParams.has("chatId") || searchParams.has("addContact")) {
 						router.push(`${baseRoute}&searchBy=${debouncedValue}`);
 					} else {
 						router.push(`${baseRoute}?searchBy=${debouncedValue}`);
@@ -44,7 +44,7 @@ const ChatSearchBar: React.FC = () => {
 				}
 			}
 		} else {
-			if (searchParams.has("chatId")) {
+			if (searchParams.has("chatId") || searchParams.has("addContact")) {
 				router.push(`${router.asPath}&searchBy=${debouncedValue}`);
 			} else {
 				router.push(`${router.asPath}?searchBy=${debouncedValue}`);
