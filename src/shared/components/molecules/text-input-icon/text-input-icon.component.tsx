@@ -30,7 +30,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
             size={'md'}
             colorScheme={'inherit'}
             fontSize={'xl'}
-            onClick={onLeftIconClick} />
+            onClick={onLeftIconClick}
+            aria-label={''} />
         </InputLeftElement>
         <Input
           placeholder={inputPlaceholder}
@@ -50,7 +51,8 @@ const TextInputIcon: React.FC<TextInputIconProps> = ({
           size={'md'}
           colorScheme={'inherit'}
           fontSize={'xl'}
-          onClick={onRightIconClick} />
+          onClick={onRightIconClick}
+          aria-label={''} />
       </Box>
     </Flex>
   );

@@ -98,7 +98,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     } catch (error: any) {
       setIsLoading(false);
     }
-  }, [setIsLoading]);
+  }, [signupQuery,]);
 
   const logout = async () => {
     try {
