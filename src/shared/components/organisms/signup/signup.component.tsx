@@ -30,12 +30,15 @@ const Signup: React.FC = () => {
 
 	const onSubmit = async (values: SignUpFormValues) => {
 		try {
+
+			let customerNumber: string = values.phoneNumber!.substring(values.phoneNumber!.length, values.phoneNumber!.length-8);
+
 			await register({
 				data: {
 					email: values.email,
 					fullName: values.firstName + ' ' + values.lastName,
 					passwordHash: values.password,
-					phoneNumber: Number.parseInt(values.phoneNumber!),
+					phoneNumber: Number.parseInt(customerNumber),
 					username: values.username
 				}
 			});
