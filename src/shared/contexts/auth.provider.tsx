@@ -91,6 +91,8 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
       if (result.errors) {
         console.log(result.errors);
+      }else{
+        setIsLoading(false);
       }
 
     } catch (error: any) {
