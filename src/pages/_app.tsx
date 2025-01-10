@@ -70,10 +70,10 @@ export default function App({ Component, pageProps }: AppProps) {
     link,
     cache
   });
-
+  
 
   return <RecoilRoot>
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} >
       <ApolloProvider client={client}>
         <AuthProvider>
           <Component {...pageProps} />
